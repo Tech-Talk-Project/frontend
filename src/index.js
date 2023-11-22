@@ -3,10 +3,12 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import { ThemeProvider } from "@material-tailwind/react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import HomePage from "./pages/HomePage";
-import TestPage from "./pages/TestPage";
+import LoginPage from "./pages/LoginPage";
+import MessagePage from "./pages/MessagePage";
+import ProfilePage from "./pages/ProfilePage";
+import MainLayout from "./layouts/MainLayout";
 
 const router = createBrowserRouter([
   {
@@ -14,12 +16,25 @@ const router = createBrowserRouter([
     element: <App />,
     children: [
       {
-        index: true,
-        element: <HomePage />,
+        element: <MainLayout />,
+        children: [
+          {
+            index: true,
+            element: <HomePage />,
+          },
+          {
+            path: "/message",
+            element: <MessagePage />,
+          },
+          {
+            path: "/profile",
+            element: <ProfilePage />,
+          },
+        ],
       },
       {
-        path: "/test",
-        element: <TestPage />,
+        path: "/login",
+        element: <LoginPage />,
       },
     ],
   },
@@ -28,9 +43,7 @@ const router = createBrowserRouter([
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <ThemeProvider>
-      <RouterProvider router={router} />
-    </ThemeProvider>
+    <RouterProvider router={router} />
   </React.StrictMode>
 );
 

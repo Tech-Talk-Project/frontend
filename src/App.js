@@ -1,10 +1,14 @@
+import { ThemeProvider } from "@material-tailwind/react";
 import { Outlet } from "react-router-dom";
+import { RecoilRoot } from "recoil";
 
 function App() {
   return (
-    <div>
-      <Outlet />
-    </div>
+    <ThemeProvider>
+      <RecoilRoot>
+        <Outlet />
+      </RecoilRoot>
+    </ThemeProvider>
   );
 }
 
