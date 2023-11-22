@@ -10,7 +10,7 @@ export default function Header() {
   return (
     <header className="flex justify-center items-center w-full h-20 text-lg border-b border-line">
       <article className="flex justify-between items-center w-full max-w-7xl px-5">
-        <Logo size="123" />
+        <Logo size="md" />
         <nav className="flex gap-8">
           {isLoggedIn ? (
             <>

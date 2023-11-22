@@ -5,6 +5,10 @@ module.exports = withMT({
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     extend: {
+      width: {
+        logo_md: "123px",
+        logo_lg: "176px",
+      },
       colors: {
         brand: "#A66EFC",
         line: "#1F2937",
