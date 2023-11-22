@@ -6,7 +6,7 @@ export default function NavMenu({ children }) {
     <NavLink
       to={`/${children.toLowerCase()}`}
       className={({ isActive }) => {
-        return isActive ? "text-brand" : "";
+        return `hover:text-brand duration-100 ${isActive ? "text-brand" : ""}`;
       }}
     >
       {children}
