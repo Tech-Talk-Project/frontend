@@ -10,7 +10,7 @@ import { Typography } from "@material-tailwind/react";
 const TYPES = [
   {
     title: "Google",
-    redirect_url: "",
+    redirect_url: process.env.REACT_APP_GOOGLE_REDIRECT_URL,
     color: "bg-white",
     logo: <FcGoogle size={28} />,
   },

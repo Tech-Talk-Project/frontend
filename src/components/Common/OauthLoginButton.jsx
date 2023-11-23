@@ -11,10 +11,13 @@ export default function OauthLoginButton({
     window.location.href = redirect_url;
   };
   const handleGoogleLogin = useGoogleLogin({
+    scope: "email profile",
+    flow: "auth-code",
+    redirect_uri: redirect_url,
+    ux_mode: "redirect",
     onSuccess: (codeResponse) => {
       navigate(`/oauth2/callback/google?code=${codeResponse.code}`);
     },
-    flow: "auth-code",
   });
 
   return (

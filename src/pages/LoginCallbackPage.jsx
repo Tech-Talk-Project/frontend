@@ -14,7 +14,7 @@ export default function LoginCallbackPage() {
           <Typography variant="h6">로그인 중입니다.</Typography>
           <Typography variant="h6">잠시만 기다려주세요.</Typography>
         </section>
-        <Spinner className="mb-12 h-10 w-10" />
+        <Spinner className="mb-12 h-10 w-10 text-brand" />
       </main>
     </div>
   );
