@@ -5,6 +5,7 @@ import { FcGoogle } from "react-icons/fc";
 import Logo from "../components/Common/Logo";
 import OauthLoginButton from "../components/Common/OauthLoginButton";
 import DividerWithText from "../components/Common/DividerWithText";
+import { Typography } from "@material-tailwind/react";
 
 const TYPES = [
   {
@@ -37,20 +38,24 @@ const TYPES = [
 
 export default function LoginPage() {
   return (
-    <div className="flex justify-center items-center">
-      <main className="flex flex-col justify-center items-center gap-8 border px-20 py-12 border-line rounded-lg bg-opacity-50">
-        <Logo size="lg" />
-        <section>
-          <DividerWithText>Social Login</DividerWithText>
-          <ul className="flex flex-col gap-2">
-            {TYPES.map((type) => (
-              <li key={uuidv4()}>
-                <OauthLoginButton type={type} />
-              </li>
-            ))}
-          </ul>
-        </section>
-      </main>
-    </div>
+    <main className="relative flex flex-col justify-center items-center gap-8 border px-20 py-12 border-line rounded-lg bg-opacity-50">
+      <Logo size="lg" />
+      <section>
+        <DividerWithText>Social Login</DividerWithText>
+        <ul className="flex flex-col gap-2 ">
+          {TYPES.map((type) => (
+            <li key={uuidv4()}>
+              <OauthLoginButton type={type} />
+            </li>
+          ))}
+        </ul>
+      </section>
+      <Typography className="absolute -left-40 my-auto text-8xl font-bold blur-sm">
+        <span className="text-brand">T</span>ech
+      </Typography>
+      <Typography className="absolute -right-32 my-auto text-8xl font-bold blur-sm">
+        <span className="text-brand">T</span>alk
+      </Typography>
+    </main>
   );
 }
