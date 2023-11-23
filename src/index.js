@@ -9,6 +9,8 @@ import LoginPage from "./pages/LoginPage";
 import MessagePage from "./pages/MessagePage";
 import ProfilePage from "./pages/ProfilePage";
 import MainLayout from "./layouts/MainLayout";
+import NoHeaderLayout from "./layouts/NoHeaderLayout";
+import LoginCallbackPage from "./pages/LoginCallbackPage";
 
 const router = createBrowserRouter([
   {
@@ -33,8 +35,17 @@ const router = createBrowserRouter([
         ],
       },
       {
-        path: "/login",
-        element: <LoginPage />,
+        element: <NoHeaderLayout />,
+        children: [
+          {
+            path: "/login",
+            element: <LoginPage />,
+          },
+          {
+            path: "/oauth2/callback/:provider",
+            element: <LoginCallbackPage />,
+          },
+        ],
       },
     ],
   },
