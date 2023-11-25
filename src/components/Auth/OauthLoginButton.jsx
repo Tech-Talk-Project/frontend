@@ -1,7 +1,7 @@
 import React from "react";
 import { useGoogleLogin } from "@react-oauth/google";
 import { useNavigate } from "react-router-dom";
-import Button from "./Button";
+import Button from "../Common/Button";
 
 export default function OauthLoginButton({
   type: { title, redirect_url, color, logo },
