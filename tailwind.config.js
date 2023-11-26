@@ -15,6 +15,7 @@ module.exports = withMT({
       colors: {
         brand: "#A66EFC",
         line: "#1F2937",
+        dark_gray: "#15171A",
         naver: "#03c75b",
       },
     },

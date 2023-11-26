@@ -12,7 +12,7 @@ export default function LoginPageMain() {
   const { provider } = useParams();
   const [searchParams] = useSearchParams();
   const setIsLoggedIn = useSetRecoilState(isLoggedInState);
-  const { error, data } = useQuery({
+  const { data } = useQuery({
     queryKey: ["login"],
     queryFn: () => login({ code: searchParams.get("code"), provider }),
   });
@@ -29,8 +29,5 @@ export default function LoginPageMain() {
     }
   }, [data, setIsLoggedIn, navigate]);
 
-  if (error) {
-    return <div>{error.message}</div>;
-  }
   return <LoginLoading />;
 }
