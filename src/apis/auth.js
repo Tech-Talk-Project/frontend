@@ -11,7 +11,4 @@ export const login = ({ code, provider }) =>
     .then((response) => response.data);
 
 export const refresh = () =>
-  instance
-    .get(`${ENDPOINT}/refresh`)
-    .then((response) => response.data)
-    .catch((error) => error);
+  instance.get(`${ENDPOINT}/refresh`).then((response) => response.data);

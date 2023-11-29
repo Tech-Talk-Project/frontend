@@ -6,6 +6,7 @@ import isLoggedInState from "../../recoil/atoms/auth";
 import { login } from "../../apis/auth";
 import { setCookie } from "../../utils/cookie";
 import LoginLoading from "./LoginLoading";
+import { AUTH_KEYS } from "../../constants/queryKeys";
 
 export default function LoginPageMain() {
   const navigate = useNavigate();
@@ -13,7 +14,7 @@ export default function LoginPageMain() {
   const [searchParams] = useSearchParams();
   const setIsLoggedIn = useSetRecoilState(isLoggedInState);
   const { data } = useQuery({
-    queryKey: ["login"],
+    queryKey: AUTH_KEYS.login,
     queryFn: () => login({ code: searchParams.get("code"), provider }),
   });
 
