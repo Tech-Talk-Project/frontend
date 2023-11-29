@@ -3,12 +3,19 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
+import { GoogleOAuthProvider } from "@react-oauth/google";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { QueryClientProvider } from "@tanstack/react-query";
+import { RecoilRoot } from "recoil";
+import { ThemeProvider } from "@material-tailwind/react";
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
 import MessagePage from "./pages/MessagePage";
 import ProfilePage from "./pages/ProfilePage";
 import MainLayout from "./layouts/MainLayout";
+import NoHeaderLayout from "./layouts/NoHeaderLayout";
+import LoginCallbackPage from "./pages/LoginCallbackPage";
+import { queryClient } from "./apis/queryClient";
 
 const router = createBrowserRouter([
   {
@@ -33,8 +40,17 @@ const router = createBrowserRouter([
         ],
       },
       {
-        path: "/login",
-        element: <LoginPage />,
+        element: <NoHeaderLayout />,
+        children: [
+          {
+            path: "/login",
+            element: <LoginPage />,
+          },
+          {
+            path: "/oauth2/callback/:provider",
+            element: <LoginCallbackPage />,
+          },
+        ],
       },
     ],
   },
@@ -43,7 +59,17 @@ const router = createBrowserRouter([
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <ThemeProvider>
+      <RecoilRoot>
+        <QueryClientProvider client={queryClient}>
+          <GoogleOAuthProvider
+            clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
+          >
+            <RouterProvider router={router} />
+          </GoogleOAuthProvider>
+        </QueryClientProvider>
+      </RecoilRoot>
+    </ThemeProvider>
   </React.StrictMode>
 );
 

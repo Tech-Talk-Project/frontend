@@ -5,9 +5,18 @@ module.exports = withMT({
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     extend: {
+      fontFamily: {
+        inter: "Inter",
+      },
+      width: {
+        logo_md: "123px",
+        logo_lg: "176px",
+      },
       colors: {
         brand: "#A66EFC",
         line: "#1F2937",
+        dark_gray: "#15171A",
+        naver: "#03c75b",
       },
     },
   },
