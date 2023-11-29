@@ -19,13 +19,19 @@ export default function LoginPageMain() {
 
   useEffect(() => {
     if (data) {
-      const { accessToken, refreshTokenExpirationInMilliSeconds } = data;
+      const { accessToken, refreshTokenExpirationInMilliSeconds, firstLogin } =
+        data;
       setIsLoggedIn(true);
       setCookie("accessToken", accessToken, {
         path: "/",
         expires: new Date(refreshTokenExpirationInMilliSeconds),
       });
-      navigate("/");
+
+      if (firstLogin) {
+        navigate("/profile");
+      } else {
+        navigate("/");
+      }
     }
   }, [data, setIsLoggedIn, navigate]);
 
