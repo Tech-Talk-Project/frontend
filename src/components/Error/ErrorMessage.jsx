@@ -4,8 +4,22 @@ import { useNavigate } from "react-router-dom";
 import Logo from "../Common/Logo";
 import Button from "../Common/Button";
 
-export default function ErrorMessage({ title, content, buttonMessage, path }) {
+export default function ErrorMessage({
+  title,
+  content,
+  buttonMessage,
+  path,
+  onRetry,
+}) {
   const navigate = useNavigate();
+
+  const handleClick = () => {
+    if (path) {
+      navigate(path);
+    } else {
+      onRetry();
+    }
+  };
 
   return (
     <>
@@ -21,7 +35,7 @@ export default function ErrorMessage({ title, content, buttonMessage, path }) {
         )}
       </section>
       <Button
-        onClick={() => navigate(path)}
+        onClick={handleClick}
         className="text-base text-black bg-white hover:bg-brand hover:text-white duration-150"
       >
         {buttonMessage}

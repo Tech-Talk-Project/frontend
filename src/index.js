@@ -6,6 +6,8 @@ import reportWebVitals from "./reportWebVitals";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { QueryClientProvider } from "@tanstack/react-query";
+import { RecoilRoot } from "recoil";
+import { ThemeProvider } from "@material-tailwind/react";
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
 import MessagePage from "./pages/MessagePage";
@@ -57,11 +59,17 @@ const router = createBrowserRouter([
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}>
-        <RouterProvider router={router} />
-      </GoogleOAuthProvider>
-    </QueryClientProvider>
+    <ThemeProvider>
+      <RecoilRoot>
+        <QueryClientProvider client={queryClient}>
+          <GoogleOAuthProvider
+            clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
+          >
+            <RouterProvider router={router} />
+          </GoogleOAuthProvider>
+        </QueryClientProvider>
+      </RecoilRoot>
+    </ThemeProvider>
   </React.StrictMode>
 );
 
