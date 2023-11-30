@@ -1,0 +1,20 @@
+{
+  "info": {
+    "name": "hosung",
+    "job": "backend",
+    "email": "test@com"
+  },
+  "introduction": "test",
+  "links": ["test1@com", "test2@com"],
+  "skills": [
+    "Python",
+    "C++",
+    "JavaScript",
+    "HTML",
+    "CSS",
+    "TypeScript",
+    "React"
+  ],
+  "detailedDescription": "asdasdads",
+  "imageUrl": ""
+}
