@@ -24,7 +24,7 @@ export default function ProfilePageMain() {
 
   return (
     <>
-      <section className="flex flex-col items-center p-4 w-[320px] shrink-0">
+      <section className="flex flex-col items-center gap-2 p-4 w-[320px] shrink-0">
         <ProfileImage size="lg" imageUrl={imageUrl} />
         <Information info={info} />
         <Introduction introduction={introduction} />
