@@ -1,6 +1,6 @@
-import axios from "axios";
+import { instance } from "./axios";
 
 const ENDPOINT = "/user";
 
-export const fakeLogin = () =>
-  axios.get("/data/profile.json").then((response) => response.data);
+export const getProfile = () =>
+  instance.get(`${ENDPOINT}/profile`).then((response) => response.data);

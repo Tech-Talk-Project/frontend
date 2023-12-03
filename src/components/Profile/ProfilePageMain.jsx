@@ -1,7 +1,7 @@
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import { PROFILE_QUERY_KEYS } from "../../constants/queryKeys";
-import { fakeLogin } from "../../apis/profile";
+import { getProfile } from "../../apis/profile";
 import ProfileImage from "../Common/ProfileImage";
 import Information from "./Information";
 import Introduction from "./Introduction";
@@ -15,7 +15,7 @@ export default function ProfilePageMain() {
     error,
   } = useQuery({
     queryKey: PROFILE_QUERY_KEYS.myProfile,
-    queryFn: fakeLogin,
+    queryFn: getProfile,
   });
 
   if (error) {
