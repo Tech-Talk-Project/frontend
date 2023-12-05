@@ -1,6 +1,10 @@
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { PROFILE_QUERY_KEYS } from "../constants/queryKeys";
-import { getProfile, setProfileInfo } from "../apis/profile";
+import {
+  getProfile,
+  setProfileInfo,
+  setProfileIntroduction,
+} from "../apis/profile";
 import { queryClient } from "../apis/queryClient";
 
 export default function useProfiles() {
@@ -17,5 +21,12 @@ export default function useProfiles() {
     },
   });
 
-  return { profileQuery, setProfileInfoMutate };
+  const setProfileIntroductionMutate = useMutation({
+    mutationFn: setProfileIntroduction,
+    onSuccess: async () => {
+      await queryClient.invalidateQueries(PROFILE_QUERY_KEYS.myProfile);
+    },
+  });
+
+  return { profileQuery, setProfileInfoMutate, setProfileIntroductionMutate };
 }

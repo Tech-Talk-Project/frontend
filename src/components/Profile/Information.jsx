@@ -48,7 +48,7 @@ export default function Information({ info: { name, job, email } }) {
   };
 
   return (
-    <article className="relative">
+    <article className="relative w-full">
       {!isEditing && (
         <Button
           variant="text"
