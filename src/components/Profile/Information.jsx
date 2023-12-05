@@ -1,18 +1,16 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useMutation } from "@tanstack/react-query";
 import { Typography, Input } from "@material-tailwind/react";
 import { MdEdit } from "react-icons/md";
 import Button from "../Common/Button";
 import ButtonGroup from "./ButtonGroup";
 import { INPUT_VALIDATION } from "../../constants/validation";
-import { setProfileInfo } from "../../apis/profile";
-import { queryClient } from "../../apis/queryClient";
-import { PROFILE_QUERY_KEYS } from "../../constants/queryKeys";
 import InputError from "../Common/InputError";
+import useProfiles from "../../hooks/useProfiles";
 
 export default function Information({ info: { name, job, email } }) {
   const [isEditing, setIsEditing] = useState(false);
+  const { setProfileInfoMutate } = useProfiles();
   const {
     register,
     handleSubmit,
@@ -23,13 +21,6 @@ export default function Information({ info: { name, job, email } }) {
     defaultValues: {
       name,
       job,
-    },
-  });
-  const { mutate: setProfileInfoMutate } = useMutation({
-    mutationFn: setProfileInfo,
-    onSuccess: async () => {
-      await queryClient.invalidateQueries(PROFILE_QUERY_KEYS.myProfile);
-      setIsEditing(false);
     },
   });
 
@@ -46,7 +37,14 @@ export default function Information({ info: { name, job, email } }) {
       return;
     }
 
-    setProfileInfoMutate({ name: name.trim(), job: job.trim() });
+    setProfileInfoMutate.mutate(
+      { name: name.trim(), job: job.trim() },
+      {
+        onSuccess: () => {
+          setIsEditing(false);
+        },
+      }
+    );
   };
 
   return (

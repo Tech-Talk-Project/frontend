@@ -1,22 +1,26 @@
 import React from "react";
-import { useQuery } from "@tanstack/react-query";
-import { PROFILE_QUERY_KEYS } from "../../constants/queryKeys";
-import { getProfile } from "../../apis/profile";
 import ProfileImage from "../Common/ProfileImage";
 import Information from "./Information";
 import Introduction from "./Introduction";
 import Links from "./Links";
 import Skills from "./Skills";
 import Description from "./Description";
+import useProfiles from "../../hooks/useProfiles";
 
 export default function ProfilePageMain() {
   const {
-    data: { imageUrl, detailedDescription, info, introduction, links, skills },
-    error,
-  } = useQuery({
-    queryKey: PROFILE_QUERY_KEYS.myProfile,
-    queryFn: getProfile,
-  });
+    profileQuery: {
+      data: {
+        imageUrl,
+        detailedDescription,
+        info,
+        introduction,
+        links,
+        skills,
+      },
+      error,
+    },
+  } = useProfiles();
 
   if (error) {
     return <div>{error.message}</div>;
