@@ -5,7 +5,7 @@ export default function Description({ description }) {
   return (
     <article className="p-4 w-full h-full border border-line rounded-md">
       <Typography variant="paragraph" className="font-normal">
-        {description}
+        {description ? description : ""}
       </Typography>
     </article>
   );
