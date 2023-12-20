@@ -16,7 +16,7 @@ export default function Links({ links }) {
       links: links.map((link) => ({ link })),
     },
   });
-  const { fields, append } = useFieldArray({
+  const { fields, append, remove } = useFieldArray({
     control,
     name: "links",
   });
@@ -63,9 +63,15 @@ export default function Links({ links }) {
             자신을 소개할 수 있는 링크를 추가해보세요.
           </Typography>
         ) : (
-          <ul className="flex flex-col gap-1">
-            {fields.map((field) => (
-              <Link key={field.id} link={field.link} />
+          <ul className="flex flex-col gap-2">
+            {fields.map((field, index) => (
+              <Link
+                key={field.id}
+                link={field.link}
+                isEditing={isEditing}
+                index={index}
+                remove={remove}
+              />
             ))}
           </ul>
         )}
