@@ -4,6 +4,7 @@ import {
   getProfile,
   setProfileInfo,
   setProfileIntroduction,
+  setProfileLinks,
 } from "../apis/profile";
 import { queryClient } from "../apis/queryClient";
 
@@ -28,5 +29,17 @@ export default function useProfiles() {
     },
   });
 
-  return { profileQuery, setProfileInfoMutate, setProfileIntroductionMutate };
+  const setProfileLinksMutate = useMutation({
+    mutationFn: setProfileLinks,
+    onSuccess: async () => {
+      await queryClient.invalidateQueries(PROFILE_QUERY_KEYS.myProfile);
+    },
+  });
+
+  return {
+    profileQuery,
+    setProfileInfoMutate,
+    setProfileIntroductionMutate,
+    setProfileLinksMutate,
+  };
 }

@@ -14,3 +14,8 @@ export const setProfileIntroduction = ({ introduction }) =>
   instance
     .post(`${ENDPOINT}/profile/update/introduction`, { introduction })
     .then((response) => response.data);
+
+export const setProfileLinks = ({ links }) =>
+  instance
+    .post(`${ENDPOINT}/profile/update/links`, { links })
+    .then((response) => response.data);
