@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Typography, Textarea } from "@material-tailwind/react";
 import { MdEdit } from "react-icons/md";
 import Button from "../Common/Button";
@@ -46,6 +46,11 @@ export default function Introduction({ introduction }) {
     );
   };
 
+  useEffect(() => {
+    if (isEditing) {
+      setFocus("introduction");
+    }
+  }, [isEditing, setFocus]);
   return (
     <article className="relative w-full">
       {!isEditing && (

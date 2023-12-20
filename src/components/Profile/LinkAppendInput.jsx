@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Input } from "@material-tailwind/react";
 import { MdAdd } from "react-icons/md";
 import InputError from "../Common/InputError";
@@ -6,7 +6,8 @@ import Button from "../Common/Button";
 import { LINK_PATTERN_ERROR_MSG } from "../../constants/errorMessage";
 import { LINK_PATTERN } from "../../constants/pattern";
 
-export default function LinkAppendInput({ addLink }) {
+export default function LinkAppendInput({ addLink, isEditing }) {
+  const inputRef = useRef(null);
   const [linkInput, setLinkInput] = useState("");
   const [isError, setIsError] = useState(false);
 
@@ -29,9 +30,16 @@ export default function LinkAppendInput({ addLink }) {
       handleClick();
     }
   };
+
+  useEffect(() => {
+    if (!isEditing) {
+      inputRef.current.focus();
+    }
+  }, [isEditing, inputRef]);
   return (
     <div className="relative flex flex-col gap-4 my-2">
       <Input
+        inputRef={inputRef}
         type="text"
         className="pr-16 border-none font-semibold"
         value={linkInput}

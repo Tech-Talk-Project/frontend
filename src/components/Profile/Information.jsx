@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Typography, Input } from "@material-tailwind/react";
 import { MdEdit } from "react-icons/md";
@@ -47,6 +47,11 @@ export default function Information({ info: { name, job, email } }) {
     );
   };
 
+  useEffect(() => {
+    if (isEditing) {
+      setFocus("name");
+    }
+  }, [isEditing, setFocus]);
   return (
     <article className="relative w-full">
       {!isEditing && (

@@ -77,7 +77,7 @@ export default function Links({ links }) {
         )}
         {isEditing && (
           <>
-            <LinkAppendInput addLink={append} />
+            <LinkAppendInput addLink={append} isEditing={isEditing} />
             <ButtonGroup onCancelClick={handleCancelClick} />
           </>
         )}
