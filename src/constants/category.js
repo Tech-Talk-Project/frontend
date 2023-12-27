@@ -25,7 +25,7 @@ export const CATEGORIES = {
     { title: "Swift", fileName: "Swift" },
     { title: "Kotlin", fileName: "Kotlin" },
     { title: "Android", fileName: "Android" },
-    { title: "React Native", fileName: "React-Native" },
+    { title: "React Native", fileName: "React" },
     { title: "Flutter", fileName: "Flutter" },
     { title: "Xamarin", fileName: "Xamarin" },
   ],
