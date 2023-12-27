@@ -5,12 +5,13 @@ import {
   ListItem,
   Card,
   ListItemPrefix,
-  Avatar,
   Typography,
 } from "@material-tailwind/react";
 import { CATEGORIES, CATEGORYS_PATH } from "../../constants/category";
+import SkillImage from "../Common/SkillImage";
 
 export default function AppendSkillList({ skills, addSkill }) {
+  const skillList = skills.map((skill) => skill.skill);
   const handleClick = (language) => {
     addSkill({ skill: language.title });
   };
@@ -23,23 +24,31 @@ export default function AppendSkillList({ skills, addSkill }) {
               {category[0].toUpperCase()}
             </Typography>
             <List className="grid grid-cols-3">
-              {category[1].map((language) => (
-                <ListItem
-                  className="justify-center"
-                  key={uuidv4()}
-                  onClick={() => handleClick(language)}
-                >
-                  <ListItemPrefix>
-                    <Avatar
-                      variant="circular"
-                      alt="candice"
-                      size="sm"
-                      src={CATEGORYS_PATH[language.fileName]}
-                    />
-                  </ListItemPrefix>
-                  <Typography variant="h6">{language.title}</Typography>
-                </ListItem>
-              ))}
+              {category[1].map((language) => {
+                const isSelected = skillList.includes(language.title);
+
+                return (
+                  <ListItem
+                    ripple={false}
+                    className={`justify-center ${
+                      isSelected
+                        ? "bg-blue-gray-50 opacity-100 pointer-events-none cursor-not-allowed select-none"
+                        : ""
+                    }`}
+                    key={uuidv4()}
+                    onClick={() => handleClick(language)}
+                  >
+                    <ListItemPrefix>
+                      <SkillImage
+                        language={language.title}
+                        imageUrl={CATEGORYS_PATH[language.title]}
+                        size="sm"
+                      />
+                    </ListItemPrefix>
+                    <Typography variant="h6">{language.title}</Typography>
+                  </ListItem>
+                );
+              })}
             </List>
           </Card>
         </li>

@@ -13,7 +13,7 @@ export default function SkillImage({
   index,
   remove,
 }) {
-  const handleClick = (e) => {
+  const handleClick = () => {
     if (!isEditing) {
       return;
     }
