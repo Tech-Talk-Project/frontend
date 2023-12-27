@@ -1,4 +1,4 @@
-import React from "react";
+import React, { forwardRef } from "react";
 import { v4 as uuidv4 } from "uuid";
 import {
   List,
@@ -10,13 +10,19 @@ import {
 import { CATEGORIES, CATEGORYS_PATH } from "../../constants/category";
 import SkillImage from "../Common/SkillImage";
 
-export default function AppendSkillList({ skills, addSkill }) {
+const AppendSkillList = forwardRef(function AppendSkillList(
+  { skills, addSkill },
+  ref
+) {
   const skillList = skills.map((skill) => skill.skill);
   const handleClick = (language) => {
     addSkill({ skill: language.title });
   };
   return (
-    <ul className="absolute top-12 left-0 my-2 w-full max-h-80 overflow-auto rounded-md bg-black border border-line">
+    <ul
+      ref={ref}
+      className="absolute top-12 left-0 my-2 w-full max-h-80 overflow-auto rounded-md bg-black border border-line"
+    >
       {Object.entries(CATEGORIES).map((category) => (
         <li key={uuidv4()}>
           <Card className="text-center bg-black rounded-none">
@@ -55,4 +61,6 @@ export default function AppendSkillList({ skills, addSkill }) {
       ))}
     </ul>
   );
-}
+});
+
+export default AppendSkillList;

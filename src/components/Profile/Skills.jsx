@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import { v4 as uuidv4 } from "uuid";
+import React, { useEffect, useRef, useState } from "react";
 import { Typography } from "@material-tailwind/react";
 import { MdAdd } from "react-icons/md";
 import SkillImage from "../Common/SkillImage";
@@ -11,8 +10,9 @@ import useProfiles from "../../hooks/useProfiles";
 import { useFieldArray, useForm } from "react-hook-form";
 
 export default function Skills({ skills }) {
+  const skillListRef = useRef(null);
   const [isEditing, setIsEditing] = useState(false);
-  const [isShowSkillList, setIsShowSkillList] = useState(false);
+  const [isSkillListOpen, setIsSkillListOpen] = useState(false);
   const { setProfileSkillsMutate } = useProfiles();
   const { control, reset, handleSubmit } = useForm({
     defaultValues: {
@@ -28,7 +28,7 @@ export default function Skills({ skills }) {
     setIsEditing((prev) => !prev);
   };
   const handleSkillListClick = () => {
-    setIsShowSkillList((prev) => !prev);
+    setIsSkillListOpen((prev) => !prev);
   };
   const handleCancelClick = () => {
     reset({ skills: skills.map((skill) => ({ skill })) });
@@ -46,6 +46,17 @@ export default function Skills({ skills }) {
       }
     );
   };
+
+  useEffect(() => {
+    const handleOutsideClick = (e) => {
+      if (skillListRef.current && !skillListRef.current.contains(e.target)) {
+        setIsSkillListOpen(false);
+      }
+    };
+    window.addEventListener("mousedown", handleOutsideClick);
+
+    return () => window.removeEventListener("mousedown", handleOutsideClick);
+  }, [skillListRef]);
   return (
     <article className="p-4 w-full border border-line rounded-md">
       <Typography variant="h5">Skills</Typography>
@@ -89,14 +100,18 @@ export default function Skills({ skills }) {
           <div className="relative">
             <Button
               className={`mt-2 py-2 w-full text-md hover:bg-brand ${
-                isShowSkillList ? "bg-brand" : ""
+                isSkillListOpen ? "bg-brand" : ""
               }`}
               onClick={handleSkillListClick}
             >
               Languages
             </Button>
-            {isShowSkillList && (
-              <AppendSkillList skills={fields} addSkill={append} />
+            {isSkillListOpen && (
+              <AppendSkillList
+                skills={fields}
+                addSkill={append}
+                ref={skillListRef}
+              />
             )}
             <ButtonGroup onCancelClick={handleCancelClick} />
           </div>
