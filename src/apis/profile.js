@@ -19,3 +19,8 @@ export const setProfileLinks = ({ links }) =>
   instance
     .post(`${ENDPOINT}/profile/update/links`, { links })
     .then((response) => response.data);
+
+export const setProfileSkills = ({ skills }) =>
+  instance
+    .post(`${ENDPOINT}/profile/update/skills`, { skills })
+    .then((response) => response.data);

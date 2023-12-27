@@ -10,7 +10,10 @@ import {
 } from "@material-tailwind/react";
 import { CATEGORIES, CATEGORYS_PATH } from "../../constants/category";
 
-export default function AppendSkillList() {
+export default function AppendSkillList({ skills, addSkill }) {
+  const handleClick = (language) => {
+    addSkill({ skill: language.title });
+  };
   return (
     <ul className="absolute top-12 left-0 my-2 w-full max-h-80 overflow-auto rounded-md bg-black border border-line">
       {Object.entries(CATEGORIES).map((category) => (
@@ -21,7 +24,11 @@ export default function AppendSkillList() {
             </Typography>
             <List className="grid grid-cols-3">
               {category[1].map((language) => (
-                <ListItem className="justify-center" key={uuidv4()}>
+                <ListItem
+                  className="justify-center"
+                  key={uuidv4()}
+                  onClick={() => handleClick(language)}
+                >
                   <ListItemPrefix>
                     <Avatar
                       variant="circular"
