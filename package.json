@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@ckeditor/ckeditor5-react": "^6.2.0",
     "@fontsource/inter": "^5.0.15",
     "@material-tailwind/react": "^2.1.4",
     "@react-oauth/google": "^0.12.1",
@@ -11,6 +12,7 @@
     "@testing-library/react": "^13.0.0",
     "@testing-library/user-event": "^13.2.1",
     "axios": "^1.6.2",
+    "ckeditor5-custom-build": "file:./ckeditor5-techtalk",
     "react": "^18.2.0",
     "react-cookie": "^6.1.1",
     "react-dom": "^18.2.0",
