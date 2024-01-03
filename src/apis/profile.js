@@ -24,3 +24,10 @@ export const setProfileSkills = ({ skills }) =>
   instance
     .post(`${ENDPOINT}/profile/update/skills`, { skills })
     .then((response) => response.data);
+
+export const setProfileDescription = ({ description }) =>
+  instance
+    .post(`${ENDPOINT}/profile/update/description`, {
+      detailedDescription: description,
+    })
+    .then((response) => response.data);

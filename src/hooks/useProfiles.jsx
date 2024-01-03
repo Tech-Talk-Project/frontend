@@ -2,6 +2,7 @@ import { useQuery, useMutation } from "@tanstack/react-query";
 import { PROFILE_QUERY_KEYS } from "../constants/queryKeys";
 import {
   getProfile,
+  setProfileDescription,
   setProfileInfo,
   setProfileIntroduction,
   setProfileLinks,
@@ -44,11 +45,19 @@ export default function useProfiles() {
     },
   });
 
+  const setProfileDescriptionMutate = useMutation({
+    mutationFn: setProfileDescription,
+    onSuccess: async () => {
+      await queryClient.invalidateQueries(PROFILE_QUERY_KEYS.myProfile);
+    },
+  });
+
   return {
     profileQuery,
     setProfileInfoMutate,
     setProfileIntroductionMutate,
     setProfileLinksMutate,
     setProfileSkillsMutate,
+    setProfileDescriptionMutate,
   };
 }

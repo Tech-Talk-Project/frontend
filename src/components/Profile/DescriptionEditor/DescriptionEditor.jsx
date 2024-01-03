@@ -3,7 +3,7 @@ import Editor from "ckeditor5-custom-build/build/ckeditor";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import "./DescriptionEditor.css";
 
-export default function DescriptionEditor({ content, readOnly }) {
+export default function DescriptionEditor({ content, onChange, readOnly }) {
   return readOnly ? (
     <div
       className="ck-content ck-read-only"
@@ -13,17 +13,9 @@ export default function DescriptionEditor({ content, readOnly }) {
     <CKEditor
       editor={Editor}
       data={content}
-      onReady={(editor) => {
-        console.log("Editor is ready to use!", editor);
-      }}
-      onChange={(event) => {
-        console.log(event);
-      }}
-      onBlur={(event, editor) => {
-        console.log("Blur.", editor);
-      }}
-      onFocus={(event, editor) => {
-        console.log("Focus.", editor);
+      onChange={(event, editor) => {
+        const data = editor.getData();
+        onChange(data);
       }}
     />
   );

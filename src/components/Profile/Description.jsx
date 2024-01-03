@@ -4,19 +4,33 @@ import DescriptionEditor from "./DescriptionEditor/DescriptionEditor";
 import Button from "../Common/Button";
 import ButtonGroup from "./ButtonGroup";
 import { MdEdit } from "react-icons/md";
+import useProfiles from "../../hooks/useProfiles";
 
 export default function Description({ description }) {
+  const { setProfileDescriptionMutate } = useProfiles();
+  const [content, setContent] = useState(description);
   const [isEditing, setIsEditing] = useState(false);
 
   const handleEditClick = () => {
     setIsEditing((prev) => !prev);
   };
+  const handleCancelClick = () => {
+    setContent(description);
+    handleEditClick();
+  };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setProfileDescriptionMutate.mutate(
+      { description: content },
+      {
+        onSuccess: () => {
+          setIsEditing(false);
+        },
+      }
+    );
+  };
   return (
-    <article
-      className={`relative flex flex-col justify-center items-center ${
-        isEditing ? "" : "p-4 border"
-      } w-full h-full border-line rounded-md`}
-    >
+    <article className="relative w-full h-full">
       {!isEditing && (
         <Button
           variant="text"
@@ -26,12 +40,29 @@ export default function Description({ description }) {
           <MdEdit size={20} />
         </Button>
       )}
-      <form className="flex flex-col mb-8 w-full h-full">
-        {description ? (
+      <form
+        onSubmit={handleSubmit}
+        className={`flex flex-col justify-center items-center transition-colors duration-150 peer-hover:border-brand peer-hover:rounded-md ${
+          isEditing ? "" : "p-4 border"
+        } w-full h-full border-line rounded-md`}
+      >
+        {isEditing ? (
           <>
-            <DescriptionEditor content={description} readOnly={!isEditing} />
-            {isEditing && <ButtonGroup onCancelClick={handleEditClick} />}
+            <DescriptionEditor
+              content={content}
+              onChange={setContent}
+              readOnly={false}
+            />
+            <div className="w-full">
+              <ButtonGroup onCancelClick={handleCancelClick} />
+            </div>
           </>
+        ) : description ? (
+          <DescriptionEditor
+            content={content}
+            onChange={setContent}
+            readOnly={true}
+          />
         ) : (
           <div className="flex flex-col items-center gap-4">
             <Typography
