@@ -121,8 +121,8 @@
   font-weight: revert;
 }
 
-ul,
-ol {
+.ck-content ul,
+.ck-content ol {
   padding-left: 2rem;
 }
 

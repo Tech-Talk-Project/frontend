@@ -21,7 +21,7 @@ const AppendSkillList = forwardRef(function AppendSkillList(
   return (
     <ul
       ref={ref}
-      className="absolute top-12 left-0 my-2 w-full max-h-80 overflow-auto rounded-md bg-black border border-line"
+      className="absolute top-12 left-0 my-2 w-full max-h-80 overflow-auto rounded-md bg-black border border-line z-30"
     >
       {Object.entries(CATEGORIES).map((category) => (
         <li key={uuidv4()}>
