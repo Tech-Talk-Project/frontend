@@ -82,7 +82,9 @@
 
   /* -- Overrides the default .ck-toolbar class colors. --------------------------------------- */
 
+  /* 툴바 배경색 */
   --ck-color-toolbar-background: var(--ck-custom-background);
+  /* 툴바 테두리색 */
   --ck-color-toolbar-border: var(--ck-custom-border);
 
   /* -- Overrides the default .ck-tooltip class colors. --------------------------------------- */
@@ -103,7 +105,8 @@
 
   /* -- Overrides the default colors used by the ckeditor5-link package. ---------------------- */
 
-  --ck-color-link-default: hsl(190, 100%, 75%);
+  /* 링크 글자 색 */
+  --ck-color-link-default: #a66efc;
 }
 
 .ck-editor[role="application"] .ck.ck-content {
@@ -124,6 +127,10 @@
 .ck-content ul,
 .ck-content ol {
   padding-left: 2rem;
+}
+
+.ck-content pre {
+  color: white;
 }
 
 .ck-editor[role="application"] {
