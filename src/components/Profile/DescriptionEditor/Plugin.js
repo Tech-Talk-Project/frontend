@@ -8,10 +8,14 @@ const uploadAdapter = (loader) => {
         loader.file.then((file) => {
           formData.append("image", file);
           instance
-            .post("url", formData)
+            .post("/user/image-upload", formData, {
+              headers: {
+                "Content-Type": "multipart/form-data",
+              },
+            })
             .then((res) => {
               resolve({
-                default: res.data.data.url,
+                default: res.data,
               });
             })
             .catch((err) => reject(err));
@@ -29,4 +33,30 @@ function uploadPlugin(editor) {
 
 export const editorConfiguration = {
   extraPlugins: [uploadPlugin],
+  toolbar: {
+    items: [
+      "bold",
+      "italic",
+      "link",
+      "code",
+      "codeBlock",
+      "|",
+      "fontSize",
+      "fontColor",
+      "bulletedList",
+      "numberedList",
+      "todoList",
+      "|",
+      "alignment",
+      "outdent",
+      "indent",
+      "|",
+      "blockQuote",
+      "imageUpload",
+      "insertTable",
+      "|",
+      "undo",
+      "redo",
+    ],
+  },
 };

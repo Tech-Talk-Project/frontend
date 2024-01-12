@@ -17,7 +17,6 @@ export default function DescriptionEditor({ content, onChange, readOnly }) {
       config={editorConfiguration}
       onChange={(event, editor) => {
         const data = editor.getData();
-        console.log(data);
         onChange(data);
       }}
     />
