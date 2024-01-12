@@ -1,22 +1,26 @@
 import React from "react";
-import { useQuery } from "@tanstack/react-query";
-import { PROFILE_QUERY_KEYS } from "../../constants/queryKeys";
-import { fakeLogin } from "../../apis/profile";
 import ProfileImage from "../Common/ProfileImage";
 import Information from "./Information";
 import Introduction from "./Introduction";
 import Links from "./Links";
 import Skills from "./Skills";
 import Description from "./Description";
+import useProfiles from "../../hooks/useProfiles";
 
 export default function ProfilePageMain() {
   const {
-    data: { imageUrl, detailedDescription, info, introduction, links, skills },
-    error,
-  } = useQuery({
-    queryKey: PROFILE_QUERY_KEYS.myProfile,
-    queryFn: fakeLogin,
-  });
+    profileQuery: {
+      data: {
+        imageUrl,
+        detailedDescription,
+        info,
+        introduction,
+        links,
+        skills,
+      },
+      error,
+    },
+  } = useProfiles();
 
   if (error) {
     return <div>{error.message}</div>;
@@ -24,7 +28,7 @@ export default function ProfilePageMain() {
 
   return (
     <>
-      <section className="flex flex-col items-center p-4 w-[320px] shrink-0">
+      <section className="flex flex-col items-center gap-2 p-4 w-[320px] shrink-0">
         <ProfileImage size="lg" imageUrl={imageUrl} />
         <Information info={info} />
         <Introduction introduction={introduction} />
