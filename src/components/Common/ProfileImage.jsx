@@ -3,6 +3,7 @@ import defaultProfile from "../../assets/images/profile/default_profile_img.png"
 
 const SIZE = {
   sm: "w-9 h-9",
+  md: "w-11 h-11",
   lg: "w-52 h-52",
 };
 

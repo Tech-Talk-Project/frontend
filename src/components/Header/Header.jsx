@@ -17,7 +17,7 @@ export default function Header() {
   };
 
   return (
-    <header className="fixed top-0 flex justify-center items-center w-full h-20 text-lg bg-black border-b border-line z-50">
+    <header className="fixed top-0 flex justify-center items-center w-full h-20 text-lg bg-light_black border-b border-line z-50">
       <article className="flex justify-between items-center w-full max-w-7xl px-5">
         <Logo size="md" />
         <nav className="flex gap-8">

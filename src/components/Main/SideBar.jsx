@@ -5,7 +5,7 @@ import { CATEGORIES } from "../../constants/category";
 
 export default function SideBar({ filter, onFilterClick }) {
   return (
-    <Card className="w-full max-w-[16rem] h-screen p-4 bg-black border-r border-line">
+    <Card className="w-full max-w-[16rem] h-screen p-4 bg-light_black border-r border-line">
       <List>
         {Object.keys(CATEGORIES).map((category) => (
           <ListItem

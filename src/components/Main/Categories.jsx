@@ -5,7 +5,7 @@ import Category from "./Category";
 
 export default function Categories({ filter, filters, onFilterClick }) {
   return (
-    <ul className="flex flex-wrap gap-2 justify-center items-start px-4 py-8 w-full h-fit">
+    <ul className="flex flex-wrap gap-2 justify-center items-start pb-4 w-full h-fit">
       {CATEGORIES[filter].map((language) => (
         <Category
           key={uuidv4()}
