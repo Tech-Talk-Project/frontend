@@ -2,6 +2,7 @@ import React from "react";
 
 const SIZE = {
   sm: "w-9 h-9",
+  md: "w-10 h-10",
   lg: "w-12 h-12",
 };
 
