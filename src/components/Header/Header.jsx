@@ -3,11 +3,14 @@ import { useRecoilState } from "recoil";
 import { useNavigate } from "react-router-dom";
 import { Drawer, List, ListItem } from "@material-tailwind/react";
 import { MdMenu, MdClose, MdLogin } from "react-icons/md";
+import { v4 as uuidv4 } from "uuid";
 import Button from "../Common/Button";
 import isLoggedInState from "../../recoil/atoms/auth";
 import NavMenu from "./NavMenu";
 import Logo from "../Common/Logo";
 import { removeCookie } from "../../utils/cookie";
+import { CATEGORIES } from "../../constants/category";
+import CategoryMenus from "../Main/CategoryMenus";
 
 const MENUS = [
   { value: "Message", path: "/message" },
@@ -44,7 +47,7 @@ export default function Header() {
         <nav>
           {isLoggedIn ? (
             <>
-              <div className="md:hidden flex gap-8">
+              <div className="md:flex hidden gap-8">
                 <NavMenu>Message</NavMenu>
                 <NavMenu>Profile</NavMenu>
                 <button
@@ -54,7 +57,7 @@ export default function Header() {
                   Logout
                 </button>
               </div>
-              <div className="hidden md:block">
+              <div className="md:hidden">
                 <Button
                   onClick={handleOpenClick}
                   variant="text"
@@ -63,10 +66,9 @@ export default function Header() {
                   <MdMenu size={28} />
                 </Button>
                 <Drawer
-                  placement="top"
                   open={isOpen}
                   onClose={handleOpenClick}
-                  className="p-4 !max-h-64 bg-light_black border-b border-line"
+                  className="p-4 bg-light_black border-r border-line"
                 >
                   <div className="mb-6 flex items-center justify-between">
                     <Logo size="md" />
@@ -75,28 +77,30 @@ export default function Header() {
                       className="p-2 text-white"
                       onClick={handleOpenClick}
                     >
-                      <MdClose size={28} />
+                      <MdClose size={24} />
                     </Button>
                   </div>
                   <List className="text-white">
                     {MENUS.map((menu) => (
                       <ListItem
+                        key={uuidv4()}
                         ripple={false}
-                        className="justify-center"
                         onClick={() => handleMenuClick(menu.value, menu.path)}
                       >
                         {menu.value}
                       </ListItem>
                     ))}
+                    <hr className="my-1" />
+                    <CategoryMenus />
                   </List>
                 </Drawer>
               </div>
             </>
           ) : (
             <>
-              <NavMenu className="md:hidden">Login</NavMenu>
+              <NavMenu className="hidden md:block">Login</NavMenu>
               <Button
-                className="hidden md:block p-2 text-white"
+                className="md:hidden p-2 text-white"
                 variant="text"
                 onClick={() => navigate("/login")}
               >

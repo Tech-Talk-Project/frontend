@@ -42,7 +42,7 @@ export default function MainPageMain({ filters }) {
         <UsersGrid users={data.pages} />
       </section>
       <div ref={observerRef} className="flex justify-center items-center">
-        {isFetchingNextPage && <Spinner className="h-8 w-8" />}
+        {isFetchingNextPage && <Spinner className="h-8 w-8 text-brand" />}
       </div>
     </>
   );
