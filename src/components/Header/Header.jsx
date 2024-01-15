@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useRecoilState } from "recoil";
 import { useNavigate } from "react-router-dom";
-import { Drawer, List, ListItem } from "@material-tailwind/react";
+import { Drawer, List } from "@material-tailwind/react";
 import { MdMenu, MdClose, MdLogin } from "react-icons/md";
 import { v4 as uuidv4 } from "uuid";
 import Button from "../Common/Button";
@@ -10,7 +10,8 @@ import NavMenu from "./NavMenu";
 import Logo from "../Common/Logo";
 import { removeCookie } from "../../utils/cookie";
 import { CATEGORIES } from "../../constants/category";
-import CategoryMenus from "../Main/CategoryMenus";
+import MobileNavMenu from "./MobileNavMenu";
+import CategoryMenu from "../Main/CategoryMenu";
 
 const MENUS = [
   { value: "Message", path: "/message" },
@@ -82,16 +83,20 @@ export default function Header() {
                   </div>
                   <List className="text-white">
                     {MENUS.map((menu) => (
-                      <ListItem
+                      <MobileNavMenu
                         key={uuidv4()}
-                        ripple={false}
-                        onClick={() => handleMenuClick(menu.value, menu.path)}
-                      >
-                        {menu.value}
-                      </ListItem>
+                        menu={menu}
+                        onMenuClick={handleMenuClick}
+                      />
                     ))}
                     <hr className="my-1" />
-                    <CategoryMenus />
+                    {Object.keys(CATEGORIES).map((category) => (
+                      <CategoryMenu
+                        key={uuidv4()}
+                        category={category}
+                        onCategoryClick={handleOpenClick}
+                      />
+                    ))}
                   </List>
                 </Drawer>
               </div>
