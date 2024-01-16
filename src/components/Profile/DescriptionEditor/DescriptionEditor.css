@@ -126,26 +126,25 @@
 
 .ck-content ul,
 .ck-content ol {
-  padding-left: 2rem;
+  @apply pl-8;
 }
 
 .ck-content pre {
-  color: white;
+  @apply text-white;
 }
 
 .ck-editor[role="application"] {
-  width: 100%;
-  min-height: 100%;
+  @apply w-full min-h-full;
 }
 
-.ck.ck-editor__main {
-  height: calc(100% - 41.59px);
+.ck.ck-editor__main[role="presentation"] {
+  @apply sm:h-[420px] h-72;
 }
 
 .ck-content {
-  height: 100%;
+  @apply h-full;
 }
 
 .ck-content.ck-read-only {
-  width: 100%;
+  @apply w-full;
 }

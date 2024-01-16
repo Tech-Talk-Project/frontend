@@ -42,9 +42,9 @@ export default function Description({ description }) {
       )}
       <form
         onSubmit={handleSubmit}
-        className={`flex flex-col justify-center items-center transition-colors duration-150 peer-hover:border-brand peer-hover:rounded-md ${
-          isEditing ? "" : "p-4 border"
-        } w-full h-full border-line rounded-md`}
+        className={`flex flex-col justify-center items-center w-full h-full transition-colors duration-150 peer-hover:border-brand peer-hover:rounded-md ${
+          isEditing ? "" : content ? "p-4 border" : "px-4 py-20 border"
+        } border-line rounded-md`}
       >
         {isEditing ? (
           <>
