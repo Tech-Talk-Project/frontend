@@ -3,10 +3,19 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import { ThemeProvider } from "@material-tailwind/react";
+import { GoogleOAuthProvider } from "@react-oauth/google";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { QueryClientProvider } from "@tanstack/react-query";
+import { RecoilRoot } from "recoil";
+import { ThemeProvider } from "@material-tailwind/react";
 import HomePage from "./pages/HomePage";
-import TestPage from "./pages/TestPage";
+import LoginPage from "./pages/LoginPage";
+import MessagePage from "./pages/MessagePage";
+import ProfilePage from "./pages/ProfilePage";
+import MainLayout from "./layouts/MainLayout";
+import NoHeaderLayout from "./layouts/NoHeaderLayout";
+import LoginCallbackPage from "./pages/LoginCallbackPage";
+import { queryClient } from "./apis/queryClient";
 
 const router = createBrowserRouter([
   {
@@ -14,12 +23,34 @@ const router = createBrowserRouter([
     element: <App />,
     children: [
       {
-        index: true,
-        element: <HomePage />,
+        element: <MainLayout />,
+        children: [
+          {
+            index: true,
+            element: <HomePage />,
+          },
+          {
+            path: "/message",
+            element: <MessagePage />,
+          },
+          {
+            path: "/profile",
+            element: <ProfilePage />,
+          },
+        ],
       },
       {
-        path: "/test",
-        element: <TestPage />,
+        element: <NoHeaderLayout />,
+        children: [
+          {
+            path: "/login",
+            element: <LoginPage />,
+          },
+          {
+            path: "/oauth2/callback/:provider",
+            element: <LoginCallbackPage />,
+          },
+        ],
       },
     ],
   },
@@ -29,7 +60,15 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <ThemeProvider>
-      <RouterProvider router={router} />
+      <RecoilRoot>
+        <QueryClientProvider client={queryClient}>
+          <GoogleOAuthProvider
+            clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
+          >
+            <RouterProvider router={router} />
+          </GoogleOAuthProvider>
+        </QueryClientProvider>
+      </RecoilRoot>
     </ThemeProvider>
   </React.StrictMode>
 );
