@@ -1,13 +1,13 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { Typography } from "@material-tailwind/react";
 import { MdAdd } from "react-icons/md";
-import SkillImage from "../Common/SkillImage";
-import { CATEGORYS_PATH } from "../../constants/category";
 import Button from "../Common/Button";
 import ButtonGroup from "./ButtonGroup";
 import AppendSkillList from "./AppendSkillList";
 import useProfiles from "../../hooks/useProfiles";
 import { useFieldArray, useForm } from "react-hook-form";
+import useOutsideClick from "../../hooks/useOutsideClick";
+import SelectedSkill from "./SelectedSkill";
 
 export default function Skills({ skills }) {
   const skillListRef = useRef(null);
@@ -47,21 +47,15 @@ export default function Skills({ skills }) {
     );
   };
 
-  useEffect(() => {
-    const handleOutsideClick = (e) => {
-      if (skillListRef.current && !skillListRef.current.contains(e.target)) {
-        setIsSkillListOpen(false);
-      }
-    };
-    window.addEventListener("mousedown", handleOutsideClick);
-
-    return () => window.removeEventListener("mousedown", handleOutsideClick);
-  }, [skillListRef]);
+  useOutsideClick({
+    ref: skillListRef,
+    callback: () => setIsSkillListOpen(false),
+  });
   return (
     <article className="p-4 w-full border border-line rounded-md">
       <Typography variant="h5">Skills</Typography>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="flex items-center justify-between gap-2 py-2">
+        <div className="flex items-start sm:items-center justify-between gap-2 py-2">
           {fields.length === 0 ? (
             <Typography
               variant="paragraph"
@@ -70,20 +64,15 @@ export default function Skills({ skills }) {
               자신이 가진 기술들을 추가해보세요.
             </Typography>
           ) : (
-            <ul className="flex gap-3 mr-3 max-w-[480px] overflow-x-auto">
+            <ul className="flex gap-3 flex-wrap mr-3 ml-4 max-w-[480px]">
               {fields.map((field, index) => (
-                <li key={field.id} className="shrink-0">
-                  {
-                    <SkillImage
-                      size="lg"
-                      language={field.skill}
-                      imageUrl={CATEGORYS_PATH[field.skill]}
-                      isEditing={isEditing}
-                      index={index}
-                      remove={remove}
-                    />
-                  }
-                </li>
+                <SelectedSkill
+                  key={field.id}
+                  skill={field.skill}
+                  isEditing={isEditing}
+                  index={index}
+                  removeSkill={remove}
+                />
               ))}
             </ul>
           )}
@@ -98,14 +87,23 @@ export default function Skills({ skills }) {
         </div>
         {isEditing && (
           <div className="relative">
-            <Button
-              className={`mt-2 py-2 w-full text-md hover:bg-brand ${
-                isSkillListOpen ? "bg-brand" : ""
-              }`}
-              onClick={handleSkillListClick}
-            >
-              Languages
-            </Button>
+            {isSkillListOpen ? (
+              <Button
+                className="mt-2 py-2 w-full text-md bg-brand disabled:opacity-100"
+                disabled
+              >
+                Done
+              </Button>
+            ) : (
+              <Button
+                className={`mt-2 py-2 w-full text-md hover:bg-brand ${
+                  isSkillListOpen ? "bg-brand" : ""
+                }`}
+                onClick={handleSkillListClick}
+              >
+                Languages
+              </Button>
+            )}
             {isSkillListOpen && (
               <AppendSkillList
                 skills={fields}
