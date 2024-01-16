@@ -3,9 +3,11 @@ import SideBar from "../components/Main/SideBar";
 import Categories from "../components/Main/Categories";
 import { Spinner } from "@material-tailwind/react";
 import MainPageMain from "../components/Main/MainPageMain";
+import { useRecoilValue } from "recoil";
+import filterState from "../recoil/atoms/filter";
 
 export default function HomePage() {
-  const [filter, setFilter] = useState("frontend");
+  const filter = useRecoilValue(filterState);
   const [filters, setFilters] = useState([]);
 
   const handleFilterClick = (value) => {
@@ -21,9 +23,9 @@ export default function HomePage() {
     setFilters([]);
   }, [filter]);
   return (
-    <main className="flex w-full h-full">
-      <SideBar filter={filter} onFilterClick={setFilter} />
-      <div className="flex flex-col p-4 w-full">
+    <main className="relative flex w-full h-full">
+      <SideBar />
+      <div className="flex flex-col p-4 md:ml-64 w-full">
         <Categories
           filter={filter}
           filters={filters}

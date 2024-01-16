@@ -38,7 +38,7 @@ const TYPES = [
 
 export default function LoginPage() {
   return (
-    <main className="relative flex flex-col justify-center items-center gap-8 border px-20 py-12 border-line rounded-lg bg-opacity-50">
+    <main className="relative flex flex-col justify-center items-center gap-8 sm:border px-20 py-12 border-line rounded-lg bg-opacity-50">
       <Logo size="lg" />
       <section>
         <DividerWithText>Social Login</DividerWithText>
@@ -50,10 +50,10 @@ export default function LoginPage() {
           ))}
         </ul>
       </section>
-      <Typography className="absolute -left-40 my-auto text-8xl font-bold blur-sm">
+      <Typography className="hidden md:block absolute -left-40 my-auto text-8xl font-bold blur-sm">
         <span className="text-brand">T</span>ech
       </Typography>
-      <Typography className="absolute -right-32 my-auto text-8xl font-bold blur-sm">
+      <Typography className="hidden md:block absolute -right-32 my-auto text-8xl font-bold blur-sm">
         <span className="text-brand">T</span>alk
       </Typography>
     </main>

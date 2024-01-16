@@ -61,7 +61,7 @@ export default function Skills({ skills }) {
     <article className="p-4 w-full border border-line rounded-md">
       <Typography variant="h5">Skills</Typography>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="flex items-center justify-between py-2">
+        <div className="flex items-center justify-between gap-2 py-2">
           {fields.length === 0 ? (
             <Typography
               variant="paragraph"

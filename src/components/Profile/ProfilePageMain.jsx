@@ -28,13 +28,13 @@ export default function ProfilePageMain() {
 
   return (
     <>
-      <section className="flex flex-col items-center gap-2 p-4 w-[320px] shrink-0">
+      <section className="flex flex-col items-center gap-2 p-4 w-full md:w-[320px] shrink-0">
         <ProfileImage size="lg" imageUrl={imageUrl} />
         <Information info={info} />
         <Introduction introduction={introduction} />
         <Links links={links} />
       </section>
-      <section className="flex flex-col gap-8 min-h-full grow">
+      <section className="flex flex-col gap-8 p-4 md:p-0 md:pr-4 min-h-full grow">
         <Skills skills={skills} />
         <Description description={detailedDescription} />
       </section>

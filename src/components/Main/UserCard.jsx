@@ -21,7 +21,7 @@ export default function UserCard({
       <Typography variant="paragraph" className="mt-2 font-medium">
         {introduction || ""}
       </Typography>
-      <ul className="flex gap-2">
+      <ul className="flex flex-wrap gap-2 max-h-[88px] overflow-hidden">
         {skills.map((skill) => (
           <SkillItem key={uuidv4()} skill={skill} />
         ))}
