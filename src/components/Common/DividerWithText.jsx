@@ -8,7 +8,7 @@ export default function DividerWithText({ children }) {
         <div className="w-full border-t border-line" />
       </div>
       <div className="relative flex justify-center leading-6">
-        <Typography variant="h5" className="px-2 bg-black text-gray-200">
+        <Typography variant="h5" className="px-2 bg-light_black text-gray-200">
           {children}
         </Typography>
       </div>
