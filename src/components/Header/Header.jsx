@@ -42,7 +42,7 @@ export default function Header() {
   };
 
   return (
-    <header className="fixed top-0 flex justify-center items-center w-full h-20 text-lg bg-light_black border-b border-line z-50">
+    <header className="fixed top-0 flex justify-center items-center w-full h-14 sm:h-20 text-lg bg-light_black border-b border-line z-50">
       <article className="flex justify-between items-center w-full max-w-7xl px-5">
         <Logo size="md" />
         <nav>
@@ -62,20 +62,20 @@ export default function Header() {
                 <Button
                   onClick={handleOpenClick}
                   variant="text"
-                  className="p-2 text-white"
+                  className="p-1 text-white"
                 >
-                  <MdMenu size={28} />
+                  <MdMenu size={24} />
                 </Button>
                 <Drawer
                   open={isOpen}
                   onClose={handleOpenClick}
-                  className="p-4 bg-light_black border-r border-line"
+                  className="p-4 bg-light_black border-r border-line overflow-auto"
                 >
                   <div className="mb-6 flex items-center justify-between">
                     <Logo size="md" />
                     <Button
                       variant="text"
-                      className="p-2 text-white"
+                      className="p-1 text-white"
                       onClick={handleOpenClick}
                     >
                       <MdClose size={24} />
@@ -89,7 +89,7 @@ export default function Header() {
                         onMenuClick={handleMenuClick}
                       />
                     ))}
-                    <hr className="my-1" />
+                    <hr className="mt-2 mb-4" />
                     {Object.keys(CATEGORIES).map((category) => (
                       <CategoryMenu
                         key={uuidv4()}
