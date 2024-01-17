@@ -2,7 +2,7 @@ import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import { CHAT_QUERY_KEYS } from "../../constants/queryKeys";
 import { getFakeChatList } from "../../apis/chat";
-import ChatList from "./ChatList";
+import ChatRoomList from "./ChatRoomList";
 
 export default function ChatPageMain() {
   const { data, error } = useQuery({
@@ -16,7 +16,7 @@ export default function ChatPageMain() {
   console.log(data);
   return (
     <>
-      <ChatList chatRoomList={data.chatRoomList} />
+      <ChatRoomList chatRoomList={data.chatRoomList} />
     </>
   );
 }
