@@ -1,0 +1,75 @@
+{
+  "chatRoomList": [
+    {
+      "chatRoomId": "65a77110ee9e9308a62f0ccf",
+      "title": "테스트 채팅방1",
+      "joinedMembers": [
+        {
+          "memberId": 1,
+          "nickname": "Hosung",
+          "imageUrl": "https://avatars.githubusercontent.com/u/73428423?v=4"
+        },
+        {
+          "memberId": 2,
+          "nickname": "Gang",
+          "imageUrl": "https://avatars.githubusercontent.com/u/73428423?v=4"
+        }
+      ],
+      "unreadCount": 0,
+      "lastMessages": ["안녕하세요."]
+    },
+    {
+      "chatRoomId": "65a77110ee9e9308a62f0ccfc",
+      "title": "테스트 채팅방2",
+      "joinedMembers": [
+        {
+          "memberId": 2,
+          "nickname": "Gang",
+          "imageUrl": "https://avatars.githubusercontent.com/u/73428423?v=4"
+        },
+        {
+          "memberId": 3,
+          "nickname": "Hosung3",
+          "imageUrl": "https://avatars.githubusercontent.com/u/73428423?v=4"
+        },
+        {
+          "memberId": 4,
+          "nickname": "Gang4",
+          "imageUrl": "https://avatars.githubusercontent.com/u/73428423?v=4"
+        }
+      ],
+      "unreadCount": 2,
+      "lastMessages": ["안녕하세요.", "반갑습니다."]
+    },
+    {
+      "chatRoomId": "65a77110ee9e9308a62f0ccfe",
+      "title": "테스트 채팅방3",
+      "joinedMembers": [
+        {
+          "memberId": 3,
+          "nickname": "Hosung2",
+          "imageUrl": "https://avatars.githubusercontent.com/u/73428423?v=4"
+        },
+        {
+          "memberId": 2,
+          "nickname": "Gang",
+          "imageUrl": "https://avatars.githubusercontent.com/u/73428423?v=4"
+        },
+        {
+          "memberId": 3,
+          "nickname": "Hosung3",
+          "imageUrl": "https://avatars.githubusercontent.com/u/73428423?v=4"
+        },
+        {
+          "memberId": 4,
+          "nickname": "Gang4",
+          "imageUrl": "https://avatars.githubusercontent.com/u/73428423?v=4"
+        }
+      ],
+      "unreadCount": 0,
+      "lastMessages": [
+        "반갑습니다.반갑습니다.반갑습니다.반갑습니다.반갑습니다.반갑습니다.반갑습니다."
+      ]
+    }
+  ]
+}

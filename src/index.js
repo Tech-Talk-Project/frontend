@@ -10,7 +10,7 @@ import { RecoilRoot } from "recoil";
 import { ThemeProvider } from "@material-tailwind/react";
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
-import MessagePage from "./pages/MessagePage";
+import ChattingPage from "./pages/ChattingPage";
 import ProfilePage from "./pages/ProfilePage";
 import MainLayout from "./layouts/MainLayout";
 import NoHeaderLayout from "./layouts/NoHeaderLayout";
@@ -30,8 +30,8 @@ const router = createBrowserRouter([
             element: <HomePage />,
           },
           {
-            path: "/message",
-            element: <MessagePage />,
+            path: "/chat",
+            element: <ChattingPage />,
           },
           {
             path: "/profile",
