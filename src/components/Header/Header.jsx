@@ -11,7 +11,7 @@ import Logo from "../Common/Logo";
 import { removeCookie } from "../../utils/cookie";
 import { CATEGORIES } from "../../constants/category";
 import MobileNavMenu from "./MobileNavMenu";
-import CategoryMenu from "../Main/CategoryMenu";
+import CategoryMenu from "../Main/SideBarCategoryItem";
 
 const MENUS = [
   { value: "Chat", path: "/chat" },
@@ -42,7 +42,7 @@ export default function Header() {
   };
 
   return (
-    <header className="fixed top-0 flex justify-center items-center w-full h-14 sm:h-20 text-lg bg-light_black border-b border-blue-gray-800 z-50">
+    <header className="fixed top-0 flex justify-center items-center w-full h-14 sm:h-20 text-lg bg-light_black border-b border-line z-50">
       <article className="flex justify-between items-center w-full max-w-7xl px-5">
         <Logo size="md" />
         <nav>

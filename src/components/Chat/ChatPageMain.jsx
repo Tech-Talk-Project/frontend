@@ -13,7 +13,6 @@ export default function ChatPageMain() {
   if (error) {
     return <div>{error.message}</div>;
   }
-  console.log(data);
   return (
     <>
       <ChatRoomList chatRoomList={data.chatRoomList} />

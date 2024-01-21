@@ -3,7 +3,7 @@ import { useRecoilState } from "recoil";
 import { ListItem } from "@material-tailwind/react";
 import filterState from "../../recoil/atoms/filter";
 
-export default function CategoryMenu({ category, onCategoryClick }) {
+export default function SideBarCategoryItem({ category, onCategoryClick }) {
   const [filter, setFilter] = useRecoilState(filterState);
 
   const handleClick = () => {
