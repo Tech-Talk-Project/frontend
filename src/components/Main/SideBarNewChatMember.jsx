@@ -1,15 +1,20 @@
 import React from "react";
 import useNewChatMember from "../../hooks/useNewChatMemberClick";
+import { Typography } from "@material-tailwind/react";
+import ProfileImage from "../Common/ProfileImage";
 
-export default function SideBarNewChatMember({ memberId }) {
-  const handleMemberClick = useNewChatMember();
+export default function SideBarNewChatMember({
+  member: { memberId, name, imageUrl },
+}) {
+  const handleMemberClick = useNewChatMember(memberId, name, imageUrl);
 
   return (
     <div
-      className="px-4 py-3 border border-brand hover:bg-brand rounded-lg cursor-pointer duration-150"
-      onClick={() => handleMemberClick(memberId)}
+      className="flex justify-between items-center px-4 py-2 border border-brand hover:bg-brand rounded-lg cursor-pointer duration-150"
+      onClick={handleMemberClick}
     >
-      {memberId}
+      <Typography variant="h6">{name}</Typography>
+      <ProfileImage imageUrl={imageUrl} size="md" />
     </div>
   );
 }

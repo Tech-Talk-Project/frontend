@@ -1,5 +1,5 @@
 import React from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
 import { BsFillChatDotsFill } from "react-icons/bs";
 import createNewChatState from "../../recoil/atoms/createNewChat";
 import Button from "../Common/Button";

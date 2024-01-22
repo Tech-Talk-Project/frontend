@@ -4,18 +4,17 @@ import { Typography, Checkbox } from "@material-tailwind/react";
 import ProfileImage from "../Common/ProfileImage";
 import SkillItem from "./SkillItem";
 import { useRecoilValue } from "recoil";
-import newChatMemberState from "../../recoil/atoms/newChatMember";
 import createNewChatState from "../../recoil/atoms/createNewChat";
 import useNewChatMember from "../../hooks/useNewChatMemberClick";
+import newChatMemberIdListState from "../../recoil/selectors/newChatMemberIdList";
 
 export default function UserCard({
-  user: { name, job, imageUrl, introduction, skills },
+  user: { memberId, name, job, imageUrl, introduction, skills },
 }) {
   const createNewChat = useRecoilValue(createNewChatState);
-  const newChatMembers = useRecoilValue(newChatMemberState);
-  const handleMemberClick = useNewChatMember();
-  // name => memberId
-  const isSelected = newChatMembers.includes(name);
+  const newChatMembersIdList = useRecoilValue(newChatMemberIdListState);
+  const handleMemberClick = useNewChatMember(memberId, name, imageUrl);
+  const isSelected = newChatMembersIdList.includes(memberId);
 
   return (
     <li
@@ -45,10 +44,10 @@ export default function UserCard({
           <Checkbox
             checked={isSelected}
             ripple={false}
-            onChange={() => handleMemberClick(name)}
-            className="w-6 h-6 hover:before:opacity-0 checked:bg-brand rounded-full"
+            onChange={handleMemberClick}
+            className="w-6 h-6 hover:before:opacity-0 checked:bg-brand rounded-full before:w-6 before:h-6"
             containerProps={{
-              className: "absolute bottom-0 right-0 p-1",
+              className: "absolute bottom-0 right-0 p-0",
             }}
           />
         )}
