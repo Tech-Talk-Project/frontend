@@ -7,8 +7,11 @@ import newChatMemberState from "../../recoil/atoms/newChatMember";
 import SideBarCategoryList from "./SideBarCategoryList";
 import SideBarNewChatMemberList from "./SideBarNewChatMemberList";
 import { Typography } from "@material-tailwind/react";
+import NewChatTitleModal from "../Common/NewChatTitleModal";
+import useModal from "../../hooks/useModal";
 
 export default function SideBar() {
+  const [isOpen, handleModalClick] = useModal();
   const [newChatMembers, setNewChatMembers] =
     useRecoilState(newChatMemberState);
   const [createNewChat, setCreateNewChat] = useRecoilState(createNewChatState);
@@ -46,7 +49,11 @@ export default function SideBar() {
             >
               취소
             </Button>
-            <Button className="py-2 w-full bg-brand text-sm font-semibold hover:bg-white hover:text-brand">
+            <Button
+              disabled={newChatMembers.length === 0}
+              className="py-2 w-full bg-brand text-sm font-semibold hover:bg-white hover:text-brand"
+              onClick={handleModalClick}
+            >
               채팅하기
             </Button>
           </div>
@@ -60,6 +67,7 @@ export default function SideBar() {
           <BsFillChatDotsFill size={24} />
         </Button>
       )}
+      <NewChatTitleModal isOpen={isOpen} onClick={handleModalClick} />
     </section>
   );
 }

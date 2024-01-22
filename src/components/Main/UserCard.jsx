@@ -6,13 +6,13 @@ import SkillItem from "./SkillItem";
 import { useRecoilValue } from "recoil";
 import createNewChatState from "../../recoil/atoms/createNewChat";
 import useNewChatMember from "../../hooks/useNewChatMemberClick";
-import newChatMemberIdListState from "../../recoil/selectors/newChatMemberIdList";
+import newChatMemberInfoState from "../../recoil/selectors/newChatMemberIdList";
 
 export default function UserCard({
   user: { memberId, name, job, imageUrl, introduction, skills },
 }) {
   const createNewChat = useRecoilValue(createNewChatState);
-  const newChatMembersIdList = useRecoilValue(newChatMemberIdListState);
+  const { newChatMembersIdList } = useRecoilValue(newChatMemberInfoState);
   const handleMemberClick = useNewChatMember(memberId, name, imageUrl);
   const isSelected = newChatMembersIdList.includes(memberId);
 

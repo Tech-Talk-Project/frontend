@@ -1,10 +1,10 @@
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import newChatMemberState from "../recoil/atoms/newChatMember";
-import newChatMemberIdListState from "../recoil/selectors/newChatMemberIdList";
+import newChatMemberInfoState from "../recoil/selectors/newChatMemberIdList";
 
 export default function useNewChatMember(memberId, name, imageUrl) {
   const setNewChatMembers = useSetRecoilState(newChatMemberState);
-  const newChatMembersIdList = useRecoilValue(newChatMemberIdListState);
+  const { newChatMembersIdList } = useRecoilValue(newChatMemberInfoState);
 
   const handleMemberClick = () => {
     if (newChatMembersIdList.includes(memberId)) {

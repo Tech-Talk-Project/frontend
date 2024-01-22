@@ -8,3 +8,8 @@ export const getChatList = () =>
 
 export const getFakeChatList = () =>
   axios.get("/data/chatRooms.json").then((res) => res.data);
+
+export const createChatRoom = ({ title, memberIds }) =>
+  instance
+    .post(`${ENDPOINT}/room/create`, { title, memberIds })
+    .then((response) => response.data);
