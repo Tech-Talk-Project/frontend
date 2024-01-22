@@ -1,17 +1,40 @@
 import React from "react";
-import { Card, List } from "@material-tailwind/react";
-import { v4 as uuidv4 } from "uuid";
-import { CATEGORIES } from "../../constants/category";
-import CategoryMenu from "./CategoryMenu";
+import { useRecoilValue } from "recoil";
+import createNewChatState from "../../recoil/atoms/createNewChat";
+import newChatMemberState from "../../recoil/atoms/newChatMember";
+import SideBarCategoryList from "./SideBarCategoryList";
+import SideBarNewChatMemberList from "./SideBarNewChatMemberList";
+import { Typography } from "@material-tailwind/react";
+import NewChatTitleModal from "../Common/NewChatTitleModal";
+import CreateChatButtonGroup from "./CreateChatButtonGroup";
 
-export default function SideBar() {
+export default function SideBar({ isModalOpen, onModalClick }) {
+  const newChatMembers = useRecoilValue(newChatMemberState);
+  const createNewChat = useRecoilValue(createNewChatState);
+
   return (
-    <Card className="hidden md:block fixed top-20 left-0 w-full max-w-[16rem] h-screen p-4 bg-light_black border-r border-line rounded-none">
-      <List>
-        {Object.keys(CATEGORIES).map((category) => (
-          <CategoryMenu key={uuidv4()} category={category} />
-        ))}
-      </List>
-    </Card>
+    <section className="hidden md:block fixed top-20 left-0 max-w-[16rem] w-full h-main p-4 bg-light_black border-r border-blue-gray-800 rounded-none">
+      <SideBarCategoryList createNewChat={createNewChat} />
+      {createNewChat && (
+        <article
+          className={`mt-4 w-full ${
+            createNewChat ? "h-1/2 flex flex-col justify-between" : ""
+          } border-t border-white overflow-auto`}
+        >
+          {newChatMembers.length === 0 ? (
+            <Typography
+              variant="paragraph"
+              className="pt-4 text-gray-600 font-normal"
+            >
+              체크박스를 클릭해 멤버를 추가할 수 있습니다.
+            </Typography>
+          ) : (
+            <SideBarNewChatMemberList newChatMembers={newChatMembers} />
+          )}
+          <CreateChatButtonGroup onModalClick={onModalClick} mobile={true} />
+        </article>
+      )}
+      <NewChatTitleModal isOpen={isModalOpen} onClick={onModalClick} />
+    </section>
   );
 }

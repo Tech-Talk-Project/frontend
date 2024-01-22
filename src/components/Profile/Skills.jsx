@@ -52,7 +52,7 @@ export default function Skills({ skills }) {
     callback: () => setIsSkillListOpen(false),
   });
   return (
-    <article className="p-4 w-full border border-line rounded-md">
+    <article className="p-4 w-full border border-blue-gray-800 rounded-md">
       <Typography variant="h5">Skills</Typography>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="flex items-start sm:items-center justify-between gap-2 py-2">

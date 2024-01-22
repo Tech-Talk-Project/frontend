@@ -1,33 +1,33 @@
 import { instance } from "./axios";
 
-const ENDPOINT = "/user";
+const ENDPOINT = "/user/profile";
 
 export const getProfile = () =>
-  instance.get(`${ENDPOINT}/profile`).then((response) => response.data);
+  instance.get(`${ENDPOINT}`).then((response) => response.data);
 
 export const setProfileInfo = ({ name, job }) =>
   instance
-    .post(`${ENDPOINT}/profile/update/info`, { name, job })
+    .post(`${ENDPOINT}/update/info`, { name, job })
     .then((response) => response.data);
 
 export const setProfileIntroduction = ({ introduction }) =>
   instance
-    .post(`${ENDPOINT}/profile/update/introduction`, { introduction })
+    .post(`${ENDPOINT}/update/introduction`, { introduction })
     .then((response) => response.data);
 
 export const setProfileLinks = ({ links }) =>
   instance
-    .post(`${ENDPOINT}/profile/update/links`, { links })
+    .post(`${ENDPOINT}/update/links`, { links })
     .then((response) => response.data);
 
 export const setProfileSkills = ({ skills }) =>
   instance
-    .post(`${ENDPOINT}/profile/update/skills`, { skills })
+    .post(`${ENDPOINT}/update/skills`, { skills })
     .then((response) => response.data);
 
 export const setProfileDescription = ({ description }) =>
   instance
-    .post(`${ENDPOINT}/profile/update/description`, {
+    .post(`${ENDPOINT}/update/description`, {
       detailedDescription: description,
     })
     .then((response) => response.data);

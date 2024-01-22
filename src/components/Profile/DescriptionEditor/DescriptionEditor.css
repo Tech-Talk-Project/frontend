@@ -8,7 +8,7 @@
   /* Helper variables to avoid duplication in the colors. */
   --ck-custom-background: #000;
   --ck-custom-foreground: hsl(255, 3%, 18%);
-  --ck-custom-border: hsl(300, 1%, 22%);
+  --ck-custom-border: #37484f;
   --ck-custom-white: hsl(0, 0%, 100%);
 
   /* -- Overrides generic colors. ------------------------------------------------------------- */

@@ -11,10 +11,10 @@ import Logo from "../Common/Logo";
 import { removeCookie } from "../../utils/cookie";
 import { CATEGORIES } from "../../constants/category";
 import MobileNavMenu from "./MobileNavMenu";
-import CategoryMenu from "../Main/CategoryMenu";
+import CategoryMenu from "../Main/SideBarCategoryItem";
 
 const MENUS = [
-  { value: "Message", path: "/message" },
+  { value: "Chat", path: "/chat" },
   { value: "Profile", path: "/profile" },
   { value: "Logout", path: "/" },
 ];
@@ -49,7 +49,7 @@ export default function Header() {
           {isLoggedIn ? (
             <>
               <div className="md:flex hidden gap-8">
-                <NavMenu>Message</NavMenu>
+                <NavMenu>Chat</NavMenu>
                 <NavMenu>Profile</NavMenu>
                 <button
                   className="hover:text-brand duration-100"

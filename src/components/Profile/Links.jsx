@@ -45,7 +45,7 @@ export default function Links({ links }) {
       {!isEditing && (
         <Button
           variant="text"
-          className="absolute top-1 right-1 p-1 text-base_gray hover:text-brand duration-150 peer"
+          className="absolute top-1 right-1 p-1 text-blue-gray-800 hover:text-brand duration-150 peer"
           onClick={handleEditClick}
         >
           <MdEdit size={20} />
@@ -53,7 +53,7 @@ export default function Links({ links }) {
       )}
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className={`flex flex-col gap-1 p-4 w-full border border-black border-b-line duration-150 peer-hover:border-brand peer-hover:rounded-md ${
+        className={`flex flex-col gap-1 p-4 w-full border border-black border-b-blue-gray-800 duration-150 peer-hover:border-brand peer-hover:rounded-md ${
           isEditing ? "rounded-md !border-brand" : ""
         }`}
       >

@@ -34,7 +34,7 @@ export default function Description({ description }) {
       {!isEditing && (
         <Button
           variant="text"
-          className="absolute top-1 right-1 p-1 text-base_gray hover:text-brand duration-150 peer"
+          className="absolute top-1 right-1 p-1 text-blue-gray-800 hover:text-brand duration-150 peer"
           onClick={handleEditClick}
         >
           <MdEdit size={20} />
@@ -44,7 +44,7 @@ export default function Description({ description }) {
         onSubmit={handleSubmit}
         className={`flex flex-col justify-center items-center w-full h-full transition-colors duration-150 peer-hover:border-brand peer-hover:rounded-md ${
           isEditing ? "" : content ? "p-4 border" : "px-4 py-20 border"
-        } border-line rounded-md`}
+        } border-blue-gray-800 rounded-md`}
       >
         {isEditing ? (
           <>
