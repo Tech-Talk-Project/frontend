@@ -29,7 +29,7 @@ export default function NewChatTitleModal({ isOpen, onClick }) {
   const createChatRoomMutate = useMutation({
     mutationFn: createChatRoom,
     onSuccess: () => {
-      navigate("/chat");
+      navigate("/chatList");
       setNewChatMembers([]);
       setCreateNewChat(false);
     },
