@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useRecoilState } from "recoil";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { Drawer, List } from "@material-tailwind/react";
 import { MdMenu, MdClose, MdLogin } from "react-icons/md";
 import { v4 as uuidv4 } from "uuid";
@@ -21,6 +21,7 @@ const MENUS = [
 
 export default function Header() {
   const navigate = useNavigate();
+  const { pathname } = useLocation();
   const [isOpen, setIsOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useRecoilState(isLoggedInState);
 
@@ -89,14 +90,18 @@ export default function Header() {
                         onMenuClick={handleMenuClick}
                       />
                     ))}
-                    <hr className="mt-2 mb-4" />
-                    {Object.keys(CATEGORIES).map((category) => (
-                      <CategoryMenu
-                        key={uuidv4()}
-                        category={category}
-                        onCategoryClick={handleOpenClick}
-                      />
-                    ))}
+                    {pathname === "/" && (
+                      <>
+                        <hr className="mt-2 mb-4" />
+                        {Object.keys(CATEGORIES).map((category) => (
+                          <CategoryMenu
+                            key={uuidv4()}
+                            category={category}
+                            onCategoryClick={handleOpenClick}
+                          />
+                        ))}
+                      </>
+                    )}
                   </List>
                 </Drawer>
               </div>
