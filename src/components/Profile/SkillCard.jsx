@@ -1,14 +1,6 @@
 import React from "react";
 import { v4 as uuidv4 } from "uuid";
-import {
-  Typography,
-  Card,
-  List,
-  ListItem,
-  ListItemPrefix,
-} from "@material-tailwind/react";
-import { CATEGORYS_PATH } from "../../constants/category";
-import SkillImage from "../Common/SkillImage";
+import { Typography, Card, List } from "@material-tailwind/react";
 import SkillItem from "./SkillItem";
 
 export default function SkillCard({ category, languages, skillList, onClick }) {

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useRecoilState } from "recoil";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { Drawer, List } from "@material-tailwind/react";
 import { MdMenu, MdClose, MdLogin } from "react-icons/md";
 import { v4 as uuidv4 } from "uuid";
@@ -14,6 +14,7 @@ import MobileNavMenu from "./MobileNavMenu";
 import CategoryMenu from "../Main/SideBarCategoryItem";
 
 const MENUS = [
+  { value: "Home", path: "/" },
   { value: "Chat", path: "/chat" },
   { value: "Profile", path: "/profile" },
   { value: "Logout", path: "/" },
@@ -21,6 +22,7 @@ const MENUS = [
 
 export default function Header() {
   const navigate = useNavigate();
+  const { pathname } = useLocation();
   const [isOpen, setIsOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useRecoilState(isLoggedInState);
 
@@ -49,8 +51,9 @@ export default function Header() {
           {isLoggedIn ? (
             <>
               <div className="md:flex hidden gap-8">
-                <NavMenu>Chat</NavMenu>
-                <NavMenu>Profile</NavMenu>
+                <NavMenu path="/">Home</NavMenu>
+                <NavMenu path="/chat">Chat</NavMenu>
+                <NavMenu path="/profile">Profile</NavMenu>
                 <button
                   className="hover:text-brand duration-100"
                   onClick={handleLogoutClick}
@@ -89,14 +92,18 @@ export default function Header() {
                         onMenuClick={handleMenuClick}
                       />
                     ))}
-                    <hr className="mt-2 mb-4" />
-                    {Object.keys(CATEGORIES).map((category) => (
-                      <CategoryMenu
-                        key={uuidv4()}
-                        category={category}
-                        onCategoryClick={handleOpenClick}
-                      />
-                    ))}
+                    {pathname === "/" && (
+                      <>
+                        <hr className="mt-2 mb-4" />
+                        {Object.keys(CATEGORIES).map((category) => (
+                          <CategoryMenu
+                            key={uuidv4()}
+                            category={category}
+                            onCategoryClick={handleOpenClick}
+                          />
+                        ))}
+                      </>
+                    )}
                   </List>
                 </Drawer>
               </div>

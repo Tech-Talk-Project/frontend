@@ -1,11 +1,5 @@
 import React from "react";
-import {
-  Typography,
-  Card,
-  List,
-  ListItem,
-  ListItemPrefix,
-} from "@material-tailwind/react";
+import { Typography, ListItem, ListItemPrefix } from "@material-tailwind/react";
 import { CATEGORYS_PATH } from "../../constants/category";
 import SkillImage from "../Common/SkillImage";
 
