@@ -1,3 +1,4 @@
 export const ONLY_SAPCE_PATTERN = /^(?!\s*$).+/;
 export const LINK_PATTERN =
-  /\b(?:[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}|(https?|ftp):\/\/(-\.)?([^\s\/?\.#-]+\.?)+(\/[^\s]*)?)\b/;
+  //eslint-disable-next-line
+  /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
