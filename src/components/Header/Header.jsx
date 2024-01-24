@@ -110,7 +110,9 @@ export default function Header() {
             </>
           ) : (
             <>
-              <NavMenu className="hidden md:block">Login</NavMenu>
+              <NavMenu className="hidden md:block" path="/login">
+                Login
+              </NavMenu>
               <Button
                 className="md:hidden p-2 text-white"
                 variant="text"

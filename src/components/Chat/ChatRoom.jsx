@@ -12,7 +12,7 @@ export default function ChatRoom({
           <Typography variant="h5" className="mr-3 truncate">
             {title}
           </Typography>
-          <Typography className="font-normal text-gray-600">
+          <Typography variant="paragraph" className="font-normal text-gray-600">
             {joinedMembers.length}
           </Typography>
         </div>
