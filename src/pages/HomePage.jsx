@@ -1,7 +1,6 @@
 import React, { Suspense, useEffect, useState } from "react";
 import SideBar from "../components/Main/SideBar/SideBar";
 import Categories from "../components/Main/Category/Categories";
-import { Spinner } from "@material-tailwind/react";
 import MainPageMain from "../components/Main/MainPageMain";
 import { useRecoilState, useRecoilValue } from "recoil";
 import filterState from "../recoil/atoms/filter";
@@ -10,6 +9,7 @@ import createNewChatState from "../recoil/atoms/createNewChat";
 import Button from "../components/Common/Button";
 import useModal from "../hooks/useModal";
 import CreateChatButtonGroup from "../components/Main/Common/CreateChatButtonGroup";
+import UserGridSkeleton from "../components/Main/User/Skeleton/UserGridSkeleton";
 
 export default function HomePage() {
   const [isOpen, handleModalClick] = useModal();
@@ -41,7 +41,7 @@ export default function HomePage() {
           filters={filters}
           onFilterClick={handleFilterClick}
         />
-        <Suspense fallback={<Spinner />}>
+        <Suspense fallback={<UserGridSkeleton />}>
           <MainPageMain filters={filters} />
         </Suspense>
         {createNewChat && (
