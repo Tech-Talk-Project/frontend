@@ -1,6 +1,6 @@
 import React, { Suspense, useEffect, useState } from "react";
-import SideBar from "../components/Main/SideBar";
-import Categories from "../components/Main/Categories";
+import SideBar from "../components/Main/SideBar/SideBar";
+import Categories from "../components/Main/Category/Categories";
 import { Spinner } from "@material-tailwind/react";
 import MainPageMain from "../components/Main/MainPageMain";
 import { useRecoilState, useRecoilValue } from "recoil";
@@ -9,7 +9,7 @@ import { BsFillChatDotsFill } from "react-icons/bs";
 import createNewChatState from "../recoil/atoms/createNewChat";
 import Button from "../components/Common/Button";
 import useModal from "../hooks/useModal";
-import CreateChatButtonGroup from "../components/Main/CreateChatButtonGroup";
+import CreateChatButtonGroup from "../components/Main/Common/CreateChatButtonGroup";
 
 export default function HomePage() {
   const [isOpen, handleModalClick] = useModal();

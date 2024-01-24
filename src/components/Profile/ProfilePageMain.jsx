@@ -1,10 +1,10 @@
 import React from "react";
-import ProfileImage from "../Common/ProfileImage";
-import Information from "./Information";
-import Introduction from "./Introduction";
-import Links from "./Links";
-import Skills from "./Skills";
-import Description from "./Description";
+import ProfileImage from "../Common/Image/ProfileImage";
+import Information from "./Information/Information";
+import Introduction from "./Introduction/Introduction";
+import Links from "./Link/Links";
+import Skills from "./Skill/Skills";
+import Description from "./Description/Description";
 import useProfiles from "../../hooks/useProfiles";
 
 export default function ProfilePageMain() {
