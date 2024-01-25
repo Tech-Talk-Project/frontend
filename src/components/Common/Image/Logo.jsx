@@ -9,7 +9,7 @@ const LOGOSIZE = {
 
 export default function Logo({ size }) {
   return (
-    <Link to="/">
+    <Link to="/" className="shrink-0">
       <img src={logo} alt="TechTalk logo" className={LOGOSIZE[size]} />
     </Link>
   );

@@ -15,7 +15,7 @@ import CategoryMenu from "../../Main/SideBar/SideBarCategoryItem";
 
 const MENUS = [
   { value: "Home", path: "/" },
-  { value: "Chat", path: "/chat" },
+  { value: "Chat", path: "/chatList" },
   { value: "Profile", path: "/profile" },
   { value: "Logout", path: "/" },
 ];
@@ -52,7 +52,7 @@ export default function Header() {
             <>
               <div className="md:flex hidden gap-8">
                 <NavMenu path="/">Home</NavMenu>
-                <NavMenu path="/chat">Chat</NavMenu>
+                <NavMenu path="/chatList">Chat</NavMenu>
                 <NavMenu path="/profile">Profile</NavMenu>
                 <button
                   className="hover:text-brand duration-100"
@@ -110,7 +110,9 @@ export default function Header() {
             </>
           ) : (
             <>
-              <NavMenu className="hidden md:block">Login</NavMenu>
+              <NavMenu className="hidden md:block" path="/login">
+                Login
+              </NavMenu>
               <Button
                 className="md:hidden p-2 text-white"
                 variant="text"
