@@ -4,7 +4,7 @@ import { Typography, Chip } from "@material-tailwind/react";
 import { getHourAndMinutes } from "../../../utils/date";
 
 export default function ChatRoom({
-  chatRoom: { chatRoomId, title, unreadCount, lastMessage, joinedMembers },
+  chatRoom: { chatRoomId, title, unreadCount, lastMessage, memberCount },
 }) {
   const navigate = useNavigate();
 
@@ -22,7 +22,7 @@ export default function ChatRoom({
             {title}
           </Typography>
           <Typography variant="paragraph" className="font-normal text-gray-600">
-            {joinedMembers.length}
+            {memberCount}
           </Typography>
         </div>
         <Typography variant="small" className="font-normal">
