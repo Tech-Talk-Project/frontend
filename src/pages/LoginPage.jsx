@@ -2,8 +2,8 @@ import React from "react";
 import { v4 as uuidv4 } from "uuid";
 import { SiNaver, SiGithub } from "react-icons/si";
 import { FcGoogle } from "react-icons/fc";
-import Logo from "../components/Common/Logo";
-import OauthLoginButton from "../components/Auth/OauthLoginButton";
+import Logo from "../components/Common/Image/Logo";
+import OauthLoginButton from "../components/Login/OauthLoginButton";
 import DividerWithText from "../components/Common/DividerWithText";
 import { Typography } from "@material-tailwind/react";
 
