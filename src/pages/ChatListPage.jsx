@@ -1,6 +1,6 @@
 import React, { Suspense } from "react";
 import { Spinner } from "@material-tailwind/react";
-import ChatListPageMain from "../components/Chat/ChatListPageMain";
+import ChatListPageMain from "../components/Chat/ChatRoomList/ChatListPageMain";
 
 export default function ChatListPage() {
   return (

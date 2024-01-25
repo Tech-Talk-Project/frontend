@@ -1,12 +1,21 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { Typography, Chip } from "@material-tailwind/react";
-import { getHourAndMinutes } from "../../utils/date";
+import { getHourAndMinutes } from "../../../utils/date";
 
 export default function ChatRoom({
-  chatRoom: { title, unreadCount, lastMessage, joinedMembers },
+  chatRoom: { chatRoomId, title, unreadCount, lastMessage, joinedMembers },
 }) {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate(`/chatting/${chatRoomId}`);
+  };
   return (
-    <div className="flex flex-col gap-2 p-4 border text-white bg-blue-gray-900 border-line rounded-lg hover:border-brand duration-150 cursor-pointer">
+    <div
+      className="flex flex-col gap-2 p-4 border text-white bg-blue-gray-900 border-line rounded-lg hover:border-brand duration-150 cursor-pointer"
+      onClick={handleClick}
+    >
       <div className="flex justify-between items-center w-full">
         <div className="flex items-center mr-2">
           <Typography variant="h5" className="mr-3 truncate">

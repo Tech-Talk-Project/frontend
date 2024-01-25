@@ -9,3 +9,10 @@ export const createChatRoom = ({ title, memberIds }) =>
   instance
     .post(`${ENDPOINT}/room/create`, { title, memberIds })
     .then((response) => response.data);
+
+export const getChattingData = ({ chatRoomId }) =>
+  instance
+    .post(`${ENDPOINT}/message/last`, {
+      chatRoomId,
+    })
+    .then((response) => response.data);
