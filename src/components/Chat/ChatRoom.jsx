@@ -3,7 +3,7 @@ import { Typography, Chip } from "@material-tailwind/react";
 import { getHourAndMinutes } from "../../utils/date";
 
 export default function ChatRoom({
-  chatRoom: { title, unreadCount, lastMessages, joinedMembers },
+  chatRoom: { title, unreadCount, lastMessage, joinedMembers },
 }) {
   return (
     <div className="flex flex-col gap-2 p-4 border text-white bg-blue-gray-900 border-line rounded-lg hover:border-brand duration-150 cursor-pointer">
@@ -17,14 +17,12 @@ export default function ChatRoom({
           </Typography>
         </div>
         <Typography variant="small" className="font-normal">
-          {getHourAndMinutes(
-            new Date(lastMessages[lastMessages.length - 1].sendTime)
-          )}
+          {getHourAndMinutes(new Date(lastMessage.sendTime))}
         </Typography>
       </div>
       <div className="flex justify-between items-center w-full">
         <Typography variant="paragraph" className="mr-2 font-normal truncate">
-          {lastMessages[lastMessages.length - 1].content}
+          {lastMessage.content}
         </Typography>
         {unreadCount !== 0 && (
           <Chip size="sm" value={unreadCount} className="bg-brand" />
