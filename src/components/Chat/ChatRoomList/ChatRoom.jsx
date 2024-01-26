@@ -39,7 +39,7 @@ export default function ChatRoom({
       onClick={handleClick}
     >
       <div className="flex justify-between items-center w-full">
-        <div className="flex items-center mr-2">
+        <div className="flex items-center mr-2 truncate">
           <Typography variant="h5" className="mr-3 truncate">
             {title}
           </Typography>
