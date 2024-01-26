@@ -1,13 +1,9 @@
 import { useEffect, useRef } from "react";
 import { Stomp } from "@stomp/stompjs";
 import SockJS from "sockjs-client";
+import { getCookie } from "../utils/cookie";
 
-export default function useChat(
-  chatRoomId,
-  memberId,
-  setChattingList,
-  setChat
-) {
+export default function useChat(type, chatRoomId, memberId, callback) {
   const client = useRef();
 
   useEffect(() => {
@@ -23,6 +19,7 @@ export default function useChat(
   const connect = () => {
     client.current.connect(
       {
+        type,
         memberId,
         chatRoomId,
       },
@@ -30,9 +27,15 @@ export default function useChat(
         client.current.subscribe(
           `/topic/${chatRoomId}`,
           ({ body }) => {
-            setChattingList((prev) => [...prev, JSON.parse(body).content]);
+            callback(body);
           },
-          { "auto-delete": true, durable: false, exclusive: false }
+          {
+            "auto-delete": true,
+            durable: false,
+            exclusive: false,
+            chatRoomId,
+            accessToken: getCookie("accessToken"),
+          }
         );
       }
     );
@@ -51,7 +54,6 @@ export default function useChat(
         memberId,
       })
     );
-    setChat("");
   };
 
   return { connect, disconnect, sendMessage };

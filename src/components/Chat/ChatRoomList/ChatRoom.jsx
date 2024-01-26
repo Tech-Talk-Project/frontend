@@ -1,16 +1,38 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Typography, Chip } from "@material-tailwind/react";
 import { getHourAndMinutes } from "../../../utils/date";
+import useChat from "../../../hooks/useChat";
+import { jwtDecode } from "jwt-decode";
+import { getCookie } from "../../../utils/cookie";
 
 export default function ChatRoom({
   chatRoom: { chatRoomId, title, unreadCount, lastMessage, memberCount },
 }) {
   const navigate = useNavigate();
+  const [unReadChat, setUnReadChat] = useState(lastMessage.content);
+  const [unReadCount, setUnReadCount] = useState(unreadCount);
+  const { connect, disconnect } = useChat(
+    "CHAT_ROOM_LIST",
+    chatRoomId,
+    jwtDecode(getCookie("accessToken")).memberId,
+    (newChat) => {
+      setUnReadCount((prev) => prev + 1);
+      setUnReadChat(JSON.parse(newChat).content);
+    }
+  );
 
   const handleClick = () => {
     navigate(`/chatting/${chatRoomId}`);
   };
+
+  useEffect(() => {
+    connect();
+
+    return () => disconnect();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <div
       className="flex flex-col gap-2 p-4 border text-white bg-blue-gray-900 border-line rounded-lg hover:border-brand duration-150 cursor-pointer"
@@ -31,10 +53,10 @@ export default function ChatRoom({
       </div>
       <div className="flex justify-between items-center w-full">
         <Typography variant="paragraph" className="mr-2 font-normal truncate">
-          {lastMessage.content}
+          {unReadChat}
         </Typography>
-        {unreadCount !== 0 && (
-          <Chip size="sm" value={unreadCount} className="bg-brand" />
+        {unReadCount !== 0 && (
+          <Chip size="sm" value={unReadCount} className="bg-brand" />
         )}
       </div>
     </div>
