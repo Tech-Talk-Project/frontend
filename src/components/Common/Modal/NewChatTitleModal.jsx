@@ -57,8 +57,7 @@ export default function NewChatTitleModal({ isOpen, onClick }) {
     }
 
     createChatRoomMutate.mutate({
-      title:
-        title.length === 0 ? newChatMembersNameList.join(", ") : title.trim(),
+      title: title.length === 0 ? "" : title.trim(),
       memberIds: newChatMembersIdList,
     });
   };

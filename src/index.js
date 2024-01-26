@@ -16,6 +16,7 @@ import NoHeaderLayout from "./layouts/NoHeaderLayout";
 import LoginCallbackPage from "./pages/LoginCallbackPage";
 import { queryClient } from "./apis/queryClient";
 import ChatListPage from "./pages/ChatListPage";
+import ChattingPage from "./pages/ChattingPage";
 
 const router = createBrowserRouter([
   {
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
           {
             path: "/chatList",
             element: <ChatListPage />,
+          },
+          {
+            path: "/chatting/:chatRoomId",
+            element: <ChattingPage />,
           },
           {
             path: "/profile",
