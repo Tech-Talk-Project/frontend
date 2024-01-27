@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Card, List } from "@material-tailwind/react";
 import { v4 as uuidv4 } from "uuid";
@@ -7,6 +7,7 @@ import { getChatList } from "../../../apis/chat";
 import ChatRoom from "./ChatRoom";
 
 export default function ChatListPageMain() {
+  const [chatRooms, setChatRooms] = useState([]);
   const {
     data: { chatRoomList },
     error,
@@ -15,14 +16,24 @@ export default function ChatListPageMain() {
     queryFn: getChatList,
   });
 
+  useEffect(() => {
+    if (chatRoomList) {
+      setChatRooms(chatRoomList);
+    }
+  }, [chatRoomList]);
+
   if (error) {
     return <div>{error.message}</div>;
   }
   return (
     <Card className="my-4 w-full max-w-2xl bg-light_black">
       <List>
-        {chatRoomList.map((chatRoom) => (
-          <ChatRoom key={uuidv4()} chatRoom={chatRoom} />
+        {chatRooms.map((chatRoom) => (
+          <ChatRoom
+            key={uuidv4()}
+            chatRoom={chatRoom}
+            setChatRooms={setChatRooms}
+          />
         ))}
       </List>
     </Card>
