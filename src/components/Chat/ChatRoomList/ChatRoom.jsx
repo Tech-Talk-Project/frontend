@@ -30,8 +30,7 @@ export default function ChatRoom({
     connect();
 
     return () => disconnect();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [connect, disconnect]);
 
   return (
     <div
