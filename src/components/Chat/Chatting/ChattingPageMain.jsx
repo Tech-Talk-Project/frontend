@@ -36,7 +36,8 @@ export default function ChattingPageMain({ chatRoomId }) {
     connect();
 
     return () => disconnect();
-  }, [connect, disconnect]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     if (data) {
