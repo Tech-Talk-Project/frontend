@@ -32,6 +32,7 @@ export default function ChatListPageMain() {
           <ChatRoom
             key={uuidv4()}
             chatRoom={chatRoom}
+            chatRooms={chatRooms}
             setChatRooms={setChatRooms}
           />
         ))}

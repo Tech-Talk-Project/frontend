@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Typography, Chip } from "@material-tailwind/react";
+import { Typography } from "@material-tailwind/react";
 import { getHourAndMinutes } from "../../../utils/date";
 import useChat from "../../../hooks/useChat";
 import { jwtDecode } from "jwt-decode";
@@ -8,6 +8,7 @@ import { getCookie } from "../../../utils/cookie";
 
 export default function ChatRoom({
   chatRoom: { chatRoomId, title, unreadCount, lastMessage, memberCount },
+  chatRooms,
   setChatRooms,
 }) {
   const navigate = useNavigate();
@@ -17,21 +18,23 @@ export default function ChatRoom({
     jwtDecode(getCookie("accessToken")).memberId,
     (newChat) => {
       const parsedChat = JSON.parse(newChat);
-      setChatRooms((prev) =>
-        prev.map((room) =>
-          room.chatRoomId === chatRoomId
-            ? {
-                ...room,
-                unreadCount: room.unreadCount + 1,
-                lastMessage: {
-                  ...room.lastMessage,
-                  sendTime: parsedChat.sendTime,
-                  content: parsedChat.content,
-                },
-              }
-            : room
-        )
+      const index = chatRooms.findIndex(
+        (room) => room.chatRoomId === chatRoomId
       );
+
+      if (index !== -1) {
+        const updatedChatRooms = [...chatRooms];
+        updatedChatRooms[index] = {
+          ...updatedChatRooms[index],
+          unreadCount: updatedChatRooms[index].unreadCount + 1,
+          lastMessage: {
+            ...updatedChatRooms[index].lastMessage,
+            sendTime: parsedChat.sendTime,
+            content: parsedChat.content,
+          },
+        };
+        setChatRooms(updatedChatRooms);
+      }
     }
   );
 
@@ -68,7 +71,9 @@ export default function ChatRoom({
           {lastMessage.content}
         </Typography>
         {unreadCount !== 0 && (
-          <Chip size="sm" value={unreadCount} className="bg-brand" />
+          <div className="relative grid items-center font-bold uppercase whitespace-nowrap select-none text-white py-1 px-2 text-xs rounded-md bg-brand">
+            <span>{unreadCount}</span>
+          </div>
         )}
       </div>
     </div>
