@@ -23,17 +23,19 @@ export default function ChatRoom({
       );
 
       if (index !== -1) {
-        const updatedChatRooms = [...chatRooms];
-        updatedChatRooms[index] = {
-          ...updatedChatRooms[index],
-          unreadCount: updatedChatRooms[index].unreadCount + 1,
+        const updatedChatRoom = {
+          ...chatRooms[index],
+          unreadCount: chatRooms[index].unreadCount + 1,
           lastMessage: {
-            ...updatedChatRooms[index].lastMessage,
+            ...chatRooms[index].lastMessage,
             sendTime: parsedChat.sendTime,
             content: parsedChat.content,
           },
         };
-        setChatRooms(updatedChatRooms);
+        setChatRooms([
+          updatedChatRoom,
+          ...chatRooms.filter((room) => room.chatRoomId !== chatRoomId),
+        ]);
       }
     }
   );
