@@ -3,7 +3,7 @@ import { Stomp } from "@stomp/stompjs";
 import SockJS from "sockjs-client";
 import { getCookie } from "../utils/cookie";
 
-export default function useChat(type, chatRoomId, memberId, callback) {
+export default function useChatNotification(type, memberId, callback) {
   const client = useRef();
 
   useEffect(() => {
@@ -19,13 +19,11 @@ export default function useChat(type, chatRoomId, memberId, callback) {
   const connect = () => {
     client.current.connect(
       {
-        type, // "CHAT_ROOM" -> type, memberId, chatRoomId, "CHAT_ROOM_LIST" -> type, "NEW_CHAT_NOTIFICATION"
-        memberId,
-        chatRoomId,
+        type,
       },
       () => {
         client.current.subscribe(
-          `/topic/${chatRoomId}`,
+          `/topic/${memberId}`,
           ({ body }) => {
             callback(body);
           },
@@ -34,7 +32,6 @@ export default function useChat(type, chatRoomId, memberId, callback) {
             durable: false,
             exclusive: false,
             type,
-            chatRoomId,
             accessToken: getCookie("accessToken"),
           }
         );
@@ -46,16 +43,5 @@ export default function useChat(type, chatRoomId, memberId, callback) {
     client.current.deactivate();
   };
 
-  const sendMessage = (message) => {
-    client.current.send(
-      `/pub/chat/message/${chatRoomId}`,
-      {},
-      JSON.stringify({
-        content: message,
-        memberId,
-      })
-    );
-  };
-
-  return { connect, disconnect, sendMessage };
+  return { connect, disconnect };
 }

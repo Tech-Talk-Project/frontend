@@ -6,6 +6,9 @@ import { CHAT_QUERY_KEYS } from "../../../constants/queryKeys";
 import { getChatList } from "../../../apis/chat";
 import ChatRoom from "./ChatRoom";
 import NullChatList from "./NullChatList";
+import useChatNotification from "../../../hooks/useChatNotification";
+import { jwtDecode } from "jwt-decode";
+import { getCookie } from "../../../utils/cookie";
 
 export default function ChatListPageMain() {
   const [chatRooms, setChatRooms] = useState([]);
@@ -16,12 +19,26 @@ export default function ChatListPageMain() {
     queryKey: CHAT_QUERY_KEYS.chatList,
     queryFn: getChatList,
   });
+  const { connect, disconnect } = useChatNotification(
+    "NEW_CHAT_NOTIFICATION",
+    jwtDecode(getCookie("accessToken")).memberId,
+    (newChatRoom) => {
+      setChatRooms((prev) => [JSON.parse(newChatRoom), ...prev]);
+    }
+  );
 
   useEffect(() => {
     if (chatRoomList) {
       setChatRooms(chatRoomList);
     }
   }, [chatRoomList]);
+
+  useEffect(() => {
+    connect();
+
+    return () => disconnect();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   if (error) {
     return <div>{error.message}</div>;
