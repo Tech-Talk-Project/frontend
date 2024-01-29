@@ -32,6 +32,10 @@ export default function HomePage() {
   useEffect(() => {
     setFilters([]);
   }, [filter]);
+
+  useEffect(() => {
+    return () => setCreateNewChat(false);
+  }, [setCreateNewChat]);
   return (
     <main className="relative flex w-full h-full">
       <SideBar isModalOpen={isOpen} onModalClick={handleModalClick} />
