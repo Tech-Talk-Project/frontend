@@ -5,6 +5,7 @@ import { v4 as uuidv4 } from "uuid";
 import { CHAT_QUERY_KEYS } from "../../../constants/queryKeys";
 import { getChatList } from "../../../apis/chat";
 import ChatRoom from "./ChatRoom";
+import NullChatList from "./NullChatList";
 
 export default function ChatListPageMain() {
   const [chatRooms, setChatRooms] = useState([]);
@@ -25,7 +26,9 @@ export default function ChatListPageMain() {
   if (error) {
     return <div>{error.message}</div>;
   }
-  return (
+  return chatRoomList.length === 0 ? (
+    <NullChatList />
+  ) : (
     <Card className="my-4 w-full max-w-2xl bg-light_black">
       <List>
         {chatRooms.map((chatRoom) => (
