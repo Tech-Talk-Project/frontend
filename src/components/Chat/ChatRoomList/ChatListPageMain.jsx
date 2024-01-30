@@ -43,7 +43,7 @@ export default function ChatListPageMain() {
   if (error) {
     return <div>{error.message}</div>;
   }
-  return chatRoomList.length === 0 ? (
+  return chatRooms.length === 0 ? (
     <NullChatList />
   ) : (
     <Card className="my-4 w-full max-w-2xl bg-light_black">
