@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Drawer, List } from "@material-tailwind/react";
 import { MdMenu, MdClose, MdLogin } from "react-icons/md";
@@ -12,6 +12,7 @@ import { removeCookie } from "../../../utils/cookie";
 import { CATEGORIES } from "../../../constants/category";
 import MobileNavMenu from "./MobileNavMenu";
 import CategoryMenu from "../../Main/SideBar/SideBarCategoryItem";
+import createNewChatState from "../../../recoil/atoms/createNewChat";
 
 const MENUS = [
   { value: "Home", path: "/" },
@@ -25,9 +26,11 @@ export default function Header() {
   const { pathname } = useLocation();
   const [isOpen, setIsOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useRecoilState(isLoggedInState);
+  const setCreateNewChat = useSetRecoilState(createNewChatState);
 
   const handleLogoutClick = () => {
     setIsLoggedIn(false);
+    setCreateNewChat(false);
     removeCookie("accessToken", { path: "/" });
     navigate("/");
   };
