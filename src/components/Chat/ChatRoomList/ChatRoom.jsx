@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Typography } from "@material-tailwind/react";
+import { jwtDecode } from "jwt-decode";
 import { getHourAndMinutes } from "../../../utils/date";
 import useChat from "../../../hooks/useChat";
-import { jwtDecode } from "jwt-decode";
 import { getCookie } from "../../../utils/cookie";
 
 export default function ChatRoom({
