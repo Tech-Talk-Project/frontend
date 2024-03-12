@@ -28,8 +28,8 @@ export default function NewChatTitleModal({ isOpen, onClick }) {
   );
   const createChatRoomMutate = useMutation({
     mutationFn: createChatRoom,
-    onSuccess: () => {
-      navigate("/chatList");
+    onSuccess: (response) => {
+      navigate(`/chatting/${response.chatRoomId}`);
       setNewChatMembers([]);
       setCreateNewChat(false);
     },
