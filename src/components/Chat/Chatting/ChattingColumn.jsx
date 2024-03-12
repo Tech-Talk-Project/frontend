@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { v4 as uuidv4 } from "uuid";
 import { jwtDecode } from "jwt-decode";
@@ -6,16 +6,16 @@ import { CHAT_QUERY_KEYS } from "../../../constants/queryKeys";
 import useChat from "../../../hooks/useChat";
 import { getCookie } from "../../../utils/cookie";
 import { getChattingData } from "../../../apis/chat";
+import ChatForm from "./ChatForm";
 
 export default function ChattingColumn({ chatRoomId, chatList, setChatList }) {
-  // const [chat, setChat] = useState("");
   const { error, data } = useQuery({
     queryKey: CHAT_QUERY_KEYS.chatData(chatRoomId),
     queryFn: () => getChattingData({ chatRoomId }),
   });
 
   const handleChatList = (newChat) => {
-    setChatList((prev) => [...prev, JSON.parse(newChat).content]);
+    setChatList((prev) => [...prev, JSON.parse(newChat)]);
   };
   const { connect, disconnect, sendMessage } = useChat(
     "CHAT_ROOM",
@@ -23,13 +23,10 @@ export default function ChattingColumn({ chatRoomId, chatList, setChatList }) {
     jwtDecode(getCookie("accessToken")).memberId,
     handleChatList
   );
-  // const handleChange = (e) => {
-  //   setChat(e.target.value);
-  // };
 
   useEffect(() => {
     setChatList(data.messages);
-  }, [data]);
+  }, [data, setChatList]);
 
   useEffect(() => {
     connect();
@@ -42,10 +39,13 @@ export default function ChattingColumn({ chatRoomId, chatList, setChatList }) {
     return <div>{error.message}</div>;
   }
   return (
-    <ul>
-      {chatList.map((chat) => (
-        <li key={uuidv4()}>{chat.content}</li>
-      ))}
-    </ul>
+    <article>
+      <ul className="grow">
+        {chatList.map((chat) => (
+          <li key={uuidv4()}>{chat.content}</li>
+        ))}
+      </ul>
+      <ChatForm sendMessage={sendMessage} />
+    </article>
   );
 }

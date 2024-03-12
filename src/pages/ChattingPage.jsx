@@ -7,7 +7,7 @@ export default function ChattingPage() {
   const { chatRoomId } = useParams();
 
   return (
-    <main>
+    <main className="flex">
       <Suspense fallback={<Loader />}>
         <ChattingPageMain chatRoomId={chatRoomId} />
       </Suspense>
