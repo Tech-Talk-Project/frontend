@@ -1,20 +1,14 @@
-import React, { useState } from "react";
+import React from "react";
 import ChattingColumn from "./ChattingColumn";
 import ChatListPageMain from "../ChatRoomList/ChatListPageMain";
 
-export default function ChattingPageMain({ chatRoomId }) {
-  const [chatList, setChatList] = useState([]);
-
+export default function ChattingPageMain() {
   return (
     <>
-      <section className="w-80">
+      <section className="max-w-xs w-full w-">
         <ChatListPageMain />
       </section>
-      <ChattingColumn
-        chatRoomId={chatRoomId}
-        chatList={chatList}
-        setChatList={setChatList}
-      />
+      <ChattingColumn />
     </>
   );
 }

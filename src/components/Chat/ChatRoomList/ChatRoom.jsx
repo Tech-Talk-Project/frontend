@@ -8,6 +8,7 @@ import { getCookie } from "../../../utils/cookie";
 
 export default function ChatRoom({
   chatRoom: { chatRoomId, title, unreadCount, lastMessage, memberCount },
+  nowChatRoomId,
   chatRooms,
   setChatRooms,
 }) {
@@ -25,7 +26,10 @@ export default function ChatRoom({
       if (index !== -1) {
         const updatedChatRoom = {
           ...chatRooms[index],
-          unreadCount: chatRooms[index].unreadCount + 1,
+          unreadCount:
+            nowChatRoomId === chatRoomId
+              ? chatRooms[index].unreadCount
+              : chatRooms[index].unreadCount + 1,
           lastMessage: {
             ...chatRooms[index].lastMessage,
             sendTime: parsedChat.sendTime,

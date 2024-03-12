@@ -1,5 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
+import { useParams } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import { jwtDecode } from "jwt-decode";
 import { CHAT_QUERY_KEYS } from "../../../constants/queryKeys";
@@ -8,7 +9,9 @@ import { getCookie } from "../../../utils/cookie";
 import { getChattingData } from "../../../apis/chat";
 import ChatForm from "./ChatForm";
 
-export default function ChattingColumn({ chatRoomId, chatList, setChatList }) {
+export default function ChattingColumn() {
+  const { chatRoomId } = useParams();
+  const [chatList, setChatList] = useState([]);
   const { error, data } = useQuery({
     queryKey: CHAT_QUERY_KEYS.chatData(chatRoomId),
     queryFn: () => getChattingData({ chatRoomId }),
@@ -33,7 +36,7 @@ export default function ChattingColumn({ chatRoomId, chatList, setChatList }) {
 
     return () => disconnect();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [chatRoomId]);
 
   if (error) {
     return <div>{error.message}</div>;
