@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Typography } from "@material-tailwind/react";
-import { jwtDecode } from "jwt-decode";
 import { getHourAndMinutes } from "../../../utils/date";
 import useChat from "../../../hooks/useChat";
-import { getCookie } from "../../../utils/cookie";
+import { useRecoilValue } from "recoil";
+import { memberIdState } from "../../../recoil/atoms/auth";
 
 export default function ChatRoom({
   chatRoom: { chatRoomId, title, unreadCount, lastMessage, memberCount },
@@ -13,10 +13,11 @@ export default function ChatRoom({
   setChatRooms,
 }) {
   const navigate = useNavigate();
+  const memberId = useRecoilValue(memberIdState);
   const { connect, disconnect } = useChat(
     "CHAT_ROOM_LIST",
     chatRoomId,
-    jwtDecode(getCookie("accessToken")).memberId,
+    memberId,
     (newChat) => {
       const parsedChat = JSON.parse(newChat);
       const index = chatRooms.findIndex(

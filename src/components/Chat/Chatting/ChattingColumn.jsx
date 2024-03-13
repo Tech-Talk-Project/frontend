@@ -1,17 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
+import { useRecoilValue } from "recoil";
 import { v4 as uuidv4 } from "uuid";
-import { jwtDecode } from "jwt-decode";
 import { CHAT_QUERY_KEYS } from "../../../constants/queryKeys";
 import useChat from "../../../hooks/useChat";
-import { getCookie } from "../../../utils/cookie";
 import { getChattingData } from "../../../apis/chat";
 import ChatForm from "./ChatForm";
+import { memberIdState } from "../../../recoil/atoms/auth";
 
 export default function ChattingColumn() {
   const { chatRoomId } = useParams();
   const [chatList, setChatList] = useState([]);
+  const memberId = useRecoilValue(memberIdState);
   const { error, data } = useQuery({
     queryKey: CHAT_QUERY_KEYS.chatData(chatRoomId),
     queryFn: () => getChattingData({ chatRoomId }),
@@ -23,7 +24,7 @@ export default function ChattingColumn() {
   const { connect, disconnect, sendMessage } = useChat(
     "CHAT_ROOM",
     chatRoomId,
-    jwtDecode(getCookie("accessToken")).memberId,
+    memberId,
     handleChatList
   );
 

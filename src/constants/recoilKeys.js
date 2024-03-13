@@ -1,5 +1,6 @@
 export const AUTH_RECOIL_KEYS = {
   isLoggedIn: "isLoggedIn",
+  memberId: "memberId",
 };
 
 export const FILTER_RECOIL_KEYS = {
