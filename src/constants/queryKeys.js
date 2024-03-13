@@ -12,5 +12,6 @@ export const PROFILE_QUERY_KEYS = {
 
 export const CHAT_QUERY_KEYS = {
   chatList: ["chatList"],
-  chatData: (id) => ["chatDatat", id],
+  chatData: (chatRoomId) => ["chatData", chatRoomId],
+  chatDataWithCursor: (chatRoomId) => ["chatDataWithCursor", chatRoomId],
 };

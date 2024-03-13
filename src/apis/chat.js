@@ -16,3 +16,11 @@ export const getChattingData = ({ chatRoomId }) =>
       chatRoomId,
     })
     .then((response) => response.data);
+
+export const getChattingWithCursor = ({ chatRoomId, cursor }) =>
+  instance
+    .post(`${ENDPOINT}/message/cursor`, {
+      chatRoomId,
+      cursor,
+    })
+    .then((response) => response.data);

@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 import { useRecoilValue } from "recoil";
-import { v4 as uuidv4 } from "uuid";
 import { CHAT_QUERY_KEYS } from "../../../constants/queryKeys";
 import useChat from "../../../hooks/useChat";
 import { getChattingData } from "../../../apis/chat";
 import ChatForm from "./ChatForm";
 import { memberIdState } from "../../../recoil/atoms/auth";
+import ChattingList from "./ChattingList";
 
 export default function ChattingColumn() {
   const { chatRoomId } = useParams();
@@ -44,11 +44,11 @@ export default function ChattingColumn() {
   }
   return (
     <article className="flex flex-col gap-1 grow pl-4 md:pl-2 pr-4 py-4 max-h-full">
-      <ul className="grow overflow-y-auto">
-        {chatList.map((chat) => (
-          <li key={uuidv4()}>{chat.content}</li>
-        ))}
-      </ul>
+      <ChattingList
+        chatRoomId={chatRoomId}
+        chatList={chatList}
+        setChatList={setChatList}
+      />
       <ChatForm sendMessage={sendMessage} />
     </article>
   );
