@@ -42,8 +42,8 @@ export default function ChattingColumn() {
     return <div>{error.message}</div>;
   }
   return (
-    <article>
-      <ul className="grow">
+    <article className="flex flex-col gap-1 grow pl-4 md:pl-2 pr-4 py-4 max-h-full">
+      <ul className="grow overflow-y-auto">
         {chatList.map((chat) => (
           <li key={uuidv4()}>{chat.content}</li>
         ))}

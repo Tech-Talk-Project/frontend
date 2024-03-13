@@ -5,7 +5,7 @@ import ChatListPageMain from "../ChatRoomList/ChatListPageMain";
 export default function ChattingPageMain() {
   return (
     <>
-      <section className="max-w-xs w-full w-">
+      <section className="hidden md:block max-w-xs w-full">
         <ChatListPageMain />
       </section>
       <ChattingColumn />
