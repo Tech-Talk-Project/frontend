@@ -5,9 +5,11 @@ import { CHAT_QUERY_KEYS } from "../../../constants/queryKeys";
 import useIntersectionObserver from "../../../hooks/useIntersectionObserver";
 import { getChattingWithCursor } from "../../../apis/chat";
 import { Spinner } from "@material-tailwind/react";
+import ChattingItem from "./ChattingItem";
 
 export default function ChattingList({ chatRoomId, chatList, setChatList }) {
   const observerRef = useRef(null);
+  const chatListRef = useRef([]);
   const { fetchNextPage, hasNextPage, isFetchingNextPage, data, error } =
     useInfiniteQuery({
       queryKey: CHAT_QUERY_KEYS.chatDataWithCursor(chatRoomId),
@@ -45,11 +47,13 @@ export default function ChattingList({ chatRoomId, chatList, setChatList }) {
       <div ref={observerRef} className="flex justify-center items-center">
         {isFetchingNextPage && <Spinner className="h-8 w-8 text-brand" />}
       </div>
-      {chatList.map((chat) => (
-        <li key={uuidv4()}>
-          <span>{chat.content}</span>
-          <span className="ml-20">{chat.senderId}</span>
-        </li>
+      {chatList.map((chat, index) => (
+        <ChattingItem
+          key={uuidv4()}
+          chatListRef={chatListRef}
+          chat={chat}
+          index={index}
+        />
       ))}
     </ul>
   );
