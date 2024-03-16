@@ -13,7 +13,10 @@ export default function ChattingColumn() {
   const { chatRoomId } = useParams();
   const [chatList, setChatList] = useState([]);
   const memberId = useRecoilValue(memberIdState);
-  const { error, data } = useQuery({
+  const {
+    error,
+    data: { messages, unreadCount },
+  } = useQuery({
     queryKey: CHAT_QUERY_KEYS.chatData(chatRoomId),
     queryFn: () => getChattingData({ chatRoomId }),
   });
@@ -29,8 +32,8 @@ export default function ChattingColumn() {
   );
 
   useEffect(() => {
-    setChatList(data.messages);
-  }, [data, setChatList]);
+    setChatList(messages);
+  }, [messages, setChatList]);
 
   useEffect(() => {
     connect();
@@ -46,8 +49,10 @@ export default function ChattingColumn() {
     <article className="flex flex-col gap-1 grow pl-4 md:pl-2 pr-4 py-4 max-h-full">
       <ChattingList
         chatRoomId={chatRoomId}
+        firstChatData={messages}
         chatList={chatList}
         setChatList={setChatList}
+        unreadCount={unreadCount}
       />
       <ChatForm sendMessage={sendMessage} />
     </article>
