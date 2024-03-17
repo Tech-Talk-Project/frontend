@@ -24,3 +24,8 @@ export const getChattingWithCursor = ({ chatRoomId, cursor }) =>
       cursor,
     })
     .then((response) => response.data);
+
+export const disconnectChatRoom = ({ chatRoomId }) =>
+  instance
+    .get(`${ENDPOINT}/leave`, { params: { chatRoomId } })
+    .then((response) => response.data);
