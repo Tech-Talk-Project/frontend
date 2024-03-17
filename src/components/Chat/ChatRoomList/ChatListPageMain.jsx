@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import { Card, List } from "@material-tailwind/react";
 import { v4 as uuidv4 } from "uuid";
 import { CHAT_QUERY_KEYS } from "../../../constants/queryKeys";
-import { disconnectChatRoom, getChatList } from "../../../apis/chat";
+import { getChatList } from "../../../apis/chat";
 import ChatRoom from "./ChatRoom";
 import NullChatList from "./NullChatList";
 import useChatNotification from "../../../hooks/useChatNotification";
@@ -20,12 +20,7 @@ export default function ChatListPageMain() {
     error,
   } = useQuery({
     queryKey: CHAT_QUERY_KEYS.chatList,
-    queryFn: async () => {
-      if (nowChatRoomId) {
-        await disconnectChatRoom({ chatRoomId: nowChatRoomId });
-      }
-      return getChatList();
-    },
+    queryFn: getChatList,
   });
   const { connect, disconnect } = useChatNotification(
     "NEW_CHAT_NOTIFICATION",

@@ -5,6 +5,7 @@ import { getHourAndMinutes } from "../../../utils/date";
 import useChat from "../../../hooks/useChat";
 import { useRecoilValue } from "recoil";
 import { memberIdState } from "../../../recoil/atoms/auth";
+import { disconnectChatRoom } from "../../../apis/chat";
 
 export default function ChatRoom({
   chatRoom: { chatRoomId, title, unreadCount, lastMessage, memberCount },
@@ -45,7 +46,10 @@ export default function ChatRoom({
     }
   );
 
-  const handleClick = () => {
+  const handleClick = async () => {
+    if (nowChatRoomId) {
+      await disconnectChatRoom({ chatRoomId: nowChatRoomId });
+    }
     navigate(`/chatting/${chatRoomId}`);
   };
 
