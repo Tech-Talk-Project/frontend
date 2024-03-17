@@ -48,15 +48,18 @@ export default function ChattingList({
   }, [chatList, prevScrollHeight]);
 
   useLayoutEffect(() => {
-    if (chatList.length === 0 || firstChatData.length !== chatList.length)
+    if (
+      chatList.length === 0 ||
+      firstChatData.length !== chatList.length ||
+      !hasNextPage
+    )
       return;
 
     chatListRef.current[chatList.length - 1 - unreadCount]?.scrollIntoView({
       block: "center",
     });
-  }, [chatList, unreadCount, firstChatData]);
+  }, [chatList, unreadCount, firstChatData, hasNextPage]);
 
-  // hasNextPage 넣어서 테스트
   useEffect(() => {
     const dataLength = data.pages.length;
     if (dataLength === 1) return;
