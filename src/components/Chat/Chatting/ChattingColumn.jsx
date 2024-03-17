@@ -48,6 +48,7 @@ export default function ChattingColumn() {
   return (
     <article className="flex flex-col gap-1 grow pl-4 md:pl-2 pr-4 py-4 max-h-full">
       <ChattingList
+        memberId={memberId}
         chatRoomId={chatRoomId}
         firstChatData={messages}
         chatList={chatList}

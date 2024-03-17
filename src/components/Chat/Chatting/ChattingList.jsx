@@ -9,6 +9,7 @@ import ChattingItem from "./ChattingItem";
 import { queryClient } from "../../../apis/queryClient";
 
 export default function ChattingList({
+  memberId,
   chatRoomId,
   firstChatData,
   chatList,
@@ -38,6 +39,28 @@ export default function ChattingList({
   });
 
   useLayoutEffect(() => {
+    if (
+      chatList.length === 0 ||
+      chatList.length === firstChatData.length ||
+      prevScrollHeight
+    )
+      return;
+
+    const { scrollTop, scrollHeight, clientHeight } =
+      chatListContainerRef.current;
+    if (
+      chatList[chatList.length - 1].senderId === memberId ||
+      scrollHeight - scrollTop - clientHeight < 500
+    ) {
+      chatListRef.current[chatList.length - 1]?.scrollIntoView({
+        block: "end",
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [chatList, firstChatData, memberId]);
+
+  // 추가 데이터가 가져올 때 스크롤 위치 고정
+  useLayoutEffect(() => {
     if (!prevScrollHeight) return;
 
     const scrollHeight = chatListContainerRef.current.scrollHeight;
@@ -47,6 +70,8 @@ export default function ChattingList({
     return () => setPrevScrollHeight(0);
   }, [chatList, prevScrollHeight]);
 
+  // 첫 렌더링 시 읽지 않은 채팅이 가운데 보이게 스크롤
+  // 읽지 않은 채팅이 없으면 가장 아래로 스크롤
   useLayoutEffect(() => {
     if (
       chatList.length === 0 ||
