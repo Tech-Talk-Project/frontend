@@ -61,7 +61,11 @@ export default function ChatListPageMain() {
   return chatRooms.length === 0 ? (
     <NullChatList />
   ) : (
-    <Card className="my-4 w-full max-w-2xl max-h-full h-full bg-light_black overflow-y-auto">
+    <Card
+      className={`${
+        nowChatRoomId ? "pb-2" : "my-4"
+      } w-full max-w-2xl max-h-full h-full bg-light_black overflow-y-auto`}
+    >
       <List>
         {chatRooms.map((chatRoom) => (
           <ChatRoom
