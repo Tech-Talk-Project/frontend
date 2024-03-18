@@ -12,6 +12,7 @@ export default function ChattingList({
   memberId,
   chatRoomId,
   firstChatData,
+  members,
   chatList,
   setChatList,
   unreadCount,
@@ -108,18 +109,37 @@ export default function ChattingList({
     return <div>{error.message}</div>;
   }
   return (
-    <ul ref={chatListContainerRef} className="grow overflow-y-auto">
+    <ul
+      ref={chatListContainerRef}
+      className="flex flex-col gap-2 grow overflow-y-auto"
+    >
       <div ref={observerRef} className="flex justify-center items-center">
         {isFetchingNextPage && <Spinner className="h-8 w-8 text-brand" />}
       </div>
-      {chatList.map((chat, index) => (
-        <ChattingItem
-          key={uuidv4()}
-          chatListRef={chatListRef}
-          chat={chat}
-          index={index}
-        />
-      ))}
+      {chatList.map((chat, index) => {
+        const { name, imageUrl } = findMember(members, chat.senderId);
+        return (
+          <ChattingItem
+            key={uuidv4()}
+            chatListRef={chatListRef}
+            chat={chat}
+            index={index}
+            name={name}
+            imageUrl={imageUrl}
+          />
+        );
+      })}
     </ul>
   );
+}
+
+function findMember(members, senderId) {
+  const memberIndex = members.findIndex(
+    (member) => member.memberId === senderId
+  );
+
+  return {
+    imageUrl: members[memberIndex]?.imageUrl || "",
+    name: members[memberIndex]?.name || "",
+  };
 }

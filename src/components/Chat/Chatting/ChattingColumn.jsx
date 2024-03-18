@@ -15,7 +15,7 @@ export default function ChattingColumn() {
   const memberId = useRecoilValue(memberIdState);
   const {
     error,
-    data: { messages, unreadCount },
+    data: { messages, unreadCount, members },
   } = useQuery({
     queryKey: CHAT_QUERY_KEYS.chatData(chatRoomId),
     queryFn: () => getChattingData({ chatRoomId }),
@@ -51,6 +51,7 @@ export default function ChattingColumn() {
         memberId={memberId}
         chatRoomId={chatRoomId}
         firstChatData={messages}
+        members={members}
         chatList={chatList}
         setChatList={setChatList}
         unreadCount={unreadCount}
