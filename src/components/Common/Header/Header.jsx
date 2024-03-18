@@ -5,7 +5,7 @@ import { Drawer, List } from "@material-tailwind/react";
 import { MdMenu, MdClose, MdLogin } from "react-icons/md";
 import { v4 as uuidv4 } from "uuid";
 import Button from "../Button";
-import isLoggedInState from "../../../recoil/atoms/auth";
+import { isLoggedInState, memberIdState } from "../../../recoil/atoms/auth";
 import NavMenu from "./NavMenu";
 import Logo from "../Image/Logo";
 import { removeCookie } from "../../../utils/cookie";
@@ -26,10 +26,12 @@ export default function Header() {
   const { pathname } = useLocation();
   const [isOpen, setIsOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useRecoilState(isLoggedInState);
+  const setMemberId = useSetRecoilState(memberIdState);
   const setCreateNewChat = useSetRecoilState(createNewChatState);
 
   const handleLogoutClick = () => {
     setIsLoggedIn(false);
+    setMemberId(null);
     setCreateNewChat(false);
     removeCookie("accessToken", { path: "/" });
     navigate("/");

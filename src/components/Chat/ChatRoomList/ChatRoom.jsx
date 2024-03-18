@@ -3,19 +3,22 @@ import { useNavigate } from "react-router-dom";
 import { Typography } from "@material-tailwind/react";
 import { getHourAndMinutes } from "../../../utils/date";
 import useChat from "../../../hooks/useChat";
-import { jwtDecode } from "jwt-decode";
-import { getCookie } from "../../../utils/cookie";
+import { useRecoilValue } from "recoil";
+import { memberIdState } from "../../../recoil/atoms/auth";
+import { disconnectChatRoom } from "../../../apis/chat";
 
 export default function ChatRoom({
   chatRoom: { chatRoomId, title, unreadCount, lastMessage, memberCount },
+  nowChatRoomId,
   chatRooms,
   setChatRooms,
 }) {
   const navigate = useNavigate();
+  const memberId = useRecoilValue(memberIdState);
   const { connect, disconnect } = useChat(
     "CHAT_ROOM_LIST",
     chatRoomId,
-    jwtDecode(getCookie("accessToken")).memberId,
+    memberId,
     (newChat) => {
       const parsedChat = JSON.parse(newChat);
       const index = chatRooms.findIndex(
@@ -25,7 +28,10 @@ export default function ChatRoom({
       if (index !== -1) {
         const updatedChatRoom = {
           ...chatRooms[index],
-          unreadCount: chatRooms[index].unreadCount + 1,
+          unreadCount:
+            nowChatRoomId === chatRoomId
+              ? chatRooms[index].unreadCount
+              : chatRooms[index].unreadCount + 1,
           lastMessage: {
             ...chatRooms[index].lastMessage,
             sendTime: parsedChat.sendTime,
@@ -40,7 +46,10 @@ export default function ChatRoom({
     }
   );
 
-  const handleClick = () => {
+  const handleClick = async () => {
+    if (nowChatRoomId) {
+      await disconnectChatRoom({ chatRoomId: nowChatRoomId });
+    }
     navigate(`/chatting/${chatRoomId}`);
   };
 

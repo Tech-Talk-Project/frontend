@@ -1,15 +1,12 @@
 import React, { Suspense } from "react";
-import { useParams } from "react-router-dom";
 import ChattingPageMain from "../components/Chat/Chatting/ChattingPageMain";
 import Loader from "../components/Common/Loader";
 
 export default function ChattingPage() {
-  const { chatRoomId } = useParams();
-
   return (
-    <main>
+    <main className="block md:flex h-[calc(100vh-3.5rem)] sm:h-[calc(100vh-5rem)]">
       <Suspense fallback={<Loader />}>
-        <ChattingPageMain chatRoomId={chatRoomId} />
+        <ChattingPageMain />
       </Suspense>
     </main>
   );
