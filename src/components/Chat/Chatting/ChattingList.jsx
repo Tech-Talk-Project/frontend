@@ -34,11 +34,14 @@ export default function ChattingList({
         lastPage.messages.length > 0 ? lastPage.messages[0].sendTime : null,
     });
   const [observe, unobserve] = useIntersectionObserver(() => {
+    if (isFetchingNextPage) return;
+
     fetchNextPage();
     const scrollHeight = chatListContainerRef.current?.scrollHeight;
     setPrevScrollHeight(scrollHeight);
   });
 
+  // 채팅 추가될 때 스크롤
   useLayoutEffect(() => {
     if (
       chatList.length === 0 ||
@@ -60,17 +63,6 @@ export default function ChattingList({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [chatList, firstChatData, memberId]);
 
-  // 추가 데이터가 가져올 때 스크롤 위치 고정
-  useLayoutEffect(() => {
-    if (!prevScrollHeight) return;
-
-    const scrollHeight = chatListContainerRef.current.scrollHeight;
-    chatListContainerRef.current.scrollTo({
-      top: scrollHeight - prevScrollHeight,
-    });
-    return () => setPrevScrollHeight(0);
-  }, [chatList, prevScrollHeight]);
-
   // 첫 렌더링 시 읽지 않은 채팅이 가운데 보이게 스크롤
   // 읽지 않은 채팅이 없으면 가장 아래로 스크롤
   useLayoutEffect(() => {
@@ -85,6 +77,21 @@ export default function ChattingList({
       block: "center",
     });
   }, [chatList, unreadCount, firstChatData, hasNextPage]);
+
+  // 추가 데이터가 가져올 때 스크롤 위치 고정
+  useLayoutEffect(() => {
+    if (!prevScrollHeight) return;
+
+    const scrollHeight = chatListContainerRef.current.scrollHeight;
+    if (scrollHeight - prevScrollHeight === 32) {
+      return () => setPrevScrollHeight(0);
+    }
+
+    chatListContainerRef.current.scrollTo({
+      top: scrollHeight - prevScrollHeight,
+    });
+    return () => setPrevScrollHeight(0);
+  }, [chatList, prevScrollHeight]);
 
   useEffect(() => {
     const dataLength = data.pages.length;
@@ -143,3 +150,7 @@ function findMember(members, senderId) {
     name: members[memberIndex]?.name || "",
   };
 }
+
+// function getChatData(data) {
+//   return data.pages?.reduce((prev, cur) => [...cur.messages, ...prev], []);
+// }
