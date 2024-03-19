@@ -29,9 +29,19 @@ export default function ChattingList({
           chatRoomId,
           cursor: pageParam,
         }),
-      initialPageParam: new Date().toISOString(),
-      getNextPageParam: (lastPage) =>
-        lastPage.messages.length > 0 ? lastPage.messages[0].sendTime : null,
+      initialPageParam: new Date(0).toISOString(),
+      getNextPageParam: (lastPage, allPages) => {
+        if (allPages.length === 1) {
+          if (firstChatData[0].senderId === -1) {
+            return firstChatData[1]?.sendTime;
+          }
+          return firstChatData[0].sendTime;
+        }
+
+        return lastPage.messages.length > 0
+          ? lastPage.messages[0].sendTime
+          : null;
+      },
     });
   const [observe, unobserve] = useIntersectionObserver(() => {
     if (isFetchingNextPage) return;
