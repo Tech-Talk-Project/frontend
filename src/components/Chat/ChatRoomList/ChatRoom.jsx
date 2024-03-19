@@ -83,7 +83,7 @@ export default function ChatRoom({
         </Typography>
         {unreadCount !== 0 && (
           <div className="relative grid items-center font-bold uppercase whitespace-nowrap select-none text-white py-1 px-2 text-xs rounded-md bg-brand">
-            <span>{unreadCount}</span>
+            <span>{unreadCount > 100 ? "100+" : unreadCount}</span>
           </div>
         )}
       </div>
