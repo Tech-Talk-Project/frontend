@@ -19,6 +19,7 @@ export default function ChattingColumn() {
   } = useQuery({
     queryKey: CHAT_QUERY_KEYS.chatData(chatRoomId),
     queryFn: () => getChattingData({ chatRoomId }),
+    refetchOnWindowFocus: false,
   });
 
   const handleChatList = (newChat) => {
