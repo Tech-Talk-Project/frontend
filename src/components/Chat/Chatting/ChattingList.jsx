@@ -1,10 +1,10 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { useInfiniteQuery } from "@tanstack/react-query";
+import { Spinner } from "@material-tailwind/react";
 import { CHAT_QUERY_KEYS } from "../../../constants/queryKeys";
 import useIntersectionObserver from "../../../hooks/useIntersectionObserver";
 import { getChattingWithCursor } from "../../../apis/chat";
-import { Spinner } from "@material-tailwind/react";
 import ChattingItem from "./ChattingItem";
 import { queryClient } from "../../../apis/queryClient";
 
@@ -31,11 +31,11 @@ export default function ChattingList({
         }),
       initialPageParam: new Date(0).toISOString(),
       getNextPageParam: (lastPage, allPages) => {
+        const length = firstChatData.length;
+        if (length < 100) return null;
         if (allPages.length === 1) {
-          if (firstChatData[0].senderId === -1) {
-            return firstChatData[1]?.sendTime;
-          }
-          return firstChatData[0].sendTime;
+          if (length === 100) return firstChatData[0]?.sendTime;
+          return firstChatData[1]?.sendTime;
         }
 
         return lastPage.messages.length > 0
@@ -76,17 +76,13 @@ export default function ChattingList({
   // 첫 렌더링 시 읽지 않은 채팅이 가운데 보이게 스크롤
   // 읽지 않은 채팅이 없으면 가장 아래로 스크롤
   useLayoutEffect(() => {
-    if (
-      chatList.length === 0 ||
-      firstChatData.length !== chatList.length ||
-      !hasNextPage
-    )
+    if (chatList.length === 0 || firstChatData.length !== chatList.length)
       return;
 
     chatListRef.current[chatList.length - 1 - unreadCount]?.scrollIntoView({
       block: "center",
     });
-  }, [chatList, unreadCount, firstChatData, hasNextPage]);
+  }, [chatList, unreadCount, firstChatData]);
 
   // 추가 데이터가 가져올 때 스크롤 위치 고정
   useLayoutEffect(() => {
@@ -105,10 +101,10 @@ export default function ChattingList({
 
   useEffect(() => {
     const dataLength = data.pages.length;
-    if (dataLength === 1) return;
+    if (dataLength === 1 && !hasNextPage) return;
 
     setChatList((prev) => [...data.pages[dataLength - 1].messages, ...prev]);
-  }, [data, setChatList]);
+  }, [data, setChatList, hasNextPage]);
 
   useEffect(() => {
     if (!hasNextPage || !observerRef) return;
@@ -160,7 +156,3 @@ function findMember(members, senderId) {
     name: members[memberIndex]?.name || "",
   };
 }
-
-// function getChatData(data) {
-//   return data.pages?.reduce((prev, cur) => [...cur.messages, ...prev], []);
-// }
