@@ -2,11 +2,13 @@ import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { Spinner } from "@material-tailwind/react";
+import { MdOutlineArrowCircleDown } from "react-icons/md";
 import { CHAT_QUERY_KEYS } from "../../../constants/queryKeys";
 import useIntersectionObserver from "../../../hooks/useIntersectionObserver";
 import { getChattingWithCursor } from "../../../apis/chat";
 import ChattingItem from "./ChattingItem";
 import { queryClient } from "../../../apis/queryClient";
+import Button from "../../Common/Button";
 
 export default function ChattingList({
   memberId,
@@ -21,6 +23,7 @@ export default function ChattingList({
   const chatListContainerRef = useRef(null);
   const chatListRef = useRef([]);
   const [prevScrollHeight, setPrevScrollHeight] = useState(0);
+  const [showButton, setShowButton] = useState(false);
   const { fetchNextPage, hasNextPage, isFetchingNextPage, data, error } =
     useInfiniteQuery({
       queryKey: CHAT_QUERY_KEYS.chatDataWithCursor(chatRoomId),
@@ -50,6 +53,17 @@ export default function ChattingList({
     const scrollHeight = chatListContainerRef.current?.scrollHeight;
     setPrevScrollHeight(scrollHeight);
   });
+  const handleScrollClick = () => {
+    if (chatListRef.current) {
+      const chatListRefWithoutNull = chatListRef.current.filter(
+        (chatRef) => chatRef !== null
+      );
+
+      chatListRefWithoutNull[chatListRefWithoutNull.length - 1].scrollIntoView({
+        behavior: "smooth",
+      });
+    }
+  };
 
   // 채팅 추가될 때 스크롤
   useLayoutEffect(() => {
@@ -64,7 +78,7 @@ export default function ChattingList({
       chatListContainerRef.current;
     if (
       chatList[chatList.length - 1].senderId === memberId ||
-      scrollHeight - scrollTop - clientHeight < 500
+      scrollHeight - scrollTop - clientHeight < 100
     ) {
       chatListRef.current[chatList.length - 1]?.scrollIntoView({
         block: "end",
@@ -107,6 +121,27 @@ export default function ChattingList({
   }, [data, setChatList, hasNextPage]);
 
   useEffect(() => {
+    const chatListContainer = chatListContainerRef.current;
+    const handleScroll = () => {
+      const { scrollTop, scrollHeight, clientHeight } = chatListContainer;
+      if (scrollHeight - scrollTop - clientHeight >= 50) {
+        setShowButton(true);
+      } else {
+        setShowButton(false);
+      }
+    };
+
+    if (chatListContainer) {
+      chatListContainer.addEventListener("scroll", handleScroll);
+    }
+
+    return () => {
+      if (chatListContainer)
+        chatListContainer.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  useEffect(() => {
     if (!hasNextPage || !observerRef) return;
     const observer = observerRef.current;
     observe(observer);
@@ -124,7 +159,7 @@ export default function ChattingList({
   return (
     <ul
       ref={chatListContainerRef}
-      className="flex flex-col gap-2 grow overflow-y-auto"
+      className="relative flex flex-col gap-2 grow overflow-y-auto"
     >
       <div ref={observerRef} className="flex justify-center items-center">
         {isFetchingNextPage && <Spinner className="h-8 w-8 text-brand" />}
@@ -142,6 +177,15 @@ export default function ChattingList({
           />
         );
       })}
+      {showButton && (
+        <Button
+          variant="text"
+          className="sticky bottom-2 left-0 right-0 flex justify-center items-center mx-auto p-1 text-white hover:text-brand bg-blue-gray-600 rounded-full duration-150 z-30"
+          onClick={handleScrollClick}
+        >
+          <MdOutlineArrowCircleDown size={32} />
+        </Button>
+      )}
     </ul>
   );
 }
