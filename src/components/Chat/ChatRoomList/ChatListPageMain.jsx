@@ -4,23 +4,30 @@ import { useParams } from "react-router-dom";
 import { Card, List } from "@material-tailwind/react";
 import { v4 as uuidv4 } from "uuid";
 import { CHAT_QUERY_KEYS } from "../../../constants/queryKeys";
-import { getChatList } from "../../../apis/chat";
+import { disconnectChatRoom, getChatList } from "../../../apis/chat";
 import ChatRoom from "./ChatRoom";
 import NullChatList from "./NullChatList";
 import useChatNotification from "../../../hooks/useChatNotification";
 import { useRecoilValue } from "recoil";
 import { memberIdState } from "../../../recoil/atoms/auth";
+import prevChatRoomIdState from "../../../recoil/atoms/chatRoomId";
 
 export default function ChatListPageMain() {
   const { chatRoomId: nowChatRoomId } = useParams();
   const [chatRooms, setChatRooms] = useState([]);
   const memberId = useRecoilValue(memberIdState);
+  const prevChatRoomId = useRecoilValue(prevChatRoomIdState);
   const {
     data: { chatRoomList },
     error,
   } = useQuery({
     queryKey: CHAT_QUERY_KEYS.chatList,
-    queryFn: getChatList,
+    queryFn: async () => {
+      if (prevChatRoomId) {
+        await disconnectChatRoom({ chatRoomId: prevChatRoomId });
+      }
+      return getChatList();
+    },
   });
   const { connect, disconnect } = useChatNotification(
     "NEW_CHAT_NOTIFICATION",
