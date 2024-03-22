@@ -180,7 +180,7 @@ export default function ChattingList({
       {showButton && (
         <Button
           variant="text"
-          className="sticky bottom-2 left-0 right-0 flex justify-center items-center mx-auto p-1 text-white hover:text-brand bg-blue-gray-600 rounded-full duration-150 z-30"
+          className="sticky bottom-2 left-0 right-0 flex justify-center items-center mx-auto p-1 text-white hover:text-brand bg-blue-gray-600 rounded-full duration-150 z-30 opacity-70"
           onClick={handleScrollClick}
         >
           <MdOutlineArrowCircleDown size={32} />
