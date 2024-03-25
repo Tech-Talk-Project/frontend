@@ -1,8 +1,8 @@
 import React, { Suspense } from "react";
-import LoginPageMain from "../components/Auth/LoginPageMain";
-import LoginLoading from "../components/Auth/LoginLoading";
+import LoginPageMain from "../components/Login/LoginPageMain";
+import LoginLoading from "../components/Login/LoginLoading";
 import ErrorBoundary from "../components/Error/ErrorBoundary";
-import LoginErrorFallback from "../components/Auth/LoginErrorFallback";
+import LoginErrorFallback from "../components/Login/LoginErrorFallback";
 import { Typography } from "@material-tailwind/react";
 
 export default function LoginCallbackPage() {

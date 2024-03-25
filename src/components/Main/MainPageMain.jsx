@@ -4,7 +4,7 @@ import { Spinner } from "@material-tailwind/react";
 import { USERS_QUERY_KEYS } from "../../constants/queryKeys";
 import { getUsersData } from "../../apis/user";
 import useIntersectionObserver from "../../hooks/useIntersectionObserver";
-import UsersGrid from "./UsersGrid";
+import UsersGrid from "./User/UsersGrid";
 
 const USERS_COUNT = 15;
 

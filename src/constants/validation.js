@@ -1,4 +1,5 @@
 import {
+  CHATROOM_LENGTH_ERROR_MSG,
   INTRODUCTION_LENGTH_ERROR_MSG,
   REQUIRE_ERROR_MSG,
   SPACE_ERROR_MSG,
@@ -23,6 +24,12 @@ export const INPUT_VALIDATION = {
     maxLength: {
       value: 100,
       message: INTRODUCTION_LENGTH_ERROR_MSG,
+    },
+  },
+  chatRoom: {
+    maxLength: {
+      value: 100,
+      message: CHATROOM_LENGTH_ERROR_MSG,
     },
   },
 };

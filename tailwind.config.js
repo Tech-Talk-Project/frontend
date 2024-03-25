@@ -13,9 +13,13 @@ module.exports = withMT({
         logo_md: "123px",
         logo_lg: "176px",
       },
+      height: {
+        main: "calc(100% - 5rem)",
+      },
       colors: {
         light_black: "rgb(16, 16, 16)",
         brand: "#A66EFC",
+        dark_brand: "#7B5AAC",
         line: "#1F2937",
         dark_gray: "#15171A",
         base_gray: "#424242",

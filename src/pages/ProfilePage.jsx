@@ -1,11 +1,11 @@
 import React, { Suspense } from "react";
 import ProfilePageMain from "../components/Profile/ProfilePageMain";
-import { Spinner } from "@material-tailwind/react";
+import Loader from "../components/Common/Loader";
 
 export default function ProfilePage() {
   return (
     <main className="flex flex-col md:flex-row gap-6 px-5 py-8">
-      <Suspense fallback={<Spinner />}>
+      <Suspense fallback={<Loader />}>
         <ProfilePageMain />
       </Suspense>
     </main>

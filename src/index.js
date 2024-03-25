@@ -10,12 +10,13 @@ import { RecoilRoot } from "recoil";
 import { ThemeProvider } from "@material-tailwind/react";
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
-import MessagePage from "./pages/MessagePage";
 import ProfilePage from "./pages/ProfilePage";
 import MainLayout from "./layouts/MainLayout";
 import NoHeaderLayout from "./layouts/NoHeaderLayout";
 import LoginCallbackPage from "./pages/LoginCallbackPage";
 import { queryClient } from "./apis/queryClient";
+import ChatListPage from "./pages/ChatListPage";
+import ChattingPage from "./pages/ChattingPage";
 
 const router = createBrowserRouter([
   {
@@ -30,8 +31,12 @@ const router = createBrowserRouter([
             element: <HomePage />,
           },
           {
-            path: "/message",
-            element: <MessagePage />,
+            path: "/chatList",
+            element: <ChatListPage />,
+          },
+          {
+            path: "/chatting/:chatRoomId",
+            element: <ChattingPage />,
           },
           {
             path: "/profile",

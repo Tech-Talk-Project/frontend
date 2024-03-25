@@ -1,7 +1,7 @@
 import React from "react";
 import { Typography } from "@material-tailwind/react";
 import { useNavigate } from "react-router-dom";
-import Logo from "../Common/Logo";
+import Logo from "../Common/Image/Logo";
 import Button from "../Common/Button";
 
 export default function ErrorMessage({
