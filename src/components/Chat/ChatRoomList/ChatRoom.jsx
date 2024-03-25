@@ -1,11 +1,12 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useRecoilValue } from "recoil";
 import { Typography } from "@material-tailwind/react";
 import { getHourAndMinutes } from "../../../utils/date";
 import useChat from "../../../hooks/useChat";
-import { useRecoilValue } from "recoil";
 import { memberIdState } from "../../../recoil/atoms/auth";
 import { disconnectChatRoom } from "../../../apis/chat";
+import ChatRoomSettingButton from "./ChatRoomSettingButton";
 
 export default function ChatRoom({
   chatRoom: { chatRoomId, title, unreadCount, lastMessage, memberCount },
@@ -73,9 +74,12 @@ export default function ChatRoom({
             {memberCount}
           </Typography>
         </div>
-        <Typography variant="small" className="font-normal">
-          {getHourAndMinutes(new Date(lastMessage.sendTime))}
-        </Typography>
+        <div className="relative flex gap-2">
+          <Typography variant="small" className="font-normal">
+            {getHourAndMinutes(new Date(lastMessage.sendTime))}
+          </Typography>
+          <ChatRoomSettingButton />
+        </div>
       </div>
       <div className="flex justify-between items-center w-full">
         <Typography variant="paragraph" className="mr-2 font-normal truncate">

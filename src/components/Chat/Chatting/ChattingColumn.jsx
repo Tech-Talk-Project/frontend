@@ -9,6 +9,7 @@ import ChatForm from "./ChatForm";
 import { memberIdState } from "../../../recoil/atoms/auth";
 import ChattingList from "./ChattingList";
 import prevChatRoomIdState from "../../../recoil/atoms/chatRoomId";
+import ChattingInfo from "./ChattingInfo";
 
 export default function ChattingColumn() {
   const { chatRoomId } = useParams();
@@ -17,7 +18,7 @@ export default function ChattingColumn() {
   const setPrevChatRoomId = useSetRecoilState(prevChatRoomIdState);
   const {
     error,
-    data: { messages, unreadCount, members },
+    data: { title, messages, unreadCount, members },
   } = useQuery({
     queryKey: CHAT_QUERY_KEYS.chatData(chatRoomId),
     queryFn: () => getChattingData({ chatRoomId }),
@@ -50,7 +51,8 @@ export default function ChattingColumn() {
     return <div>{error.message}</div>;
   }
   return (
-    <article className="flex flex-col gap-1 grow pl-4 md:pl-2 pr-4 py-4 max-h-full h-full">
+    <article className="flex flex-col gap-1 grow pl-4 md:pl-2 pr-4 py-4 max-h-full h-full w-full md:w-[calc(100vw-42rem)]">
+      <ChattingInfo title={title} members={members} />
       <ChattingList
         memberId={memberId}
         chatRoomId={chatRoomId}
