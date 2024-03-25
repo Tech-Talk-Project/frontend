@@ -38,8 +38,6 @@ export default function ChatListPageMain() {
   );
 
   useEffect(() => {
-    if (chatRoomList.length === 0) return;
-
     setChatRooms(chatRoomList);
   }, [chatRoomList]);
 

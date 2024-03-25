@@ -6,7 +6,7 @@ import ChatRoomSettingButton from "../ChatRoomList/ChatRoomSettingButton";
 import useModal from "../../../hooks/useModal";
 import ChatRoomMembersModal from "./ChatRoomMembersModal";
 
-export default function ChattingInfo({ title, members }) {
+export default function ChattingInfo({ title, members, chatRoomId }) {
   const [isOpen, setIsOpen] = useModal();
 
   return (
@@ -27,7 +27,10 @@ export default function ChattingInfo({ title, members }) {
           onClick={setIsOpen}
           members={members}
         />
-        <ChatRoomSettingButton />
+        <ChatRoomSettingButton
+          chatRoomId={chatRoomId}
+          nowChatRoomId={chatRoomId}
+        />
       </div>
     </div>
   );

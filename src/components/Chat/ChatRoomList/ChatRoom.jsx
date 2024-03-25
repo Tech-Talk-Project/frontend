@@ -78,7 +78,10 @@ export default function ChatRoom({
           <Typography variant="small" className="font-normal">
             {getHourAndMinutes(new Date(lastMessage.sendTime))}
           </Typography>
-          <ChatRoomSettingButton />
+          <ChatRoomSettingButton
+            chatRoomId={chatRoomId}
+            nowChatRoomId={nowChatRoomId}
+          />
         </div>
       </div>
       <div className="flex justify-between items-center w-full">

@@ -29,3 +29,8 @@ export const disconnectChatRoom = ({ chatRoomId }) =>
   instance
     .get(`${ENDPOINT}/leave`, { params: { chatRoomId } })
     .then((response) => response.data);
+
+export const exitChatRoom = ({ chatRoomId }) =>
+  instance
+    .get(`${ENDPOINT}/exit`, { params: { chatRoomId } })
+    .then((response) => response.data);
