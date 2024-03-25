@@ -11,3 +11,7 @@ export const NEW_CHAT_KEYS = {
   newChatMembers: "newChatMembers",
   createNewChat: "createNewChat",
 };
+
+export const PREV_CHATROOMID_RECOIL_KEYS = {
+  prevChatRoomId: "chatRoomId",
+};

@@ -8,18 +8,16 @@ const SIZE = {
 };
 
 export default function ProfileImage({ imageUrl, size }) {
+  const onErrorImg = (e) => {
+    e.target.src = defaultProfile;
+  };
+
   return (
-    <picture
-      className={`relative ${SIZE[size]} rounded-full bg-dark_gray overflow-hidden`}
-    >
-      <source srcSet={imageUrl} />
-      <img
-        src={defaultProfile}
-        alt={`${imageUrl ? "" : "기본 "}프로필 이미지`}
-        className={`absolute inset-0 m-auto ${
-          imageUrl ? "w-full h-full object-cover" : "w-3/5 h-3/5 object-contain"
-        }`}
-      />
-    </picture>
+    <img
+      src={imageUrl}
+      alt={`${imageUrl ? "" : "기본 "}프로필 이미지`}
+      className={`rounded-full ${SIZE[size]}`}
+      onError={onErrorImg}
+    />
   );
 }
