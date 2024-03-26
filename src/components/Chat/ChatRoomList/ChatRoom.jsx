@@ -11,7 +11,6 @@ import ChatRoomSettingButton from "./ChatRoomSettingButton";
 export default function ChatRoom({
   chatRoom: { chatRoomId, title, unreadCount, lastMessage, memberCount },
   nowChatRoomId,
-  chatRooms,
   setChatRooms,
 }) {
   const navigate = useNavigate();
@@ -47,7 +46,6 @@ export default function ChatRoom({
           ...prevChatRooms.filter((room) => room.chatRoomId !== chatRoomId),
         ];
       });
-      // }
     }
   );
 
