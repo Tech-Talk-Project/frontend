@@ -14,9 +14,12 @@ import { useSetRecoilState } from "recoil";
 import { isLoggedInState, memberIdState } from "../../recoil/atoms/auth";
 import { removeCookie } from "../../utils/cookie";
 import newChatMemberState from "../../recoil/atoms/newChatMember";
+import useModal from "../../hooks/useModal";
+import QuitModal from "./Common/QuitModal";
 
 export default function ProfilePageMain() {
   const navigate = useNavigate();
+  const [isOpen, setIsOpen] = useModal();
   const setIsLoggedIn = useSetRecoilState(isLoggedInState);
   const setMemberId = useSetRecoilState(memberIdState);
   const setNewChatMembers = useSetRecoilState(newChatMemberState);
@@ -44,6 +47,9 @@ export default function ProfilePageMain() {
     },
   });
 
+  const handleQuitButtonClick = () => {
+    setIsOpen();
+  };
   const handleQuitClick = () => {
     quitMutate.mutate();
   };
@@ -66,10 +72,15 @@ export default function ProfilePageMain() {
         <Button
           variant="text"
           className="p-2 text-red-700 text-xs sm:text-sm"
-          onClick={handleQuitClick}
+          onClick={handleQuitButtonClick}
         >
           탈퇴하기
         </Button>
+        <QuitModal
+          isOpen={isOpen}
+          onOpenClick={setIsOpen}
+          onQuitClick={handleQuitClick}
+        />
       </section>
     </>
   );
