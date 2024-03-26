@@ -22,28 +22,32 @@ export default function ChatRoom({
     memberId,
     (newChat) => {
       const parsedChat = JSON.parse(newChat);
-      const index = chatRooms.findIndex(
-        (room) => room.chatRoomId === chatRoomId
-      );
+      setChatRooms((prevChatRooms) => {
+        const index = prevChatRooms.findIndex(
+          (room) => room.chatRoomId === chatRoomId
+        );
 
-      if (index !== -1) {
-        const updatedChatRoom = {
-          ...chatRooms[index],
-          unreadCount:
-            nowChatRoomId === chatRoomId
-              ? chatRooms[index].unreadCount
-              : chatRooms[index].unreadCount + 1,
-          lastMessage: {
-            ...chatRooms[index].lastMessage,
-            sendTime: parsedChat.sendTime,
-            content: parsedChat.content,
+        return [
+          {
+            ...prevChatRooms[index],
+            memberCount:
+              parsedChat.senderId === -2
+                ? prevChatRooms[index].memberCount - 1
+                : prevChatRooms[index].unreadCount,
+            unreadCount:
+              nowChatRoomId === chatRoomId
+                ? prevChatRooms[index].unreadCount
+                : prevChatRooms[index].unreadCount + 1,
+            lastMessage: {
+              ...prevChatRooms[index].lastMessage,
+              sendTime: parsedChat.sendTime,
+              content: parsedChat.content,
+            },
           },
-        };
-        setChatRooms([
-          updatedChatRoom,
-          ...chatRooms.filter((room) => room.chatRoomId !== chatRoomId),
-        ]);
-      }
+          ...prevChatRooms.filter((room) => room.chatRoomId !== chatRoomId),
+        ];
+      });
+      // }
     }
   );
 

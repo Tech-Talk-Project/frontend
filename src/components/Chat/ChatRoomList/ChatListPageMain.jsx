@@ -28,6 +28,7 @@ export default function ChatListPageMain() {
       }
       return getChatList();
     },
+    refetchOnWindowFocus: false,
   });
   const { connect, disconnect } = useChatNotification(
     "NEW_CHAT_NOTIFICATION",
