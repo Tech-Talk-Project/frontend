@@ -1,23 +1,27 @@
 import React, { Suspense, useEffect, useState } from "react";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { useLocation } from "react-router-dom";
+import { BsFillChatDotsFill } from "react-icons/bs";
 import SideBar from "../components/Main/SideBar/SideBar";
 import Categories from "../components/Main/Category/Categories";
 import MainPageMain from "../components/Main/MainPageMain";
-import { useRecoilState, useRecoilValue } from "recoil";
 import filterState from "../recoil/atoms/filter";
-import { BsFillChatDotsFill } from "react-icons/bs";
 import createNewChatState from "../recoil/atoms/createNewChat";
 import Button from "../components/Common/Button";
 import useModal from "../hooks/useModal";
 import CreateChatButtonGroup from "../components/Main/Common/CreateChatButtonGroup";
 import UserGridSkeleton from "../components/Main/User/Skeleton/UserGridSkeleton";
 import { isLoggedInState } from "../recoil/atoms/auth";
+import newChatMemberState from "../recoil/atoms/newChatMember";
 
 export default function HomePage() {
+  const { state } = useLocation();
   const [isOpen, handleModalClick] = useModal();
   const [filters, setFilters] = useState([]);
   const filter = useRecoilValue(filterState);
   const isLoggedIn = useRecoilValue(isLoggedInState);
   const [createNewChat, setCreateNewChat] = useRecoilState(createNewChatState);
+  const setNewChatMembers = useSetRecoilState(newChatMemberState);
 
   const handleNewChatClick = () => {
     setCreateNewChat((prev) => !prev);
@@ -36,8 +40,14 @@ export default function HomePage() {
   }, [filter]);
 
   useEffect(() => {
-    return () => setCreateNewChat(false);
-  }, [setCreateNewChat]);
+    if (state && state.createChat) {
+      setCreateNewChat(true);
+    }
+    return () => {
+      setCreateNewChat(false);
+      setNewChatMembers([]);
+    };
+  }, [setCreateNewChat, setNewChatMembers, state]);
   return (
     <main className="relative flex w-full h-full">
       <SideBar isModalOpen={isOpen} onModalClick={handleModalClick} />

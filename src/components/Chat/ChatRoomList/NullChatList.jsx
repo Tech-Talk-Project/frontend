@@ -1,18 +1,14 @@
 import React from "react";
 import { Typography } from "@material-tailwind/react";
 import { useNavigate } from "react-router-dom";
-import Button from "../../Common/Button";
-import { useSetRecoilState } from "recoil";
-import createNewChatState from "../../../recoil/atoms/createNewChat";
 import { BsFillChatDotsFill } from "react-icons/bs";
+import Button from "../../Common/Button";
 
 export default function NullChatList() {
   const navigate = useNavigate();
-  const setCreateNewChat = useSetRecoilState(createNewChatState);
 
   const handleNewChatClick = () => {
-    navigate("/");
-    setCreateNewChat(true);
+    navigate("/", { state: { createChat: true } });
   };
   return (
     <section className="absolute top-0 bottom-0 left-0 right-0 flex flex-col justify-center items-center gap-4 p-4">
