@@ -25,14 +25,14 @@ export default function ChatRoom({
         const index = prevChatRooms.findIndex(
           (room) => room.chatRoomId === chatRoomId
         );
-
+        if (index === -1) return prevChatRooms;
         return [
           {
             ...prevChatRooms[index],
             memberCount:
               parsedChat.senderId === -2
                 ? prevChatRooms[index].memberCount - 1
-                : prevChatRooms[index].unreadCount,
+                : prevChatRooms[index].memberCount,
             unreadCount:
               nowChatRoomId === chatRoomId
                 ? prevChatRooms[index].unreadCount
@@ -83,6 +83,7 @@ export default function ChatRoom({
           <ChatRoomSettingButton
             chatRoomId={chatRoomId}
             nowChatRoomId={nowChatRoomId}
+            setChatRooms={setChatRooms}
           />
         </div>
       </div>

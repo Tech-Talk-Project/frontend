@@ -11,18 +11,22 @@ import {
   Button,
 } from "@material-tailwind/react";
 import { exitChatRoom } from "../../../apis/chat";
-import { queryClient } from "../../../apis/queryClient";
-import { CHAT_QUERY_KEYS } from "../../../constants/queryKeys";
 
-export default function ChatRoomSettingButton({ chatRoomId, nowChatRoomId }) {
+export default function ChatRoomSettingButton({
+  chatRoomId,
+  nowChatRoomId,
+  setChatRooms,
+}) {
   const navigate = useNavigate();
   const chatRoomSettingMutate = useMutation({
     mutationFn: () => exitChatRoom({ chatRoomId }),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: CHAT_QUERY_KEYS.chatList });
       if (chatRoomId === nowChatRoomId) {
         navigate("/chatList", { replace: true });
       }
+      setChatRooms((prevChatRooms) =>
+        prevChatRooms.filter((room) => room.chatRoomId !== chatRoomId)
+      );
     },
   });
 
