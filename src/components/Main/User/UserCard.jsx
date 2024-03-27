@@ -4,7 +4,7 @@ import { Typography, Checkbox } from "@material-tailwind/react";
 import ProfileImage from "../../Common/Image/ProfileImage";
 import SkillItem from "./SkillItem";
 import { useRecoilValue } from "recoil";
-import createNewChatState from "../../../recoil/atoms/createNewChat";
+import { createNewChatState } from "../../../recoil/atoms/newChat";
 import useNewChatMember from "../../../hooks/useNewChatMemberClick";
 import newChatMemberInfoState from "../../../recoil/selectors/newChatMemberIdList";
 
@@ -49,7 +49,7 @@ export default function UserCard({
           <Checkbox
             checked={isSelected}
             ripple={false}
-            // onChange={handleMemberClick}
+            readOnly
             className="w-6 h-6 hover:before:opacity-0 checked:bg-brand rounded-full before:w-6 before:h-6"
             containerProps={{
               className: "absolute bottom-0 right-0 p-0",

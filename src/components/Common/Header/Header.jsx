@@ -12,8 +12,8 @@ import { removeCookie } from "../../../utils/cookie";
 import { CATEGORIES } from "../../../constants/category";
 import MobileNavMenu from "./MobileNavMenu";
 import CategoryMenu from "../../Main/SideBar/SideBarCategoryItem";
-import createNewChatState from "../../../recoil/atoms/createNewChat";
-import newChatMemberState from "../../../recoil/atoms/newChatMember";
+import { createNewChatState } from "../../../recoil/atoms/newChat";
+import { newChatMemberState } from "../../../recoil/atoms/newChat";
 
 const MENUS = [
   { value: "Home", path: "/" },

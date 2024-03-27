@@ -1,5 +1,5 @@
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import newChatMemberState from "../recoil/atoms/newChatMember";
+import { newChatMemberState } from "../recoil/atoms/newChat";
 import newChatMemberInfoState from "../recoil/selectors/newChatMemberIdList";
 
 export default function useNewChatMember(memberId, name, imageUrl) {

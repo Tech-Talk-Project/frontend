@@ -1,27 +1,23 @@
 import React, { Suspense, useEffect, useState } from "react";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
-import { useLocation } from "react-router-dom";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { BsFillChatDotsFill } from "react-icons/bs";
 import SideBar from "../components/Main/SideBar/SideBar";
 import Categories from "../components/Main/Category/Categories";
 import MainPageMain from "../components/Main/MainPageMain";
 import filterState from "../recoil/atoms/filter";
-import createNewChatState from "../recoil/atoms/createNewChat";
+import { createNewChatState } from "../recoil/atoms/newChat";
 import Button from "../components/Common/Button";
 import useModal from "../hooks/useModal";
 import CreateChatButtonGroup from "../components/Main/Common/CreateChatButtonGroup";
 import UserGridSkeleton from "../components/Main/User/Skeleton/UserGridSkeleton";
 import { isLoggedInState } from "../recoil/atoms/auth";
-import newChatMemberState from "../recoil/atoms/newChatMember";
 
 export default function HomePage() {
-  const { state } = useLocation();
   const [isOpen, handleModalClick] = useModal();
   const [filters, setFilters] = useState([]);
   const filter = useRecoilValue(filterState);
   const isLoggedIn = useRecoilValue(isLoggedInState);
   const [createNewChat, setCreateNewChat] = useRecoilState(createNewChatState);
-  const setNewChatMembers = useSetRecoilState(newChatMemberState);
 
   const handleNewChatClick = () => {
     setCreateNewChat((prev) => !prev);
@@ -38,16 +34,6 @@ export default function HomePage() {
   useEffect(() => {
     setFilters([]);
   }, [filter]);
-
-  useEffect(() => {
-    if (state && state.createChat) {
-      setCreateNewChat(true);
-    }
-    return () => {
-      setCreateNewChat(false);
-      setNewChatMembers([]);
-    };
-  }, [setCreateNewChat, setNewChatMembers, state]);
   return (
     <main className="relative flex w-full h-full">
       <SideBar isModalOpen={isOpen} onModalClick={handleModalClick} />

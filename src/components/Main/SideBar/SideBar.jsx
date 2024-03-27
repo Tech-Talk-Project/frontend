@@ -1,10 +1,10 @@
 import React from "react";
 import { useRecoilValue } from "recoil";
-import createNewChatState from "../../../recoil/atoms/createNewChat";
-import newChatMemberState from "../../../recoil/atoms/newChatMember";
+import { Typography } from "@material-tailwind/react";
+import { createNewChatState } from "../../../recoil/atoms/newChat";
+import { newChatMemberState } from "../../../recoil/atoms/newChat";
 import SideBarCategoryList from "./SideBarCategoryList";
 import SideBarNewChatMemberList from "./SideBarNewChatMemberList";
-import { Typography } from "@material-tailwind/react";
 import NewChatTitleModal from "../../Common/Modal/NewChatTitleModal";
 import CreateChatButtonGroup from "../Common/CreateChatButtonGroup";
 

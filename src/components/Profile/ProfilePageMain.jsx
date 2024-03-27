@@ -13,7 +13,7 @@ import { quit } from "../../apis/user";
 import { useSetRecoilState } from "recoil";
 import { isLoggedInState, memberIdState } from "../../recoil/atoms/auth";
 import { removeCookie } from "../../utils/cookie";
-import newChatMemberState from "../../recoil/atoms/newChatMember";
+import { newChatMemberState } from "../../recoil/atoms/newChat";
 import useModal from "../../hooks/useModal";
 import QuitModal from "./Common/QuitModal";
 
