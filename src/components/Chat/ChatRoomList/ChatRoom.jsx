@@ -76,7 +76,7 @@ export default function ChatRoom({
             {memberCount}
           </Typography>
         </div>
-        <div className="relative flex gap-2">
+        <div className="flex gap-2">
           <Typography variant="small" className="font-normal">
             {getHourAndMinutes(new Date(lastMessage.sendTime))}
           </Typography>

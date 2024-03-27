@@ -40,7 +40,7 @@ export default function ChatRoomSettingButton({
         <Button
           ripple={false}
           variant="text"
-          className="p-0 text-white hover:text-blue-gray-400 duration-150"
+          className="p-1 text-white hover:text-blue-gray-400 duration-150"
         >
           <MdOutlineMoreVert size={20} />
         </Button>

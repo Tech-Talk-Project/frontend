@@ -16,11 +16,16 @@ export default function UserCard({
   const handleMemberClick = useNewChatMember(memberId, name, imageUrl);
   const isSelected = newChatMembersIdList.includes(memberId);
 
+  const handleClick = () => {
+    if (!createNewChat) return;
+    handleMemberClick();
+  };
   return (
     <li
       className={`flex flex-col gap-2 p-4 border border-blue-gray-800 rounded-lg hover:border-brand duration-150 cursor-pointer ${
         isSelected ? "border-brand" : ""
       }`}
+      onClick={handleClick}
     >
       <div className="flex justify-between items-center">
         <div className="flex gap-3">
@@ -44,7 +49,7 @@ export default function UserCard({
           <Checkbox
             checked={isSelected}
             ripple={false}
-            onChange={handleMemberClick}
+            // onChange={handleMemberClick}
             className="w-6 h-6 hover:before:opacity-0 checked:bg-brand rounded-full before:w-6 before:h-6"
             containerProps={{
               className: "absolute bottom-0 right-0 p-0",
