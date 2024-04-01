@@ -34,3 +34,11 @@ export const exitChatRoom = ({ chatRoomId }) =>
   instance
     .get(`${ENDPOINT}/exit`, { params: { chatRoomId } })
     .then((response) => response.data);
+
+export const changeRoomTitle = ({ chatRoomId, newTitle }) =>
+  instance
+    .post(`${ENDPOINT}/change-title`, {
+      chatRoomId,
+      newTitle,
+    })
+    .then((response) => response.data);

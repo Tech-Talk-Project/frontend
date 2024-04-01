@@ -6,10 +6,17 @@ import { getHourAndMinutes } from "../../../utils/date";
 import useChat from "../../../hooks/useChat";
 import { memberIdState } from "../../../recoil/atoms/auth";
 import { disconnectChatRoom } from "../../../apis/chat";
-import ChatRoomSettingButton from "./ChatRoomSettingButton";
+import ChatRoomSettingButton from "../Common/ChatRoomSettingButton";
 
 export default function ChatRoom({
-  chatRoom: { chatRoomId, title, unreadCount, lastMessage, memberCount },
+  chatRoom: {
+    chatRoomId,
+    ownerId,
+    title,
+    unreadCount,
+    lastMessage,
+    memberCount,
+  },
   nowChatRoomId,
   setChatRooms,
 }) {
@@ -81,7 +88,9 @@ export default function ChatRoom({
             {getHourAndMinutes(new Date(lastMessage.sendTime))}
           </Typography>
           <ChatRoomSettingButton
+            title={title}
             chatRoomId={chatRoomId}
+            ownerId={ownerId}
             nowChatRoomId={nowChatRoomId}
             setChatRooms={setChatRooms}
           />
