@@ -11,3 +11,10 @@ export const getUsersData = ({ cursor, limit = 15, skills = [] }) =>
       skills,
     })
     .then((response) => response.data);
+
+export const getFollowingUsersData = ({ cursor }) =>
+  instance
+    .get("/user/follow/followings", {
+      params: cursor,
+    })
+    .then((response) => response.data);

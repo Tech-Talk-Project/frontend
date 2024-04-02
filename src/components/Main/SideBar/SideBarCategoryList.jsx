@@ -1,10 +1,17 @@
 import React from "react";
-import { Card, List } from "@material-tailwind/react";
+import { Card, List, ListItem } from "@material-tailwind/react";
 import { v4 as uuidv4 } from "uuid";
 import SideBarCategoryItem from "./SideBarCategoryItem";
 import { CATEGORIES } from "../../../constants/category";
+import { useSetRecoilState } from "recoil";
+import filterState from "../../../recoil/atoms/filter";
 
 export default function SideBarCategoryList({ createNewChat }) {
+  const setFilter = useSetRecoilState(filterState);
+
+  const handleFollowClick = () => {
+    setFilter("");
+  };
   return (
     <Card
       className={`w-full max-w-[16rem] ${
@@ -15,6 +22,15 @@ export default function SideBarCategoryList({ createNewChat }) {
         {Object.keys(CATEGORIES).map((category) => (
           <SideBarCategoryItem key={uuidv4()} category={category} />
         ))}
+        <div className="pt-2 border-t border-blue-gray-100">
+          <ListItem
+            ripple={false}
+            className="text-white"
+            onClick={handleFollowClick}
+          >
+            FOLLOWING
+          </ListItem>
+        </div>
       </List>
     </Card>
   );

@@ -19,7 +19,7 @@ export default function SideBar({ isModalOpen, onModalClick }) {
         <article
           className={`mt-4 w-full ${
             createNewChat ? "h-1/2 flex flex-col justify-between" : ""
-          } border-t border-white overflow-auto`}
+          } border-t border-blue-gray-100 overflow-auto`}
         >
           {newChatMembers.length === 0 ? (
             <Typography

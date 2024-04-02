@@ -3,7 +3,6 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import { BsFillChatDotsFill } from "react-icons/bs";
 import SideBar from "../components/Main/SideBar/SideBar";
 import Categories from "../components/Main/Category/Categories";
-import MainPageMain from "../components/Main/MainPageMain";
 import filterState from "../recoil/atoms/filter";
 import { createNewChatState } from "../recoil/atoms/newChat";
 import Button from "../components/Common/Button";
@@ -11,6 +10,8 @@ import useModal from "../hooks/useModal";
 import CreateChatButtonGroup from "../components/Main/Common/CreateChatButtonGroup";
 import UserGridSkeleton from "../components/Main/User/Skeleton/UserGridSkeleton";
 import { isLoggedInState } from "../recoil/atoms/auth";
+import FollowingUsersGrid from "../components/Main/Common/FollowingUsersGrid";
+import EveryUsersGrid from "../components/Main/Common/EveryUsersGrid";
 
 export default function HomePage() {
   const [isOpen, handleModalClick] = useModal();
@@ -44,7 +45,11 @@ export default function HomePage() {
           onFilterClick={handleFilterClick}
         />
         <Suspense fallback={<UserGridSkeleton />}>
-          <MainPageMain filters={filters} />
+          {filter === "" ? (
+            <FollowingUsersGrid />
+          ) : (
+            <EveryUsersGrid filters={filters} />
+          )}
         </Suspense>
         {createNewChat && (
           <CreateChatButtonGroup
