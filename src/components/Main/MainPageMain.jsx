@@ -1,20 +1,32 @@
 import React, { useEffect, useRef } from "react";
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { USERS_QUERY_KEYS } from "../../../constants/queryKeys";
-import useIntersectionObserver from "../../../hooks/useIntersectionObserver";
 import { Spinner } from "@material-tailwind/react";
-import { getFollowingUsersData } from "../../../apis/user";
-import UsersGrid from "../User/UsersGrid";
+import UsersGrid from "./User/UsersGrid";
+import useIntersectionObserver from "../../hooks/useIntersectionObserver";
+import { getUsersData, getFollowingUsersData } from "../../apis/user";
+import { USERS_QUERY_KEYS } from "../../constants/queryKeys";
 
-export default function FollowingUsersGrid() {
+const USERS_COUNT = 15;
+
+export default function MainPageMain({ filter, filters }) {
   const observerRef = useRef(null);
   const { fetchNextPage, hasNextPage, isFetchingNextPage, data, error } =
     useInfiniteQuery({
-      queryKey: USERS_QUERY_KEYS.followingUsers,
-      queryFn: ({ pageParam = null }) =>
-        getFollowingUsersData({
+      queryKey:
+        filter === ""
+          ? USERS_QUERY_KEYS.followingUsers
+          : USERS_QUERY_KEYS.usersData(filters),
+      queryFn: ({ pageParam = null }) => {
+        if (filter === "")
+          return getFollowingUsersData({
+            cursor: pageParam,
+          });
+        return getUsersData({
           cursor: pageParam,
-        }),
+          limit: USERS_COUNT,
+          skills: filters,
+        });
+      },
       getNextPageParam: (lastPage) => lastPage.nextCursor || null,
     });
   const [observe, unobserve] = useIntersectionObserver(fetchNextPage);

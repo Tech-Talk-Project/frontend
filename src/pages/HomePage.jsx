@@ -10,8 +10,7 @@ import useModal from "../hooks/useModal";
 import CreateChatButtonGroup from "../components/Main/Common/CreateChatButtonGroup";
 import UserGridSkeleton from "../components/Main/User/Skeleton/UserGridSkeleton";
 import { isLoggedInState } from "../recoil/atoms/auth";
-import FollowingUsersGrid from "../components/Main/Common/FollowingUsersGrid";
-import EveryUsersGrid from "../components/Main/Common/EveryUsersGrid";
+import MainPageMain from "../components/Main/MainPageMain";
 
 export default function HomePage() {
   const [isOpen, handleModalClick] = useModal();
@@ -45,11 +44,7 @@ export default function HomePage() {
           onFilterClick={handleFilterClick}
         />
         <Suspense fallback={<UserGridSkeleton />}>
-          {filter === "" ? (
-            <FollowingUsersGrid />
-          ) : (
-            <EveryUsersGrid filters={filters} />
-          )}
+          <MainPageMain filter={filter} filters={filters} />
         </Suspense>
         {createNewChat && (
           <CreateChatButtonGroup
