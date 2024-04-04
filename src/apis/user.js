@@ -12,9 +12,16 @@ export const getUsersData = ({ cursor, limit = 15, skills = [] }) =>
     })
     .then((response) => response.data);
 
+export const getUserData = ({ selectedMemberId, memberId }) =>
+  instance
+    .get("/member", {
+      params: { memberId, selectedMemberId },
+    })
+    .then((response) => response.data);
+
 export const getFollowingUsersData = ({ cursor }) =>
   instance
     .get("/user/follow/followings", {
-      params: cursor,
+      params: { cursor },
     })
     .then((response) => response.data);
