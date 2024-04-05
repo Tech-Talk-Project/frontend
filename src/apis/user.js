@@ -1,11 +1,13 @@
 import { instance } from "./axios";
 
+const ENDPOINT = "/user";
+
 export const quit = () =>
-  instance.get("/user/removeMember").then((response) => response.data);
+  instance.get(`${ENDPOINT}/removeMember`).then((response) => response.data);
 
 export const getUsersDataWithLogin = ({ cursor, limit = 15, skills = [] }) =>
   instance
-    .post("/user/members", {
+    .post(`${ENDPOINT}/members`, {
       cursor,
       limit,
       skills,
@@ -30,14 +32,21 @@ export const getUserData = ({ selectedMemberId }) =>
 
 export const getUserDataWithLogin = ({ selectedMemberId }) =>
   instance
-    .get("/user/member", {
+    .get(`${ENDPOINT}/member`, {
       params: { selectedMemberId },
     })
     .then((response) => response.data);
 
 export const getFollowingUsersData = ({ cursor }) =>
   instance
-    .get("/user/follow/followings", {
+    .get(`${ENDPOINT}/follow/followings`, {
       params: { cursor },
+    })
+    .then((response) => response.data);
+
+export const follow = ({ selectedMemberId }) =>
+  instance
+    .post(`${ENDPOINT}/follow/add`, {
+      memberId: selectedMemberId,
     })
     .then((response) => response.data);
