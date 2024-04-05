@@ -8,21 +8,24 @@ import { useRecoilValue } from "recoil";
 import { createNewChatState } from "../../../recoil/atoms/newChat";
 import useNewChatMember from "../../../hooks/useNewChatMemberClick";
 import newChatMemberInfoState from "../../../recoil/selectors/newChatMemberIdList";
+import { memberIdState } from "../../../recoil/atoms/auth";
 
 export default function UserCard({
-  user: { memberId, name, job, imageUrl, introduction, skills },
+  user: { memberId: cardMemberId, name, job, imageUrl, introduction, skills },
 }) {
   const navigate = useNavigate();
+  const memberId = useRecoilValue(memberIdState);
   const createNewChat = useRecoilValue(createNewChatState);
   const { newChatMembersIdList } = useRecoilValue(newChatMemberInfoState);
-  const handleMemberClick = useNewChatMember(memberId, name, imageUrl);
-  const isSelected = newChatMembersIdList.includes(memberId);
+  const handleMemberClick = useNewChatMember(cardMemberId, name, imageUrl);
+  const isSelected = newChatMembersIdList.includes(cardMemberId);
 
   const handleClick = () => {
-    if (!createNewChat) {
-      navigate(`/user/${memberId}`);
+    if (createNewChat) {
+      handleMemberClick();
+      return;
     }
-    handleMemberClick();
+    navigate(memberId === cardMemberId ? "/profile" : `/user/${cardMemberId}`);
   };
   return (
     <li
