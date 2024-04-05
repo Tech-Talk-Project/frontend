@@ -1,26 +1,38 @@
 import React from "react";
 import { v4 as uuidv4 } from "uuid";
 import { Typography, Checkbox } from "@material-tailwind/react";
+import { useNavigate } from "react-router-dom";
 import ProfileImage from "../../Common/Image/ProfileImage";
 import SkillItem from "./SkillItem";
 import { useRecoilValue } from "recoil";
-import createNewChatState from "../../../recoil/atoms/createNewChat";
+import { createNewChatState } from "../../../recoil/atoms/newChat";
 import useNewChatMember from "../../../hooks/useNewChatMemberClick";
 import newChatMemberInfoState from "../../../recoil/selectors/newChatMemberIdList";
+import { memberIdState } from "../../../recoil/atoms/auth";
 
 export default function UserCard({
-  user: { memberId, name, job, imageUrl, introduction, skills },
+  user: { memberId: cardMemberId, name, job, imageUrl, introduction, skills },
 }) {
+  const navigate = useNavigate();
+  const memberId = useRecoilValue(memberIdState);
   const createNewChat = useRecoilValue(createNewChatState);
   const { newChatMembersIdList } = useRecoilValue(newChatMemberInfoState);
-  const handleMemberClick = useNewChatMember(memberId, name, imageUrl);
-  const isSelected = newChatMembersIdList.includes(memberId);
+  const handleMemberClick = useNewChatMember(cardMemberId, name, imageUrl);
+  const isSelected = newChatMembersIdList.includes(cardMemberId);
 
+  const handleClick = () => {
+    if (createNewChat) {
+      handleMemberClick();
+      return;
+    }
+    navigate(memberId === cardMemberId ? "/profile" : `/user/${cardMemberId}`);
+  };
   return (
     <li
       className={`flex flex-col gap-2 p-4 border border-blue-gray-800 rounded-lg hover:border-brand duration-150 cursor-pointer ${
         isSelected ? "border-brand" : ""
       }`}
+      onClick={handleClick}
     >
       <div className="flex justify-between items-center">
         <div className="flex gap-3">
@@ -44,7 +56,7 @@ export default function UserCard({
           <Checkbox
             checked={isSelected}
             ripple={false}
-            onChange={handleMemberClick}
+            readOnly
             className="w-6 h-6 hover:before:opacity-0 checked:bg-brand rounded-full before:w-6 before:h-6"
             containerProps={{
               className: "absolute bottom-0 right-0 p-0",

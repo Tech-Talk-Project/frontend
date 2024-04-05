@@ -35,14 +35,14 @@ export default function ChattingItem({
             className={`px-3 py-[0.125rem] max-w-max bg-white font-normal text-black rounded-md break-all ${
               isMyChat
                 ? "order-2 bg-yellow-400"
-                : senderId === -1
+                : senderId < 0
                 ? "bg-blue-gray-800 text-white"
                 : ""
             }`}
           >
             {content}
           </Typography>
-          {senderId !== -1 && (
+          {senderId > 0 && (
             <Typography variant="small" className=" font-normal">
               {getHourAndMinutes(new Date(sendTime))}
             </Typography>

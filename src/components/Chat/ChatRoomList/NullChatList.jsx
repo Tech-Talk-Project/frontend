@@ -1,10 +1,10 @@
 import React from "react";
 import { Typography } from "@material-tailwind/react";
 import { useNavigate } from "react-router-dom";
+import { BsFillChatDotsFill } from "react-icons/bs";
 import Button from "../../Common/Button";
 import { useSetRecoilState } from "recoil";
-import createNewChatState from "../../../recoil/atoms/createNewChat";
-import { BsFillChatDotsFill } from "react-icons/bs";
+import { createNewChatState } from "../../../recoil/atoms/newChat";
 
 export default function NullChatList() {
   const navigate = useNavigate();

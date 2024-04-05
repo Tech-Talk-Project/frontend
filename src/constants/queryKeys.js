@@ -4,6 +4,9 @@ export const AUTH_QUERY_KEYS = {
 
 export const USERS_QUERY_KEYS = {
   usersData: (categories) => ["usersData", categories],
+  userData: (memberId) => ["userData", memberId],
+  userDataWithFollowData: (memberId) => ["userDataWithFollowData", memberId],
+  followingUsers: ["followingUsers"],
 };
 
 export const PROFILE_QUERY_KEYS = {

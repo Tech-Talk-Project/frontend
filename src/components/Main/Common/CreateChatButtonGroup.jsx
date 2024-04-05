@@ -1,8 +1,8 @@
 import React from "react";
 import Button from "../../Common/Button";
 import { useRecoilState, useSetRecoilState } from "recoil";
-import newChatMemberState from "../../../recoil/atoms/newChatMember";
-import createNewChatState from "../../../recoil/atoms/createNewChat";
+import { newChatMemberState } from "../../../recoil/atoms/newChat";
+import { createNewChatState } from "../../../recoil/atoms/newChat";
 
 export default function CreateChatButtonGroup({ onModalClick, mobile }) {
   const [newChatMembers, setNewChatMembers] =

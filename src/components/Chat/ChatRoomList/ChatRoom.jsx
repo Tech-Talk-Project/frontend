@@ -6,12 +6,18 @@ import { getHourAndMinutes } from "../../../utils/date";
 import useChat from "../../../hooks/useChat";
 import { memberIdState } from "../../../recoil/atoms/auth";
 import { disconnectChatRoom } from "../../../apis/chat";
-import ChatRoomSettingButton from "./ChatRoomSettingButton";
+import ChatRoomSettingButton from "../Common/ChatRoomSettingButton";
 
 export default function ChatRoom({
-  chatRoom: { chatRoomId, title, unreadCount, lastMessage, memberCount },
+  chatRoom: {
+    chatRoomId,
+    ownerId,
+    title,
+    unreadCount,
+    lastMessage,
+    memberCount,
+  },
   nowChatRoomId,
-  chatRooms,
   setChatRooms,
 }) {
   const navigate = useNavigate();
@@ -22,28 +28,31 @@ export default function ChatRoom({
     memberId,
     (newChat) => {
       const parsedChat = JSON.parse(newChat);
-      const index = chatRooms.findIndex(
-        (room) => room.chatRoomId === chatRoomId
-      );
-
-      if (index !== -1) {
-        const updatedChatRoom = {
-          ...chatRooms[index],
-          unreadCount:
-            nowChatRoomId === chatRoomId
-              ? chatRooms[index].unreadCount
-              : chatRooms[index].unreadCount + 1,
-          lastMessage: {
-            ...chatRooms[index].lastMessage,
-            sendTime: parsedChat.sendTime,
-            content: parsedChat.content,
+      setChatRooms((prevChatRooms) => {
+        const index = prevChatRooms.findIndex(
+          (room) => room.chatRoomId === chatRoomId
+        );
+        if (index === -1) return prevChatRooms;
+        return [
+          {
+            ...prevChatRooms[index],
+            memberCount:
+              parsedChat.senderId === -2
+                ? prevChatRooms[index].memberCount - 1
+                : prevChatRooms[index].memberCount,
+            unreadCount:
+              nowChatRoomId === chatRoomId
+                ? prevChatRooms[index].unreadCount
+                : prevChatRooms[index].unreadCount + 1,
+            lastMessage: {
+              ...prevChatRooms[index].lastMessage,
+              sendTime: parsedChat.sendTime,
+              content: parsedChat.content,
+            },
           },
-        };
-        setChatRooms([
-          updatedChatRoom,
-          ...chatRooms.filter((room) => room.chatRoomId !== chatRoomId),
-        ]);
-      }
+          ...prevChatRooms.filter((room) => room.chatRoomId !== chatRoomId),
+        ];
+      });
     }
   );
 
@@ -74,13 +83,16 @@ export default function ChatRoom({
             {memberCount}
           </Typography>
         </div>
-        <div className="relative flex gap-2">
+        <div className="flex gap-2">
           <Typography variant="small" className="font-normal">
             {getHourAndMinutes(new Date(lastMessage.sendTime))}
           </Typography>
           <ChatRoomSettingButton
+            title={title}
             chatRoomId={chatRoomId}
+            ownerId={ownerId}
             nowChatRoomId={nowChatRoomId}
+            setChatRooms={setChatRooms}
           />
         </div>
       </div>
