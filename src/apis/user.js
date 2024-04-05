@@ -3,6 +3,15 @@ import { instance } from "./axios";
 export const quit = () =>
   instance.get("/user/removeMember").then((response) => response.data);
 
+export const getUsersDataWithLogin = ({ cursor, limit = 15, skills = [] }) =>
+  instance
+    .post("/user/members", {
+      cursor,
+      limit,
+      skills,
+    })
+    .then((response) => response.data);
+
 export const getUsersData = ({ cursor, limit = 15, skills = [] }) =>
   instance
     .post("/members", {
@@ -12,10 +21,17 @@ export const getUsersData = ({ cursor, limit = 15, skills = [] }) =>
     })
     .then((response) => response.data);
 
-export const getUserData = ({ selectedMemberId, memberId }) =>
+export const getUserData = ({ selectedMemberId }) =>
   instance
     .get("/member", {
-      params: { memberId, selectedMemberId },
+      params: { selectedMemberId },
+    })
+    .then((response) => response.data);
+
+export const getUserDataWithLogin = ({ selectedMemberId }) =>
+  instance
+    .get("/user/member", {
+      params: { selectedMemberId },
     })
     .then((response) => response.data);
 

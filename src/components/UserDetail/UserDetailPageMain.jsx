@@ -2,9 +2,9 @@ import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useRecoilValue } from "recoil";
 import { useParams } from "react-router-dom";
-import { memberIdState } from "../../recoil/atoms/auth";
+import { isLoggedInState } from "../../recoil/atoms/auth";
 import { USERS_QUERY_KEYS } from "../../constants/queryKeys";
-import { getUserData } from "../../apis/user";
+import { getUserData, getUserDataWithLogin } from "../../apis/user";
 import Information from "./Modal/Information";
 import Introduction from "./Modal/Introduction";
 import Links from "./Modal/Links";
@@ -14,13 +14,22 @@ import ProfileImage from "../Common/Image/ProfileImage";
 
 export default function UserDetailPageMain() {
   const { selectedMemberId } = useParams();
-  const memberId = useRecoilValue(memberIdState);
+  const isLoggedIn = useRecoilValue(isLoggedInState);
   const {
     data: { imageUrl, detailedDescription, info, introduction, links, skills },
   } = useQuery({
-    queryKey: USERS_QUERY_KEYS.userData(selectedMemberId),
-    queryFn: () =>
-      getUserData({ memberId: memberId ? memberId : -1, selectedMemberId }),
+    queryKey: isLoggedIn
+      ? USERS_QUERY_KEYS.userDataWithFollowData(selectedMemberId)
+      : USERS_QUERY_KEYS.userData(selectedMemberId),
+    queryFn: () => {
+      if (isLoggedIn)
+        return getUserDataWithLogin({
+          selectedMemberId,
+        });
+      return getUserData({
+        selectedMemberId,
+      });
+    },
   });
   return (
     <>
