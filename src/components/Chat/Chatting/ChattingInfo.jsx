@@ -2,11 +2,11 @@ import React from "react";
 import { Typography } from "@material-tailwind/react";
 import { MdPeopleAlt } from "react-icons/md";
 import Button from "../../Common/Button";
-import ChatRoomSettingButton from "../ChatRoomList/ChatRoomSettingButton";
+import ChatRoomSettingButton from "../Common/ChatRoomSettingButton";
 import useModal from "../../../hooks/useModal";
 import ChatRoomMembersModal from "./ChatRoomMembersModal";
 
-export default function ChattingInfo({ title, members, chatRoomId }) {
+export default function ChattingInfo({ title, ownerId, members, chatRoomId }) {
   const [isOpen, setIsOpen] = useModal();
 
   return (
@@ -28,6 +28,8 @@ export default function ChattingInfo({ title, members, chatRoomId }) {
           members={members}
         />
         <ChatRoomSettingButton
+          title={title}
+          ownerId={ownerId}
           chatRoomId={chatRoomId}
           nowChatRoomId={chatRoomId}
         />

@@ -16,8 +16,8 @@ import { INPUT_VALIDATION } from "../../../constants/validation";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import newChatMemberInfoState from "../../../recoil/selectors/newChatMemberIdList";
 import { createChatRoom } from "../../../apis/chat";
-import newChatMemberState from "../../../recoil/atoms/newChatMember";
-import createNewChatState from "../../../recoil/atoms/createNewChat";
+import { newChatMemberState } from "../../../recoil/atoms/newChat";
+import { createNewChatState } from "../../../recoil/atoms/newChat";
 
 export default function NewChatTitleModal({ isOpen, onClick }) {
   const navigate = useNavigate();

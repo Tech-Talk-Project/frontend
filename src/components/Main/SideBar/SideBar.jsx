@@ -1,10 +1,10 @@
 import React from "react";
 import { useRecoilValue } from "recoil";
-import createNewChatState from "../../../recoil/atoms/createNewChat";
-import newChatMemberState from "../../../recoil/atoms/newChatMember";
+import { Typography } from "@material-tailwind/react";
+import { createNewChatState } from "../../../recoil/atoms/newChat";
+import { newChatMemberState } from "../../../recoil/atoms/newChat";
 import SideBarCategoryList from "./SideBarCategoryList";
 import SideBarNewChatMemberList from "./SideBarNewChatMemberList";
-import { Typography } from "@material-tailwind/react";
 import NewChatTitleModal from "../../Common/Modal/NewChatTitleModal";
 import CreateChatButtonGroup from "../Common/CreateChatButtonGroup";
 
@@ -19,7 +19,7 @@ export default function SideBar({ isModalOpen, onModalClick }) {
         <article
           className={`mt-4 w-full ${
             createNewChat ? "h-1/2 flex flex-col justify-between" : ""
-          } border-t border-white overflow-auto`}
+          } border-t border-blue-gray-100 overflow-auto`}
         >
           {newChatMembers.length === 0 ? (
             <Typography

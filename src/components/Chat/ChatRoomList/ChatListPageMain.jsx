@@ -28,6 +28,7 @@ export default function ChatListPageMain() {
       }
       return getChatList();
     },
+    refetchOnWindowFocus: false,
   });
   const { connect, disconnect } = useChatNotification(
     "NEW_CHAT_NOTIFICATION",
@@ -77,7 +78,6 @@ export default function ChatListPageMain() {
             key={uuidv4()}
             chatRoom={chatRoom}
             nowChatRoomId={nowChatRoomId}
-            chatRooms={chatRooms}
             setChatRooms={setChatRooms}
           />
         ))}

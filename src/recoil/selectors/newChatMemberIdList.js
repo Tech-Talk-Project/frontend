@@ -1,5 +1,5 @@
 import { selector } from "recoil";
-import newChatMemberState from "../atoms/newChatMember";
+import { newChatMemberState } from "../atoms/newChat";
 
 const newChatMemberInfoState = selector({
   key: "newChatMemberIdListState",

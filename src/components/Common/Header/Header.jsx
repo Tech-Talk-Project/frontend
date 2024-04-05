@@ -12,7 +12,8 @@ import { removeCookie } from "../../../utils/cookie";
 import { CATEGORIES } from "../../../constants/category";
 import MobileNavMenu from "./MobileNavMenu";
 import CategoryMenu from "../../Main/SideBar/SideBarCategoryItem";
-import createNewChatState from "../../../recoil/atoms/createNewChat";
+import { createNewChatState } from "../../../recoil/atoms/newChat";
+import { newChatMemberState } from "../../../recoil/atoms/newChat";
 
 const MENUS = [
   { value: "Home", path: "/" },
@@ -28,11 +29,13 @@ export default function Header() {
   const [isLoggedIn, setIsLoggedIn] = useRecoilState(isLoggedInState);
   const setMemberId = useSetRecoilState(memberIdState);
   const setCreateNewChat = useSetRecoilState(createNewChatState);
+  const setNewChatMembers = useSetRecoilState(newChatMemberState);
 
   const handleLogoutClick = () => {
     setIsLoggedIn(false);
     setMemberId(null);
     setCreateNewChat(false);
+    setNewChatMembers([]);
     removeCookie("accessToken", { path: "/" });
     navigate("/");
   };

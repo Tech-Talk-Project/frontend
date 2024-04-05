@@ -17,6 +17,7 @@ import LoginCallbackPage from "./pages/LoginCallbackPage";
 import { queryClient } from "./apis/queryClient";
 import ChatListPage from "./pages/ChatListPage";
 import ChattingPage from "./pages/ChattingPage";
+import UserDetailPage from "./pages/UserDetailPage";
 
 const router = createBrowserRouter([
   {
@@ -41,6 +42,10 @@ const router = createBrowserRouter([
           {
             path: "/profile",
             element: <ProfilePage />,
+          },
+          {
+            path: "/user/:selectedMemberId",
+            element: <UserDetailPage />,
           },
         ],
       },

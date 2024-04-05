@@ -18,7 +18,7 @@ export default function ChattingColumn() {
   const setPrevChatRoomId = useSetRecoilState(prevChatRoomIdState);
   const {
     error,
-    data: { title, messages, unreadCount, members },
+    data: { title, ownerId, messages, unreadCount, members },
   } = useQuery({
     queryKey: CHAT_QUERY_KEYS.chatData(chatRoomId),
     queryFn: () => getChattingData({ chatRoomId }),
@@ -52,7 +52,12 @@ export default function ChattingColumn() {
   }
   return (
     <article className="flex flex-col gap-1 grow pl-4 md:pl-2 pr-4 py-4 max-h-full h-full w-full md:w-[calc(100vw-42rem)]">
-      <ChattingInfo title={title} members={members} chatRoomId={chatRoomId} />
+      <ChattingInfo
+        title={title}
+        ownerId={ownerId}
+        members={members}
+        chatRoomId={chatRoomId}
+      />
       <ChattingList
         memberId={memberId}
         chatRoomId={chatRoomId}
