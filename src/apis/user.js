@@ -50,3 +50,10 @@ export const follow = ({ selectedMemberId }) =>
       memberId: selectedMemberId,
     })
     .then((response) => response.data);
+
+export const unFollow = ({ selectedMemberId }) =>
+  instance
+    .post(`${ENDPOINT}/follow/remove`, {
+      memberId: selectedMemberId,
+    })
+    .then((response) => response.data);

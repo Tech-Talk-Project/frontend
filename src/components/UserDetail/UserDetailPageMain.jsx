@@ -4,7 +4,12 @@ import { useRecoilValue } from "recoil";
 import { useParams } from "react-router-dom";
 import { isLoggedInState } from "../../recoil/atoms/auth";
 import { USERS_QUERY_KEYS } from "../../constants/queryKeys";
-import { follow, getUserData, getUserDataWithLogin } from "../../apis/user";
+import {
+  follow,
+  getUserData,
+  getUserDataWithLogin,
+  unFollow,
+} from "../../apis/user";
 import Information from "./Modal/Information";
 import Introduction from "./Modal/Introduction";
 import Links from "./Modal/Links";
@@ -43,13 +48,27 @@ export default function UserDetailPageMain() {
   });
   const followMutate = useMutation({
     mutationFn: () => follow({ selectedMemberId }),
+    onSuccess: () => {
+      queryClient.invalidateQueries(
+        USERS_QUERY_KEYS.userDataWithFollowData(selectedMemberId)
+      );
+    },
+  });
+  const unFollowMutate = useMutation({
+    mutationFn: () => unFollow({ selectedMemberId }),
+    onSuccess: () => {
+      queryClient.invalidateQueries(
+        USERS_QUERY_KEYS.userDataWithFollowData(selectedMemberId)
+      );
+    },
   });
 
   const handleFollowClick = () => {
+    if (following) {
+      unFollowMutate.mutate({ selectedMemberId });
+      return;
+    }
     followMutate.mutate({ selectedMemberId });
-    queryClient.invalidateQueries(
-      USERS_QUERY_KEYS.userDataWithFollowData(selectedMemberId)
-    );
   };
   return (
     <>
