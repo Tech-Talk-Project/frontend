@@ -1,5 +1,5 @@
 import React from "react";
-import DescriptionEditor from "../../../Profile/Description/DescriptionEditor/DescriptionEditor";
+import DescriptionEditor from "../../Profile/Description/DescriptionEditor/DescriptionEditor";
 
 export default function Description({ content }) {
   return (

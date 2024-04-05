@@ -1,7 +1,7 @@
 import React from "react";
 import { Typography } from "@material-tailwind/react";
 import { v4 as uuidv4 } from "uuid";
-import Link from "../../../Profile/Link/Link";
+import Link from "../../Profile/Link/Link";
 
 export default function Links({ links }) {
   return (

@@ -1,8 +1,7 @@
 import React from "react";
 import { Typography } from "@material-tailwind/react";
 import { v4 as uuidv4 } from "uuid";
-import { CATEGORYS_PATH } from "../../../../constants/category";
-import SkillImage from "../../../Common/Image/SkillImage";
+import SkillItem from "../../Main/User/SkillItem";
 
 export default function Skills({ skills }) {
   return (
@@ -10,13 +9,7 @@ export default function Skills({ skills }) {
       <Typography variant="h5">SKILLS</Typography>
       <ul className="flex gap-3 flex-wrap">
         {skills.map((skill) => (
-          <li key={uuidv4()}>
-            <SkillImage
-              size="md"
-              language={skill}
-              imageUrl={CATEGORYS_PATH[skill]}
-            />
-          </li>
+          <SkillItem key={uuidv4()} skill={skill} />
         ))}
       </ul>
     </article>
