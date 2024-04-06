@@ -57,3 +57,10 @@ export const unFollow = ({ selectedMemberId }) =>
       memberId: selectedMemberId,
     })
     .then((response) => response.data);
+
+export const searchWithEmail = ({ email, limit = 10 }) =>
+  instance
+    .get("/members/search", {
+      params: { email, limit },
+    })
+    .then((response) => response.data);

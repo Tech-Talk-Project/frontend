@@ -32,6 +32,7 @@ export default function ChattingInfo({ title, ownerId, members, chatRoomId }) {
           ownerId={ownerId}
           chatRoomId={chatRoomId}
           nowChatRoomId={chatRoomId}
+          invite={true}
         />
       </div>
     </div>

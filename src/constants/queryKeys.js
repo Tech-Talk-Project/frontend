@@ -7,6 +7,7 @@ export const USERS_QUERY_KEYS = {
   userData: (memberId) => ["userData", memberId],
   userDataWithFollowData: (memberId) => ["userDataWithFollowData", memberId],
   followingUsers: ["followingUsers"],
+  searchWithEmail: (query) => ["searchWithEmail", query],
 };
 
 export const PROFILE_QUERY_KEYS = {
