@@ -14,10 +14,14 @@ import ProfileImage from "../../Common/Image/ProfileImage";
 import Button from "../../Common/Button";
 
 export default function ChatRoomMembersModal({ isOpen, onClick, members }) {
+  const handleDialogOpen = (e) => {
+    e.stopPropagation();
+    onClick();
+  };
   return (
     <Dialog
       open={isOpen}
-      handler={onClick}
+      handler={handleDialogOpen}
       size="xs"
       className=" max-h-96 overflow-y-auto"
     >

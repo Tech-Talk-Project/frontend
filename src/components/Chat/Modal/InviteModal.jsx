@@ -73,7 +73,7 @@ export default function InviteModal({ isOpen, setIsOpen }) {
           />
           {searchData.length === 0 ? (
             <Typography className=" px-3 pt-2">
-              "{getValues().email}"로 검색된 결과가 존재하지 않습니다.
+              "{debouncedValue}"로 검색된 결과가 존재하지 않습니다.
             </Typography>
           ) : (
             <Card className="w-full max-h-60 overflow-auto">
