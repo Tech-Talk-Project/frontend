@@ -9,7 +9,7 @@ import {
   Typography,
 } from "@material-tailwind/react";
 import { useForm, useWatch } from "react-hook-form";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, keepPreviousData } from "@tanstack/react-query";
 import { USERS_QUERY_KEYS } from "../../../../constants/queryKeys";
 import { searchWithEmail } from "../../../../apis/user";
 import useDebounce from "../../../../hooks/useDebounce";
@@ -33,6 +33,7 @@ export default function InviteModal({ isOpen, setIsOpen }) {
     queryKey: USERS_QUERY_KEYS.searchWithEmail(debouncedValue),
     queryFn: () => searchWithEmail({ email: debouncedValue }),
     enabled: !!debouncedValue,
+    placeholderData: keepPreviousData,
   });
 
   const handleDialogClose = () => {
