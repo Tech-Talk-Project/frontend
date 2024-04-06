@@ -74,16 +74,18 @@ export default function UserDetailPageMain() {
     <>
       <section className="flex flex-col items-center gap-4 p-4 w-full md:w-[320px] shrink-0">
         <ProfileImage size="lg" imageUrl={imageUrl} />
-        <Button
-          className={`mt-4 py-2 w-full text-base border ${
-            following
-              ? "border-blue-gray-600"
-              : "bg-brand border-brand hover:bg-black hover:border-blue-gray-600"
-          } duration-150`}
-          onClick={handleFollowClick}
-        >
-          {following ? "following" : "follow"}
-        </Button>
+        {isLoggedIn && (
+          <Button
+            className={`mt-4 py-2 w-full text-base border ${
+              following
+                ? "border-blue-gray-600"
+                : "bg-brand border-brand hover:bg-black hover:border-blue-gray-600"
+            } duration-150`}
+            onClick={handleFollowClick}
+          >
+            {following ? "following" : "follow"}
+          </Button>
+        )}
         <Information info={info} />
         <Introduction introduction={introduction} />
         <Links links={links} />
