@@ -7,16 +7,13 @@ import {
   DialogFooter,
   Input,
   Typography,
-  Card,
-  List,
-  ListItem,
 } from "@material-tailwind/react";
 import { useForm, useWatch } from "react-hook-form";
 import { useQuery } from "@tanstack/react-query";
-import { v4 as uuidv4 } from "uuid";
-import { USERS_QUERY_KEYS } from "../../../constants/queryKeys";
-import { searchWithEmail } from "../../../apis/user";
-import useDebounce from "../../../hooks/useDebounce";
+import { USERS_QUERY_KEYS } from "../../../../constants/queryKeys";
+import { searchWithEmail } from "../../../../apis/user";
+import useDebounce from "../../../../hooks/useDebounce";
+import SearchResultList from "./SearchResultList";
 
 export default function InviteModal({ isOpen, setIsOpen }) {
   const { register, handleSubmit, reset, getValues, control } = useForm({
@@ -76,13 +73,7 @@ export default function InviteModal({ isOpen, setIsOpen }) {
               "{debouncedValue}"로 검색된 결과가 존재하지 않습니다.
             </Typography>
           ) : (
-            <Card className="w-full max-h-60 overflow-auto">
-              <List>
-                {searchData.map((member) => (
-                  <ListItem key={uuidv4()}>{member.name}</ListItem>
-                ))}
-              </List>
-            </Card>
+            <SearchResultList searchData={searchData} />
           )}
         </DialogBody>
         <DialogFooter>

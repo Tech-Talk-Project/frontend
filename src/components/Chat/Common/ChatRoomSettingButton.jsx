@@ -20,7 +20,7 @@ import { useRecoilValue } from "recoil";
 import { memberIdState } from "../../../recoil/atoms/auth";
 import useModal from "../../../hooks/useModal";
 import TitleChangeComfirmModal from "../Modal/TitleChangeComfirmModal";
-import InviteModal from "../Modal/InviteModal";
+import InviteModal from "../Modal/InviteModal/InviteModal";
 
 export default function ChatRoomSettingButton({
   title,
