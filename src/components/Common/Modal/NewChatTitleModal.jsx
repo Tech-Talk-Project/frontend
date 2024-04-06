@@ -39,7 +39,7 @@ export default function NewChatTitleModal({ isOpen, onClick }) {
     handleSubmit,
     reset,
     setFocus,
-    formState: { errors, isValid },
+    formState: { errors, isValid, isSubmitting },
   } = useForm({
     defaultValues: {
       title: "",
@@ -51,6 +51,7 @@ export default function NewChatTitleModal({ isOpen, onClick }) {
     onClick();
   };
   const onSubmit = ({ title }) => {
+    if (createChatRoomMutate.isPending) return;
     if (!isValid) {
       setFocus("title");
       return;
@@ -100,7 +101,12 @@ export default function NewChatTitleModal({ isOpen, onClick }) {
             >
               취소
             </Button>
-            <Button type="submit" ripple={false} className="bg-brand text-sm">
+            <Button
+              type="submit"
+              ripple={false}
+              disabled={isSubmitting}
+              className="bg-brand text-sm"
+            >
               채팅하기
             </Button>
           </div>
