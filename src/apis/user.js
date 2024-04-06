@@ -64,3 +64,11 @@ export const searchWithEmail = ({ email, limit = 10 }) =>
       params: { email, limit },
     })
     .then((response) => response.data);
+
+export const inviteUserWithEmail = ({ chatRoomId, memberId }) =>
+  instance
+    .post(`${ENDPOINT}/chat/invite`, {
+      chatRoomId,
+      invitedMemberId: memberId,
+    })
+    .then((response) => response.data);

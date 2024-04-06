@@ -35,10 +35,6 @@ export default function InviteModal({ isOpen, setIsOpen }) {
     enabled: !!debouncedValue,
   });
 
-  const handleCancelClick = () => {
-    setIsOpen();
-    reset({ email: "" });
-  };
   const handleDialogClose = () => {
     setIsOpen();
     reset({ email: "" });
@@ -73,13 +69,16 @@ export default function InviteModal({ isOpen, setIsOpen }) {
               "{debouncedValue}"로 검색된 결과가 존재하지 않습니다.
             </Typography>
           ) : (
-            <SearchResultList searchData={searchData} />
+            <SearchResultList
+              searchData={searchData}
+              onDialogClose={handleDialogClose}
+            />
           )}
         </DialogBody>
         <DialogFooter>
           <div>
             <Button
-              onClick={handleCancelClick}
+              onClick={handleDialogClose}
               ripple={false}
               className="mr-1 bg-brand text-sm"
             >
