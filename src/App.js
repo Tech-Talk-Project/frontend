@@ -7,6 +7,7 @@ import GlobalErrorFallback from "./components/Common/GlobalErrorFallback";
 import { useSetRecoilState } from "recoil";
 import prevChatRoomIdState from "./recoil/atoms/chatRoomId";
 import { createNewChatState, newChatMemberState } from "./recoil/atoms/newChat";
+import Toast from "./components/Common/Toast";
 
 function App() {
   const location = useLocation();
@@ -32,6 +33,7 @@ function App() {
         {({ reset }) => (
           <ErrorBoundary fallback={GlobalErrorFallback} onReset={reset}>
             <Outlet />
+            <Toast />
           </ErrorBoundary>
         )}
       </QueryErrorResetBoundary>
