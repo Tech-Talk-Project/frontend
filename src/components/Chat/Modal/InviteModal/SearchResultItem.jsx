@@ -12,7 +12,7 @@ export default function SearchResultItem({
   const { chatRoomId } = useParams();
   const inviteMutate = useMutation({
     mutationFn: () => inviteUserWithEmail({ chatRoomId, memberId }),
-    onSuccess: () => {
+    onSettled: () => {
       onDialogClose();
     },
   });
