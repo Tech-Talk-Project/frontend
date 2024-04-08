@@ -18,6 +18,7 @@ import { queryClient } from "./apis/queryClient";
 import ChatListPage from "./pages/ChatListPage";
 import ChattingPage from "./pages/ChattingPage";
 import UserDetailPage from "./pages/UserDetailPage";
+import ProtectedRoute from "./pages/ProtectedRoute";
 
 const router = createBrowserRouter([
   {
@@ -33,15 +34,27 @@ const router = createBrowserRouter([
           },
           {
             path: "/chatList",
-            element: <ChatListPage />,
+            element: (
+              <ProtectedRoute>
+                <ChatListPage />
+              </ProtectedRoute>
+            ),
           },
           {
             path: "/chatting/:chatRoomId",
-            element: <ChattingPage />,
+            element: (
+              <ProtectedRoute>
+                <ChattingPage />
+              </ProtectedRoute>
+            ),
           },
           {
             path: "/profile",
-            element: <ProfilePage />,
+            element: (
+              <ProtectedRoute>
+                <ProfilePage />
+              </ProtectedRoute>
+            ),
           },
           {
             path: "/user/:selectedMemberId",

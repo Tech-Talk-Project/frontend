@@ -1,5 +1,10 @@
 import React from "react";
-import { MdOutlineMoreVert, MdExitToApp, MdSubtitles } from "react-icons/md";
+import {
+  MdOutlineMoreVert,
+  MdExitToApp,
+  MdSubtitles,
+  MdGroupAdd,
+} from "react-icons/md";
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import {
@@ -15,6 +20,7 @@ import { useRecoilValue } from "recoil";
 import { memberIdState } from "../../../recoil/atoms/auth";
 import useModal from "../../../hooks/useModal";
 import TitleChangeComfirmModal from "../Modal/TitleChangeComfirmModal";
+import InviteModal from "../Modal/InviteModal/InviteModal";
 
 export default function ChatRoomSettingButton({
   title,
@@ -22,9 +28,11 @@ export default function ChatRoomSettingButton({
   ownerId,
   nowChatRoomId,
   setChatRooms,
+  invite,
 }) {
   const navigate = useNavigate();
-  const [isOpen, setIsOpen] = useModal();
+  const [isTitleChangeModalOpen, setIsTitleChangeModalOpen] = useModal();
+  const [isInviteModalOpen, setIsInviteModalOpen] = useModal();
   const memberId = useRecoilValue(memberIdState);
   const chatRoomExitMutate = useMutation({
     mutationFn: () => exitChatRoom({ chatRoomId }),
@@ -40,7 +48,11 @@ export default function ChatRoomSettingButton({
 
   const handleTitleChangeClick = (e) => {
     e.stopPropagation();
-    setIsOpen();
+    setIsTitleChangeModalOpen();
+  };
+  const handleInviteClick = (e) => {
+    e.stopPropagation();
+    setIsInviteModalOpen();
   };
   const handleExitClick = (e) => {
     e.stopPropagation();
@@ -68,6 +80,15 @@ export default function ChatRoomSettingButton({
               <Typography variant="h6">채팅방 이름 변경</Typography>
             </MenuItem>
           )}
+          {invite && (
+            <MenuItem
+              className="flex items-center gap-2 p-2"
+              onClick={handleInviteClick}
+            >
+              <MdGroupAdd size={20} />
+              <Typography variant="h6">유저 초대</Typography>
+            </MenuItem>
+          )}
           <MenuItem
             className="flex items-center gap-2 p-2 hover:!text-red-700"
             onClick={handleExitClick}
@@ -78,11 +99,15 @@ export default function ChatRoomSettingButton({
         </MenuList>
       </Menu>
       <TitleChangeComfirmModal
-        isOpen={isOpen}
-        setIsOpen={setIsOpen}
+        isOpen={isTitleChangeModalOpen}
+        setIsOpen={setIsTitleChangeModalOpen}
         chatRoomId={chatRoomId}
         title={title}
         onTitleChangeClick={handleTitleChangeClick}
+      />
+      <InviteModal
+        isOpen={isInviteModalOpen}
+        setIsOpen={setIsInviteModalOpen}
       />
     </>
   );
