@@ -37,10 +37,10 @@ export const getUserDataWithLogin = ({ selectedMemberId }) =>
     })
     .then((response) => response.data);
 
-export const getFollowingUsersData = ({ cursor }) =>
+export const getFollowingUsersData = ({ pageNumber, pageSize = 30 }) =>
   instance
     .get(`${ENDPOINT}/follow/followings`, {
-      params: { cursor },
+      params: { pageNumber, pageSize },
     })
     .then((response) => response.data);
 

@@ -6,7 +6,7 @@ export const USERS_QUERY_KEYS = {
   usersData: (categories) => ["usersData", categories],
   userData: (memberId) => ["userData", memberId],
   userDataWithFollowData: (memberId) => ["userDataWithFollowData", memberId],
-  followingUsers: ["followingUsers"],
+  followingUsers: (page) => ["followingUsers", page],
   searchWithEmail: (query) => ["searchWithEmail", query],
 };
 
