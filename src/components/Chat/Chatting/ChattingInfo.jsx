@@ -25,6 +25,7 @@ export default function ChattingInfo({ title, ownerId, members, chatRoomId }) {
         <ChatRoomMembersModal
           isOpen={isOpen}
           onClick={setIsOpen}
+          ownerId={ownerId}
           members={members}
         />
         <ChatRoomSettingButton
