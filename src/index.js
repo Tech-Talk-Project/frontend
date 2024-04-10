@@ -7,6 +7,7 @@ import { GoogleOAuthProvider } from "@react-oauth/google";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { RecoilRoot } from "recoil";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { ThemeProvider } from "@material-tailwind/react";
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
@@ -89,6 +90,7 @@ root.render(
             clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
           >
             <RouterProvider router={router} />
+            <ReactQueryDevtools initialIsOpen={true} />
           </GoogleOAuthProvider>
         </QueryClientProvider>
       </RecoilRoot>
