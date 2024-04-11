@@ -4,6 +4,7 @@ import { USERS_QUERY_KEYS } from "../../constants/queryKeys";
 import { getFollowingUsersData } from "../../apis/user";
 import UsersGrid from "./User/UsersGrid";
 import Pagination from "./Common/Pagination";
+import NullUserGrid from "./NullUserGrid";
 
 export default function FollowingPage() {
   const [page, setPage] = useState(1);
@@ -52,17 +53,23 @@ export default function FollowingPage() {
   };
   return (
     <section className="flex flex-col justify-between gap-4 h-full">
-      <UsersGrid users={userData} isFollowing={true} />
-      <Pagination
-        pageStart={pageStart}
-        page={page}
-        totalPage={totalPage}
-        onFirstPageClick={handleFirstPageClick}
-        onLastPageClick={handleLastPageClick}
-        onPrevClick={handlePrevClick}
-        onNextClick={handleNextClick}
-        getItemProps={getItemProps}
-      />
+      {userData.length === 0 ? (
+        <NullUserGrid />
+      ) : (
+        <>
+          <UsersGrid users={userData} isFollowing={true} />
+          <Pagination
+            pageStart={pageStart}
+            page={page}
+            totalPage={totalPage}
+            onFirstPageClick={handleFirstPageClick}
+            onLastPageClick={handleLastPageClick}
+            onPrevClick={handlePrevClick}
+            onNextClick={handleNextClick}
+            getItemProps={getItemProps}
+          />
+        </>
+      )}
     </section>
   );
 }
