@@ -1,29 +1,18 @@
-import { instance } from "../../../../apis/axios";
+import { uploadImage } from "../../../../apis/profile";
 
-const uploadAdapter = (loader) => {
+function uploadAdapter(loader) {
   return {
-    upload() {
+    upload: () => {
       return new Promise((resolve, reject) => {
         const formData = new FormData();
         loader.file.then((file) => {
           formData.append("image", file);
-          instance
-            .post("/user/image-upload", formData, {
-              headers: {
-                "Content-Type": "multipart/form-data",
-              },
-            })
-            .then((res) => {
-              resolve({
-                default: res.data,
-              });
-            })
-            .catch((err) => reject(err));
+          uploadImage({ formData, resolve, reject });
         });
       });
     },
   };
-};
+}
 
 function uploadPlugin(editor) {
   editor.plugins.get("FileRepository").createUploadAdapter = (loader) => {
