@@ -25,6 +25,20 @@ export const setProfileSkills = ({ skills }) =>
     .post(`${ENDPOINT}/update/skills`, { skills })
     .then((response) => response.data);
 
+export const uploadImage = ({ formData, resolve, reject }) =>
+  instance
+    .post("/user/image-upload", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    })
+    .then((res) => {
+      resolve({
+        default: res.data,
+      });
+    })
+    .catch((err) => reject(err));
+
 export const setProfileDescription = ({ description }) =>
   instance
     .post(`${ENDPOINT}/update/description`, {

@@ -6,6 +6,7 @@ import {
   List,
   Card,
 } from "@material-tailwind/react";
+import { v4 as uuidv4 } from "uuid";
 import Button from "../../Common/Button";
 import ChatRoomMemberItem from "./ChatRoomMemberItem";
 
@@ -21,7 +22,11 @@ export default function ChatRoomMembersModal({
         <Card>
           <List>
             {members.map((member) => (
-              <ChatRoomMemberItem member={member} ownerId={ownerId} />
+              <ChatRoomMemberItem
+                key={uuidv4()}
+                member={member}
+                ownerId={ownerId}
+              />
             ))}
           </List>
         </Card>
