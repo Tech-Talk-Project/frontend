@@ -32,7 +32,7 @@ export default function ChattingList({
           chatRoomId,
           cursor: pageParam,
         }),
-      initialPageParam: new Date(0).toISOString(),
+      initialPageParam: null,
       getNextPageParam: (lastPage, allPages) => {
         const length = firstChatData.length;
         if (length < 100) return null;
