@@ -41,3 +41,11 @@ export const changeRoomTitle = ({ chatRoomId, newTitle }) =>
       newTitle,
     })
     .then((response) => response.data);
+
+export const inviteUserWithEmail = ({ chatRoomId, memberId }) =>
+  instance
+    .post(`${ENDPOINT}/invite`, {
+      chatRoomId,
+      invitedMemberId: memberId,
+    })
+    .then((response) => response.data);
