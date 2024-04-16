@@ -7,7 +7,6 @@ import { CHAT_QUERY_KEYS } from "../../../constants/queryKeys";
 import useIntersectionObserver from "../../../hooks/useIntersectionObserver";
 import { getChattingWithCursor } from "../../../apis/chat";
 import ChattingItem from "./ChattingItem";
-import { queryClient } from "../../../apis/queryClient";
 import Button from "../../Common/Button";
 
 export default function ChattingList({
@@ -32,18 +31,14 @@ export default function ChattingList({
           chatRoomId,
           cursor: pageParam,
         }),
-      initialPageParam: new Date(0).toISOString(),
+      initialPageParam: null,
       getNextPageParam: (lastPage, allPages) => {
-        const length = firstChatData.length;
-        if (length < 100) return null;
-        if (allPages.length === 1) {
-          if (length === 100) return firstChatData[0]?.sendTime;
-          return firstChatData[1]?.sendTime;
-        }
+        const lastSendTime = new Date(firstChatData[0].sendTime);
+        const nextCursor = new Date(lastPage.nextCursor);
 
-        return lastPage.messages.length > 0
-          ? lastPage.messages[0].sendTime
-          : null;
+        return lastSendTime > nextCursor
+          ? lastPage.nextCursor
+          : firstChatData[0].sendTime;
       },
     });
   const [observe, unobserve] = useIntersectionObserver(() => {
@@ -148,10 +143,6 @@ export default function ChattingList({
 
     return () => unobserve(observer);
   }, [observerRef, hasNextPage, observe, unobserve]);
-
-  useEffect(() => {
-    queryClient.removeQueries(CHAT_QUERY_KEYS.chatDataWithCursor(chatRoomId));
-  }, [chatRoomId]);
 
   if (error) {
     return <div>{error.message}</div>;

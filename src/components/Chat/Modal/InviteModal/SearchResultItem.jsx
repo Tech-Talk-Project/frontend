@@ -4,7 +4,7 @@ import { useMutation } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
 import ProfileImage from "../../../Common/Image/ProfileImage";
-import { inviteUserWithEmail } from "../../../../apis/user";
+import { inviteUserWithEmail } from "../../../../apis/chat";
 import { toastState } from "../../../../recoil/atoms/toast";
 
 export default function SearchResultItem({

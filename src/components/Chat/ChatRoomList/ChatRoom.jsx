@@ -30,8 +30,6 @@ export default function ChatRoom({
     memberId,
     (newChat) => {
       const { senderId, sendTime, content } = JSON.parse(newChat);
-      if (senderId < -1)
-        queryClient.invalidateQueries(CHAT_QUERY_KEYS.chatData(chatRoomId));
       setChatRooms((prevChatRooms) => {
         const index = prevChatRooms.findIndex(
           (room) => room.chatRoomId === chatRoomId
@@ -65,6 +63,7 @@ export default function ChatRoom({
     if (nowChatRoomId) {
       await disconnectChatRoom({ chatRoomId: nowChatRoomId });
     }
+    queryClient.removeQueries(CHAT_QUERY_KEYS.chatDataWithCursor(chatRoomId));
     navigate(`/chatting/${chatRoomId}`);
   };
 
