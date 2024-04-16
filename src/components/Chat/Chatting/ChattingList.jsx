@@ -7,7 +7,6 @@ import { CHAT_QUERY_KEYS } from "../../../constants/queryKeys";
 import useIntersectionObserver from "../../../hooks/useIntersectionObserver";
 import { getChattingWithCursor } from "../../../apis/chat";
 import ChattingItem from "./ChattingItem";
-import { queryClient } from "../../../apis/queryClient";
 import Button from "../../Common/Button";
 
 export default function ChattingList({
@@ -148,10 +147,6 @@ export default function ChattingList({
 
     return () => unobserve(observer);
   }, [observerRef, hasNextPage, observe, unobserve]);
-
-  useEffect(() => {
-    queryClient.removeQueries(CHAT_QUERY_KEYS.chatDataWithCursor(chatRoomId));
-  }, [chatRoomId]);
 
   if (error) {
     return <div>{error.message}</div>;
