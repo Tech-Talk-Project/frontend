@@ -30,34 +30,32 @@ export default function ChatRoom({
     memberId,
     (newChat) => {
       const { senderId, sendTime, content } = JSON.parse(newChat);
-      if (senderId < -1)
-        setChatRooms((prevChatRooms) => {
-          const index = prevChatRooms.findIndex(
-            (room) => room.chatRoomId === chatRoomId
-          );
-          if (index === -1) return prevChatRooms;
-          const { memberCount, unreadCount, lastMessage } =
-            prevChatRooms[index];
-          return [
-            {
-              ...prevChatRooms[index],
-              memberCount:
-                senderId === -2
-                  ? memberCount - 1
-                  : senderId === -3
-                  ? memberCount + 1
-                  : memberCount,
-              unreadCount:
-                nowChatRoomId === chatRoomId ? unreadCount : unreadCount + 1,
-              lastMessage: {
-                ...lastMessage,
-                sendTime,
-                content,
-              },
+      setChatRooms((prevChatRooms) => {
+        const index = prevChatRooms.findIndex(
+          (room) => room.chatRoomId === chatRoomId
+        );
+        if (index === -1) return prevChatRooms;
+        const { memberCount, unreadCount, lastMessage } = prevChatRooms[index];
+        return [
+          {
+            ...prevChatRooms[index],
+            memberCount:
+              senderId === -2
+                ? memberCount - 1
+                : senderId === -3
+                ? memberCount + 1
+                : memberCount,
+            unreadCount:
+              nowChatRoomId === chatRoomId ? unreadCount : unreadCount + 1,
+            lastMessage: {
+              ...lastMessage,
+              sendTime,
+              content,
             },
-            ...prevChatRooms.filter((room) => room.chatRoomId !== chatRoomId),
-          ];
-        });
+          },
+          ...prevChatRooms.filter((room) => room.chatRoomId !== chatRoomId),
+        ];
+      });
     }
   );
 
