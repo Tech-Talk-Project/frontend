@@ -33,16 +33,12 @@ export default function ChattingList({
         }),
       initialPageParam: null,
       getNextPageParam: (lastPage, allPages) => {
-        const length = firstChatData.length;
-        if (length < 100) return null;
-        if (allPages.length === 1) {
-          if (length === 100) return firstChatData[0]?.sendTime;
-          return firstChatData[1]?.sendTime;
-        }
+        const lastSendTime = new Date(firstChatData[0].sendTime);
+        const nextCursor = new Date(lastPage.nextCursor);
 
-        return lastPage.messages.length > 0
-          ? lastPage.messages[0].sendTime
-          : null;
+        return lastSendTime > nextCursor
+          ? lastPage.nextCursor
+          : firstChatData[0].sendTime;
       },
     });
   const [observe, unobserve] = useIntersectionObserver(() => {
