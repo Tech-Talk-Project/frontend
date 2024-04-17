@@ -14,7 +14,6 @@ import prevChatRoomIdState from "../../../recoil/atoms/chatRoomId";
 
 export default function ChatListPageMain() {
   const { chatRoomId: nowChatRoomId } = useParams();
-  const [chatRooms, setChatRooms] = useState([]);
   const memberId = useRecoilValue(memberIdState);
   const prevChatRoomId = useRecoilValue(prevChatRoomIdState);
   const {
@@ -30,6 +29,7 @@ export default function ChatListPageMain() {
     },
     refetchOnWindowFocus: false,
   });
+  const [chatRooms, setChatRooms] = useState(chatRoomList);
   const { connect, disconnect } = useChatNotification(
     "NEW_CHAT_NOTIFICATION",
     memberId,
@@ -38,9 +38,9 @@ export default function ChatListPageMain() {
     }
   );
 
-  useEffect(() => {
-    setChatRooms(chatRoomList);
-  }, [chatRoomList]);
+  // useEffect(() => {
+  //   setChatRooms(chatRoomList);
+  // }, [chatRoomList]);
 
   useEffect(() => {
     if (nowChatRoomId) {
