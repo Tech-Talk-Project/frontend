@@ -23,7 +23,7 @@ export default function ChatListPageMain() {
   } = useQuery({
     queryKey: CHAT_QUERY_KEYS.chatList,
     queryFn: async () => {
-      if (prevChatRoomId) {
+      if (prevChatRoomId && prevChatRoomId !== nowChatRoomId) {
         await disconnectChatRoom({ chatRoomId: prevChatRoomId });
       }
       return getChatList();
