@@ -9,23 +9,35 @@ import {
   Typography,
 } from "@material-tailwind/react";
 import { useForm } from "react-hook-form";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import InputError from "../InputError";
 import { INPUT_VALIDATION } from "../../../constants/validation";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import newChatMemberInfoState from "../../../recoil/selectors/newChatMemberIdList";
 import { createChatRoom } from "../../../apis/chat";
-import { newChatMemberState } from "../../../recoil/atoms/newChat";
-import { createNewChatState } from "../../../recoil/atoms/newChat";
+import {
+  newChatMemberState,
+  createNewChatState,
+} from "../../../recoil/atoms/newChat";
+import { memberIdState } from "../../../recoil/atoms/auth";
+import { USERS_QUERY_KEYS } from "../../../constants/queryKeys";
+import { getMyName } from "../../../apis/user";
 
 export default function NewChatTitleModal({ isOpen, onClick }) {
   const navigate = useNavigate();
+  const memberId = useRecoilValue(memberIdState);
   const setNewChatMembers = useSetRecoilState(newChatMemberState);
   const setCreateNewChat = useSetRecoilState(createNewChatState);
   const { newChatMembersIdList, newChatMembersNameList } = useRecoilValue(
     newChatMemberInfoState
   );
+  const { data: userName, isLoading } = useQuery({
+    queryKey: USERS_QUERY_KEYS.userName,
+    queryFn: getMyName,
+    enabled: isOpen,
+  });
+  const newChatMembersName = [userName, ...newChatMembersNameList].join(", ");
   const createChatRoomMutate = useMutation({
     mutationFn: createChatRoom,
     onSuccess: (response) => {
@@ -58,11 +70,10 @@ export default function NewChatTitleModal({ isOpen, onClick }) {
     }
 
     createChatRoomMutate.mutate({
-      title: title.length === 0 ? "" : title.trim(),
-      memberIds: newChatMembersIdList,
+      title: title.length === 0 ? newChatMembersName : title.trim(),
+      memberIds: [memberId, ...newChatMembersIdList],
     });
   };
-
   return (
     <Dialog open={isOpen} handler={onClick}>
       <DialogHeader className="justify-center">
@@ -73,7 +84,7 @@ export default function NewChatTitleModal({ isOpen, onClick }) {
           <Input
             type="text"
             className="font-semibold !text-base !border-blue-gray-300 focus:!border-black"
-            placeholder={newChatMembersNameList.join(", ")}
+            placeholder={isLoading ? "" : newChatMembersName}
             labelProps={{
               className: "hidden",
             }}
