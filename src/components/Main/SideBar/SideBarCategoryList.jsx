@@ -3,13 +3,13 @@ import { Card, List, ListItem } from "@material-tailwind/react";
 import { v4 as uuidv4 } from "uuid";
 import SideBarCategoryItem from "./SideBarCategoryItem";
 import { CATEGORIES } from "../../../constants/category";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import filterState from "../../../recoil/atoms/filter";
 import { isLoggedInState } from "../../../recoil/atoms/auth";
 
 export default function SideBarCategoryList({ createNewChat }) {
   const isLoggedIn = useRecoilValue(isLoggedInState);
-  const setFilter = useSetRecoilState(filterState);
+  const [filter, setFilter] = useRecoilState(filterState);
 
   const handleFollowClick = () => {
     setFilter("");
@@ -28,7 +28,9 @@ export default function SideBarCategoryList({ createNewChat }) {
           <div className="pt-2 border-t border-blue-gray-100">
             <ListItem
               ripple={false}
-              className="text-white"
+              className={`text-white ${
+                filter.length === 0 ? "bg-blue-gray-50 bg-opacity-80" : ""
+              }`}
               onClick={handleFollowClick}
             >
               FOLLOWING

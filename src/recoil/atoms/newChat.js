@@ -1,12 +1,12 @@
 import { atom } from "recoil";
-import { NEW_CHAT_KEYS } from "../../constants/recoilKeys";
+import { NEW_CHAT_RECOIL_KEYS } from "../../constants/recoilKeys";
 
 export const createNewChatState = atom({
-  key: NEW_CHAT_KEYS.createNewChat,
+  key: NEW_CHAT_RECOIL_KEYS.createNewChat,
   default: false,
 });
 
 export const newChatMemberState = atom({
-  key: NEW_CHAT_KEYS.newChatMembers,
+  key: NEW_CHAT_RECOIL_KEYS.newChatMembers,
   default: [],
 });

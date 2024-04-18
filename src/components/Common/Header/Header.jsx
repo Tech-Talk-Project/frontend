@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useRecoilState, useSetRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Drawer, List } from "@material-tailwind/react";
 import { MdMenu, MdClose, MdLogin } from "react-icons/md";
@@ -14,6 +14,8 @@ import MobileNavMenu from "./MobileNavMenu";
 import CategoryMenu from "../../Main/SideBar/SideBarCategoryItem";
 import { createNewChatState } from "../../../recoil/atoms/newChat";
 import { newChatMemberState } from "../../../recoil/atoms/newChat";
+import { logout } from "../../../apis/auth";
+import { toastState } from "../../../recoil/atoms/toast";
 
 const MENUS = [
   { value: "Home", path: "/" },
@@ -30,14 +32,26 @@ export default function Header() {
   const setMemberId = useSetRecoilState(memberIdState);
   const setCreateNewChat = useSetRecoilState(createNewChatState);
   const setNewChatMembers = useSetRecoilState(newChatMemberState);
+  const setToast = useRecoilValue(toastState);
 
-  const handleLogoutClick = () => {
-    setIsLoggedIn(false);
-    setMemberId(null);
-    setCreateNewChat(false);
-    setNewChatMembers([]);
-    removeCookie("accessToken", { path: "/" });
-    navigate("/");
+  const handleLogoutClick = async () => {
+    try {
+      await logout();
+      setIsLoggedIn(false);
+      setMemberId(null);
+      setCreateNewChat(false);
+      setNewChatMembers([]);
+      removeCookie("accessToken", { path: "/" });
+      navigate("/");
+    } catch (error) {
+      setToast({
+        isOpen: true,
+        message: "잠시후에 다시 시도해 주세요.",
+      });
+      setTimeout(() => {
+        setToast({ isOpen: false, message: "" });
+      }, 3000);
+    }
   };
   const handleOpenClick = () => {
     setIsOpen((prev) => !prev);
@@ -52,7 +66,7 @@ export default function Header() {
   };
 
   return (
-    <header className="fixed top-0 flex justify-center items-center w-full h-14 sm:h-20 text-lg bg-light_black border-b border-line z-50">
+    <header className="fixed top-0 flex justify-center items-center w-full h-14 sm:h-20 text-lg bg-light_black border-b border-blue-gray-800 z-50">
       <article className="flex justify-between items-center w-full max-w-7xl px-5">
         <Logo size="md" />
         <nav>

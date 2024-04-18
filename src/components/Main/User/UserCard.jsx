@@ -19,8 +19,10 @@ export default function UserCard({
   const { newChatMembersIdList } = useRecoilValue(newChatMemberInfoState);
   const handleMemberClick = useNewChatMember(cardMemberId, name, imageUrl);
   const isSelected = newChatMembersIdList.includes(cardMemberId);
+  const isMyCard = memberId === cardMemberId;
 
   const handleClick = () => {
+    if (isMyCard) return;
     if (createNewChat) {
       handleMemberClick();
       return;
@@ -30,7 +32,7 @@ export default function UserCard({
   return (
     <li
       className={`flex flex-col gap-2 p-4 border border-blue-gray-800 rounded-lg hover:border-brand duration-150 cursor-pointer ${
-        isSelected ? "border-brand" : ""
+        isSelected || (createNewChat && isMyCard) ? "border-brand" : ""
       }`}
       onClick={handleClick}
     >
@@ -54,7 +56,7 @@ export default function UserCard({
         </ul>
         {createNewChat && (
           <Checkbox
-            checked={isSelected}
+            checked={isSelected || isMyCard}
             ripple={false}
             readOnly
             className="w-6 h-6 hover:before:opacity-0 checked:bg-brand rounded-full before:w-6 before:h-6"

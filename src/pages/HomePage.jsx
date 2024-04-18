@@ -11,6 +11,7 @@ import CreateChatButtonGroup from "../components/Main/Common/CreateChatButtonGro
 import UserGridSkeleton from "../components/Main/User/Skeleton/UserGridSkeleton";
 import { isLoggedInState } from "../recoil/atoms/auth";
 import MainPageMain from "../components/Main/MainPageMain";
+import FollowingPage from "../components/Main/FollowingPage";
 
 export default function HomePage() {
   const [isOpen, handleModalClick] = useModal();
@@ -35,16 +36,20 @@ export default function HomePage() {
     setFilters([]);
   }, [filter]);
   return (
-    <main className="relative flex w-full h-full">
+    <main className="relative flex w-full h-[calc(100vh-3.5rem)] sm:h-[calc(100vh-5rem)]">
       <SideBar isModalOpen={isOpen} onModalClick={handleModalClick} />
-      <div className="relative flex flex-col mb-12 p-4 md:ml-64 w-full">
+      <div className="relative flex flex-col p-4 md:ml-64 w-full">
         <Categories
           filter={filter}
           filters={filters}
           onFilterClick={handleFilterClick}
         />
         <Suspense fallback={<UserGridSkeleton />}>
-          <MainPageMain filter={filter} filters={filters} />
+          {filter.length === 0 ? (
+            <FollowingPage />
+          ) : (
+            <MainPageMain filters={filters} />
+          )}
         </Suspense>
         {createNewChat && (
           <CreateChatButtonGroup

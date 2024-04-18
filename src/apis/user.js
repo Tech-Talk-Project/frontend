@@ -37,10 +37,10 @@ export const getUserDataWithLogin = ({ selectedMemberId }) =>
     })
     .then((response) => response.data);
 
-export const getFollowingUsersData = ({ cursor }) =>
+export const getFollowingUsersData = ({ pageNumber, pageSize = 30 }) =>
   instance
     .get(`${ENDPOINT}/follow/followings`, {
-      params: { cursor },
+      params: { pageNumber, pageSize },
     })
     .then((response) => response.data);
 
@@ -57,3 +57,13 @@ export const unFollow = ({ selectedMemberId }) =>
       memberId: selectedMemberId,
     })
     .then((response) => response.data);
+
+export const searchWithEmail = ({ email, limit = 10 }) =>
+  instance
+    .get("/members/search", {
+      params: { email, limit },
+    })
+    .then((response) => response.data);
+
+export const getMyName = () =>
+  instance.get(`${ENDPOINT}/my-name`).then((response) => response.data);

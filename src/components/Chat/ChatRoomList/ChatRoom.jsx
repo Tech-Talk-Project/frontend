@@ -7,6 +7,8 @@ import useChat from "../../../hooks/useChat";
 import { memberIdState } from "../../../recoil/atoms/auth";
 import { disconnectChatRoom } from "../../../apis/chat";
 import ChatRoomSettingButton from "../Common/ChatRoomSettingButton";
+import { queryClient } from "../../../apis/queryClient";
+import { CHAT_QUERY_KEYS } from "../../../constants/queryKeys";
 
 export default function ChatRoom({
   chatRoom: {
@@ -27,27 +29,28 @@ export default function ChatRoom({
     chatRoomId,
     memberId,
     (newChat) => {
-      const parsedChat = JSON.parse(newChat);
+      const { senderId, sendTime, content } = JSON.parse(newChat);
       setChatRooms((prevChatRooms) => {
         const index = prevChatRooms.findIndex(
           (room) => room.chatRoomId === chatRoomId
         );
         if (index === -1) return prevChatRooms;
+        const { memberCount, unreadCount, lastMessage } = prevChatRooms[index];
         return [
           {
             ...prevChatRooms[index],
             memberCount:
-              parsedChat.senderId === -2
-                ? prevChatRooms[index].memberCount - 1
-                : prevChatRooms[index].memberCount,
+              senderId === -2
+                ? memberCount - 1
+                : senderId === -3
+                ? memberCount + 1
+                : memberCount,
             unreadCount:
-              nowChatRoomId === chatRoomId
-                ? prevChatRooms[index].unreadCount
-                : prevChatRooms[index].unreadCount + 1,
+              nowChatRoomId === chatRoomId ? unreadCount : unreadCount + 1,
             lastMessage: {
-              ...prevChatRooms[index].lastMessage,
-              sendTime: parsedChat.sendTime,
-              content: parsedChat.content,
+              ...lastMessage,
+              sendTime,
+              content,
             },
           },
           ...prevChatRooms.filter((room) => room.chatRoomId !== chatRoomId),
@@ -60,6 +63,7 @@ export default function ChatRoom({
     if (nowChatRoomId) {
       await disconnectChatRoom({ chatRoomId: nowChatRoomId });
     }
+    queryClient.removeQueries(CHAT_QUERY_KEYS.chatDataWithCursor(chatRoomId));
     navigate(`/chatting/${chatRoomId}`);
   };
 

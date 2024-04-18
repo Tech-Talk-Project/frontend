@@ -3,31 +3,20 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import { Spinner } from "@material-tailwind/react";
 import UsersGrid from "./User/UsersGrid";
 import useIntersectionObserver from "../../hooks/useIntersectionObserver";
-import {
-  getUsersDataWithLogin,
-  getFollowingUsersData,
-  getUsersData,
-} from "../../apis/user";
+import { getUsersDataWithLogin, getUsersData } from "../../apis/user";
 import { USERS_QUERY_KEYS } from "../../constants/queryKeys";
 import { useRecoilValue } from "recoil";
 import { isLoggedInState } from "../../recoil/atoms/auth";
 
 const USERS_COUNT = 15;
 
-export default function MainPageMain({ filter, filters }) {
+export default function MainPageMain({ filters }) {
   const observerRef = useRef(null);
   const isLoggedIn = useRecoilValue(isLoggedInState);
   const { fetchNextPage, hasNextPage, isFetchingNextPage, data, error } =
     useInfiniteQuery({
-      queryKey:
-        filter === ""
-          ? USERS_QUERY_KEYS.followingUsers
-          : USERS_QUERY_KEYS.usersData(filters),
+      queryKey: USERS_QUERY_KEYS.usersData(filters),
       queryFn: ({ pageParam = null }) => {
-        if (filter === "")
-          return getFollowingUsersData({
-            cursor: pageParam,
-          });
         if (isLoggedIn)
           return getUsersDataWithLogin({
             cursor: pageParam,

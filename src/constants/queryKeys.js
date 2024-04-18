@@ -3,10 +3,12 @@ export const AUTH_QUERY_KEYS = {
 };
 
 export const USERS_QUERY_KEYS = {
+  userName: ["userName"],
   usersData: (categories) => ["usersData", categories],
   userData: (memberId) => ["userData", memberId],
   userDataWithFollowData: (memberId) => ["userDataWithFollowData", memberId],
-  followingUsers: ["followingUsers"],
+  followingUsers: (page) => ["followingUsers", page],
+  searchWithEmail: (query) => ["searchWithEmail", query],
 };
 
 export const PROFILE_QUERY_KEYS = {

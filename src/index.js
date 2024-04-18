@@ -7,6 +7,7 @@ import { GoogleOAuthProvider } from "@react-oauth/google";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { RecoilRoot } from "recoil";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { ThemeProvider } from "@material-tailwind/react";
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
@@ -18,6 +19,7 @@ import { queryClient } from "./apis/queryClient";
 import ChatListPage from "./pages/ChatListPage";
 import ChattingPage from "./pages/ChattingPage";
 import UserDetailPage from "./pages/UserDetailPage";
+import ProtectedRoute from "./pages/ProtectedRoute";
 
 const router = createBrowserRouter([
   {
@@ -33,15 +35,27 @@ const router = createBrowserRouter([
           },
           {
             path: "/chatList",
-            element: <ChatListPage />,
+            element: (
+              <ProtectedRoute>
+                <ChatListPage />
+              </ProtectedRoute>
+            ),
           },
           {
             path: "/chatting/:chatRoomId",
-            element: <ChattingPage />,
+            element: (
+              <ProtectedRoute>
+                <ChattingPage />
+              </ProtectedRoute>
+            ),
           },
           {
             path: "/profile",
-            element: <ProfilePage />,
+            element: (
+              <ProtectedRoute>
+                <ProfilePage />
+              </ProtectedRoute>
+            ),
           },
           {
             path: "/user/:selectedMemberId",
@@ -76,6 +90,7 @@ root.render(
             clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
           >
             <RouterProvider router={router} />
+            <ReactQueryDevtools initialIsOpen={true} />
           </GoogleOAuthProvider>
         </QueryClientProvider>
       </RecoilRoot>
