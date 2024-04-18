@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 import { Card, List } from "@material-tailwind/react";
 import { v4 as uuidv4 } from "uuid";
@@ -19,7 +19,7 @@ export default function ChatListPageMain() {
   const {
     data: { chatRoomList },
     error,
-  } = useQuery({
+  } = useSuspenseQuery({
     queryKey: CHAT_QUERY_KEYS.chatList,
     queryFn: async () => {
       if (prevChatRoomId && prevChatRoomId !== nowChatRoomId) {

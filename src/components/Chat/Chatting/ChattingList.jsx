@@ -1,6 +1,6 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
-import { useInfiniteQuery } from "@tanstack/react-query";
+import { useSuspenseInfiniteQuery } from "@tanstack/react-query";
 import { Spinner } from "@material-tailwind/react";
 import { MdOutlineArrowCircleDown } from "react-icons/md";
 import { CHAT_QUERY_KEYS } from "../../../constants/queryKeys";
@@ -24,7 +24,7 @@ export default function ChattingList({
   const [prevScrollHeight, setPrevScrollHeight] = useState(0);
   const [showButton, setShowButton] = useState(false);
   const { fetchNextPage, hasNextPage, isFetchingNextPage, data, error } =
-    useInfiniteQuery({
+    useSuspenseInfiniteQuery({
       queryKey: CHAT_QUERY_KEYS.chatDataWithCursor(chatRoomId),
       queryFn: ({ pageParam }) =>
         getChattingWithCursor({
