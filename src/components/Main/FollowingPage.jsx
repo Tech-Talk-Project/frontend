@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import { USERS_QUERY_KEYS } from "../../constants/queryKeys";
 import { getFollowingUsersData } from "../../apis/user";
 import UsersGrid from "./User/UsersGrid";
@@ -11,7 +11,7 @@ export default function FollowingPage() {
   const [pageStart, setPageStart] = useState(1);
   const {
     data: { data: userData, totalPage },
-  } = useQuery({
+  } = useSuspenseQuery({
     queryKey: USERS_QUERY_KEYS.followingUsers(page),
     queryFn: () => getFollowingUsersData({ pageNumber: page }),
     keepPreviousData: true,

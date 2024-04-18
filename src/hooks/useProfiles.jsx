@@ -1,4 +1,4 @@
-import { useQuery, useMutation } from "@tanstack/react-query";
+import { useMutation, useSuspenseQuery } from "@tanstack/react-query";
 import { PROFILE_QUERY_KEYS } from "../constants/queryKeys";
 import {
   getProfile,
@@ -11,7 +11,7 @@ import {
 import { queryClient } from "../apis/queryClient";
 
 export default function useProfiles() {
-  const profileQuery = useQuery({
+  const profileQuery = useSuspenseQuery({
     queryKey: PROFILE_QUERY_KEYS.myProfile,
     queryFn: getProfile,
     staleTime: 5 * 60 * 1000,

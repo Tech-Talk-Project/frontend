@@ -1,5 +1,5 @@
 import React from "react";
-import { useQuery, useMutation } from "@tanstack/react-query";
+import { useMutation, useSuspenseQuery } from "@tanstack/react-query";
 import { useRecoilValue } from "recoil";
 import { useParams } from "react-router-dom";
 import { isLoggedInState } from "../../recoil/atoms/auth";
@@ -32,7 +32,7 @@ export default function UserDetailPageMain() {
       skills,
       following,
     },
-  } = useQuery({
+  } = useSuspenseQuery({
     queryKey: isLoggedIn
       ? USERS_QUERY_KEYS.userDataWithFollowData(selectedMemberId)
       : USERS_QUERY_KEYS.userData(selectedMemberId),
