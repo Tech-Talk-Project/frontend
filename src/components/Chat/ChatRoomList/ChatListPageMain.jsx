@@ -38,9 +38,9 @@ export default function ChatListPageMain() {
     }
   );
 
-  // useEffect(() => {
-  //   setChatRooms(chatRoomList);
-  // }, [chatRoomList]);
+  useEffect(() => {
+    setChatRooms(chatRoomList);
+  }, [chatRoomList]);
 
   useEffect(() => {
     if (nowChatRoomId) {
