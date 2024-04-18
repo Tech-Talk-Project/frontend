@@ -9,7 +9,7 @@ import {
   Typography,
 } from "@material-tailwind/react";
 import { useForm } from "react-hook-form";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import InputError from "../InputError";
 import { INPUT_VALIDATION } from "../../../constants/validation";
@@ -18,14 +18,24 @@ import newChatMemberInfoState from "../../../recoil/selectors/newChatMemberIdLis
 import { createChatRoom } from "../../../apis/chat";
 import { newChatMemberState } from "../../../recoil/atoms/newChat";
 import { createNewChatState } from "../../../recoil/atoms/newChat";
+import { USERS_QUERY_KEYS } from "../../../constants/queryKeys";
+import { getMyName } from "../../../apis/user";
+import { isLoggedInState } from "../../../recoil/atoms/auth";
 
 export default function NewChatTitleModal({ isOpen, onClick }) {
   const navigate = useNavigate();
+  const isLoggedIn = useRecoilValue(isLoggedInState);
   const setNewChatMembers = useSetRecoilState(newChatMemberState);
   const setCreateNewChat = useSetRecoilState(createNewChatState);
   const { newChatMembersIdList, newChatMembersNameList } = useRecoilValue(
     newChatMemberInfoState
   );
+  const { data } = useQuery({
+    queryKey: ["adsf"],
+    queryFn: getMyName,
+    enabled: false,
+  });
+  console.log(data);
   const createChatRoomMutate = useMutation({
     mutationFn: createChatRoom,
     onSuccess: (response) => {

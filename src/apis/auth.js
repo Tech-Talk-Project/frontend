@@ -10,5 +10,8 @@ export const login = ({ code, provider }) =>
     })
     .then((response) => response.data);
 
+export const logout = () =>
+  instance.get(`${ENDPOINT}/logout`).then((response) => response.data);
+
 export const refresh = () =>
   instance.get(`${ENDPOINT}/refresh`).then((response) => response.data);

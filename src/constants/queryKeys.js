@@ -3,6 +3,7 @@ export const AUTH_QUERY_KEYS = {
 };
 
 export const USERS_QUERY_KEYS = {
+  userName: ["userName"],
   usersData: (categories) => ["usersData", categories],
   userData: (memberId) => ["userData", memberId],
   userDataWithFollowData: (memberId) => ["userDataWithFollowData", memberId],

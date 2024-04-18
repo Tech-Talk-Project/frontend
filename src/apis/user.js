@@ -64,3 +64,6 @@ export const searchWithEmail = ({ email, limit = 10 }) =>
       params: { email, limit },
     })
     .then((response) => response.data);
+
+export const getMyName = () =>
+  instance.get(`${ENDPOINT}/my-name`).then((response) => response.data);

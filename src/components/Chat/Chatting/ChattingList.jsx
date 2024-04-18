@@ -40,6 +40,7 @@ export default function ChattingList({
           ? lastPage.nextCursor
           : firstChatData[0].sendTime;
       },
+      refetchOnWindowFocus: false,
     });
   const [observe, unobserve] = useIntersectionObserver(() => {
     if (isFetchingNextPage) return;
