@@ -1,28 +1,17 @@
 import React, { useState } from "react";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { useNavigate, useLocation } from "react-router-dom";
-import { Drawer, List } from "@material-tailwind/react";
-import { MdMenu, MdClose, MdLogin } from "react-icons/md";
-import { v4 as uuidv4 } from "uuid";
+import { MdMenu, MdLogin } from "react-icons/md";
 import Button from "../Button";
 import { isLoggedInState, memberIdState } from "../../../recoil/atoms/auth";
 import NavMenu from "./NavMenu";
 import Logo from "../Image/Logo";
 import { removeCookie } from "../../../utils/cookie";
-import { CATEGORIES } from "../../../constants/category";
-import MobileNavMenu from "./MobileNavMenu";
-import CategoryMenu from "../../Main/SideBar/SideBarCategoryItem";
 import { createNewChatState } from "../../../recoil/atoms/newChat";
 import { newChatMemberState } from "../../../recoil/atoms/newChat";
 import { logout } from "../../../apis/auth";
 import { toastState } from "../../../recoil/atoms/toast";
-
-const MENUS = [
-  { value: "Home", path: "/" },
-  { value: "Chat", path: "/chatList" },
-  { value: "Profile", path: "/profile" },
-  { value: "Logout", path: "/" },
-];
+import MobileSideBar from "./MobileSideBar";
 
 export default function Header() {
   const navigate = useNavigate();
@@ -91,43 +80,12 @@ export default function Header() {
                 >
                   <MdMenu size={24} />
                 </Button>
-                <Drawer
-                  open={isOpen}
-                  onClose={handleOpenClick}
-                  className="p-4 bg-light_black border-r border-line overflow-auto"
-                >
-                  <div className="mb-6 flex items-center justify-between">
-                    <Logo size="md" />
-                    <Button
-                      variant="text"
-                      className="p-1 text-white"
-                      onClick={handleOpenClick}
-                    >
-                      <MdClose size={24} />
-                    </Button>
-                  </div>
-                  <List className="text-white">
-                    {MENUS.map((menu) => (
-                      <MobileNavMenu
-                        key={uuidv4()}
-                        menu={menu}
-                        onMenuClick={handleMenuClick}
-                      />
-                    ))}
-                    {pathname === "/" && (
-                      <>
-                        <hr className="mt-2 mb-4" />
-                        {Object.keys(CATEGORIES).map((category) => (
-                          <CategoryMenu
-                            key={uuidv4()}
-                            category={category}
-                            onCategoryClick={handleOpenClick}
-                          />
-                        ))}
-                      </>
-                    )}
-                  </List>
-                </Drawer>
+                <MobileSideBar
+                  isOpen={isOpen}
+                  onOpenClick={handleOpenClick}
+                  pathname={pathname}
+                  onMenuClick={handleMenuClick}
+                />
               </div>
             </>
           ) : (
