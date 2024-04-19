@@ -6,6 +6,7 @@ import { CATEGORIES } from "../../../constants/category";
 import { useRecoilState, useRecoilValue } from "recoil";
 import filterState from "../../../recoil/atoms/filter";
 import { isLoggedInState } from "../../../recoil/atoms/auth";
+import { sideBarMenuStyle } from "../../../utils/sideBarMenuStyle";
 
 export default function SideBarCategoryList({ createNewChat }) {
   const isLoggedIn = useRecoilValue(isLoggedInState);
@@ -28,9 +29,7 @@ export default function SideBarCategoryList({ createNewChat }) {
           <div className="pt-2 border-t border-blue-gray-100">
             <ListItem
               ripple={false}
-              className={`text-white ${
-                filter.length === 0 ? "bg-blue-gray-50 bg-opacity-80" : ""
-              }`}
+              className={sideBarMenuStyle(filter.length === 0)}
               onClick={handleFollowClick}
             >
               FOLLOWING
