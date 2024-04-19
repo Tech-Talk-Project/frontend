@@ -1,7 +1,7 @@
 import React from "react";
 import { v4 as uuidv4 } from "uuid";
 import { MdClose } from "react-icons/md";
-import { Drawer, List } from "@material-tailwind/react";
+import { Drawer, List, ListItem } from "@material-tailwind/react";
 import Logo from "../Image/Logo";
 import Button from "../Button";
 import MobileNavMenu from "./MobileNavMenu";
@@ -17,6 +17,8 @@ import {
 } from "../../../recoil/atoms/newChat";
 import { removeCookie } from "../../../utils/cookie";
 import { toastState } from "../../../recoil/atoms/toast";
+import { sideBarMenuStyle } from "../../../utils/sideBarMenuStyle";
+import filterState from "../../../recoil/atoms/filter";
 
 // login state: 1, logout state: -1, both: 0
 const MENUS = [
@@ -29,12 +31,16 @@ const MENUS = [
 
 export default function MobileSideBar({ isOpen, onOpenClick, pathname }) {
   const navigate = useNavigate();
+  const [filter, setFilter] = useRecoilState(filterState);
   const [isLoggedIn, setIsLoggedIn] = useRecoilState(isLoggedInState);
   const setMemberId = useSetRecoilState(memberIdState);
   const setCreateNewChat = useSetRecoilState(createNewChatState);
   const setNewChatMembers = useSetRecoilState(newChatMemberState);
   const setToast = useRecoilValue(toastState);
 
+  const handleFollowClick = () => {
+    setFilter("");
+  };
   const handleLogoutClick = async () => {
     try {
       await logout();
@@ -92,6 +98,14 @@ export default function MobileSideBar({ isOpen, onOpenClick, pathname }) {
                 onCategoryClick={onOpenClick}
               />
             ))}
+            <hr className="mt-2 mb-4" />
+            <ListItem
+              ripple={false}
+              className={sideBarMenuStyle(filter.length === 0)}
+              onClick={handleFollowClick}
+            >
+              FOLLOWING
+            </ListItem>
           </>
         )}
       </List>
