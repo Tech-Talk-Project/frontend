@@ -1,12 +1,10 @@
 import React from "react";
-import { ListItem } from "@material-tailwind/react";
+import NavMenu from "./NavMenu";
 
-export default function MobileNavMenu({ menu: { value, path }, onMenuClick }) {
-  const handleClick = () => onMenuClick(value, path);
-
+export default function MobileNavMenu({ menu: { value, path }, onClick }) {
   return (
-    <ListItem ripple={false} onClick={handleClick}>
+    <NavMenu path={path} className="p-3" onClick={onClick}>
       {value}
-    </ListItem>
+    </NavMenu>
   );
 }

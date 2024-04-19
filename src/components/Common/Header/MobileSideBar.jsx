@@ -7,20 +7,54 @@ import Button from "../Button";
 import MobileNavMenu from "./MobileNavMenu";
 import { CATEGORIES } from "../../../constants/category";
 import SideBarCategoryItem from "../../Main/SideBar/SideBarCategoryItem";
+import { useNavigate } from "react-router-dom";
+import { logout } from "../../../apis/auth";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { isLoggedInState, memberIdState } from "../../../recoil/atoms/auth";
+import {
+  createNewChatState,
+  newChatMemberState,
+} from "../../../recoil/atoms/newChat";
+import { removeCookie } from "../../../utils/cookie";
+import { toastState } from "../../../recoil/atoms/toast";
 
+// login state: 1, logout state: -1, both: 0
 const MENUS = [
-  { value: "Home", path: "/" },
-  { value: "Chat", path: "/chatList" },
-  { value: "Profile", path: "/profile" },
-  { value: "Logout", path: "/" },
+  { value: "Home", path: "/", loginReq: 0 },
+  { value: "Community", path: "/community", loginReq: 0 },
+  { value: "Chat", path: "/chatList", loginReq: 1 },
+  { value: "Profile", path: "/profile", loginReq: 1 },
+  { value: "Login", path: "/login", loginReq: -1 },
 ];
 
-export default function MobileSideBar({
-  isOpen,
-  onOpenClick,
-  pathname,
-  onMenuClick,
-}) {
+export default function MobileSideBar({ isOpen, onOpenClick, pathname }) {
+  const navigate = useNavigate();
+  const [isLoggedIn, setIsLoggedIn] = useRecoilState(isLoggedInState);
+  const setMemberId = useSetRecoilState(memberIdState);
+  const setCreateNewChat = useSetRecoilState(createNewChatState);
+  const setNewChatMembers = useSetRecoilState(newChatMemberState);
+  const setToast = useRecoilValue(toastState);
+
+  const handleLogoutClick = async () => {
+    try {
+      await logout();
+      setIsLoggedIn(false);
+      setMemberId(null);
+      setCreateNewChat(false);
+      setNewChatMembers([]);
+      removeCookie("accessToken", { path: "/" });
+      navigate("/");
+      onOpenClick();
+    } catch (error) {
+      setToast({
+        isOpen: true,
+        message: "잠시후에 다시 시도해 주세요.",
+      });
+      setTimeout(() => {
+        setToast({ isOpen: false, message: "" });
+      }, 3000);
+    }
+  };
   return (
     <Drawer
       open={isOpen}
@@ -34,9 +68,20 @@ export default function MobileSideBar({
         </Button>
       </div>
       <List className="text-white">
-        {MENUS.map((menu) => (
-          <MobileNavMenu key={uuidv4()} menu={menu} onMenuClick={onMenuClick} />
+        {MENUS.filter((menu) =>
+          isLoggedIn ? menu.loginReq >= 0 : menu.loginReq <= 0
+        ).map((menu) => (
+          <MobileNavMenu key={uuidv4()} menu={menu} onClick={onOpenClick} />
         ))}
+        {isLoggedIn && (
+          <Button
+            variant="text"
+            className="p-3 text-white text-left text-base font-normal"
+            onClick={handleLogoutClick}
+          >
+            Logout
+          </Button>
+        )}
         {pathname === "/" && (
           <>
             <hr className="mt-2 mb-4" />

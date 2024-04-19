@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { useNavigate, useLocation } from "react-router-dom";
-import { MdMenu, MdLogin } from "react-icons/md";
+import { MdMenu } from "react-icons/md";
 import Button from "../Button";
 import { isLoggedInState, memberIdState } from "../../../recoil/atoms/auth";
 import NavMenu from "./NavMenu";
@@ -45,63 +45,46 @@ export default function Header() {
   const handleOpenClick = () => {
     setIsOpen((prev) => !prev);
   };
-  const handleMenuClick = (value, path) => {
-    setIsOpen(false);
-    if (value === "Logout") {
-      handleLogoutClick();
-      return;
-    }
-    navigate(path);
-  };
-
   return (
     <header className="fixed top-0 flex justify-center items-center w-full h-14 sm:h-20 text-lg bg-light_black border-b border-blue-gray-800 z-50">
       <article className="flex justify-between items-center w-full max-w-7xl px-5">
         <Logo size="md" />
         <nav>
-          {isLoggedIn ? (
-            <>
-              <div className="md:flex hidden gap-8">
-                <NavMenu path="/">Home</NavMenu>
+          <div className="md:flex hidden gap-8">
+            <NavMenu path="/">Home</NavMenu>
+            <NavMenu path="/community">Community</NavMenu>
+            {isLoggedIn ? (
+              <>
                 <NavMenu path="/chatList">Chat</NavMenu>
                 <NavMenu path="/profile">Profile</NavMenu>
-                <button
-                  className="hover:text-brand duration-100"
+                <Button
+                  variant="text"
+                  className="p-0 text-white text-lg font-normal hover:text-brand duration-100"
                   onClick={handleLogoutClick}
                 >
                   Logout
-                </button>
-              </div>
-              <div className="md:hidden">
-                <Button
-                  onClick={handleOpenClick}
-                  variant="text"
-                  className="p-1 text-white"
-                >
-                  <MdMenu size={24} />
                 </Button>
-                <MobileSideBar
-                  isOpen={isOpen}
-                  onOpenClick={handleOpenClick}
-                  pathname={pathname}
-                  onMenuClick={handleMenuClick}
-                />
-              </div>
-            </>
-          ) : (
-            <>
+              </>
+            ) : (
               <NavMenu className="hidden md:block" path="/login">
                 Login
               </NavMenu>
-              <Button
-                className="md:hidden p-2 text-white"
-                variant="text"
-                onClick={() => navigate("/login")}
-              >
-                <MdLogin size={24} />
-              </Button>
-            </>
-          )}
+            )}
+          </div>
+          <div className="md:hidden">
+            <Button
+              onClick={handleOpenClick}
+              variant="text"
+              className="p-1 text-white"
+            >
+              <MdMenu size={24} />
+            </Button>
+            <MobileSideBar
+              isOpen={isOpen}
+              onOpenClick={handleOpenClick}
+              pathname={pathname}
+            />
+          </div>
         </nav>
       </article>
     </header>

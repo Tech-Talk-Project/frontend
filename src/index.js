@@ -20,6 +20,7 @@ import ChatListPage from "./pages/ChatListPage";
 import ChattingPage from "./pages/ChattingPage";
 import UserDetailPage from "./pages/UserDetailPage";
 import ProtectedRoute from "./pages/ProtectedRoute";
+import CommunityPage from "./pages/CommunityPage";
 
 const router = createBrowserRouter([
   {
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
           {
             index: true,
             element: <HomePage />,
+          },
+          {
+            path: "/community",
+            element: <CommunityPage />,
           },
           {
             path: "/chatList",
