@@ -1,15 +1,15 @@
 import React from "react";
-import { useRecoilState } from "recoil";
 import { ListItem } from "@material-tailwind/react";
-import typeState from "../../../recoil/atoms/type";
 import { sideBarMenuStyle } from "../../../utils/sideBarMenuStyle";
+import { useSearchParams } from "react-router-dom";
 
 export default function SideBarTypeItem({ category, onCategoryClick }) {
-  const [type, setType] = useRecoilState(typeState);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const type = searchParams.get("type");
 
   const handleClick = () => {
-    setType(category);
     onCategoryClick && onCategoryClick();
+    setSearchParams({ type: category });
   };
   return (
     <ListItem

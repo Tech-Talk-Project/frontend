@@ -24,7 +24,7 @@ import SideBarTypeItem from "../../Board/SideBar/SideBarTypeItem";
 // login state: 1, logout state: -1, both: 0
 const MENUS = [
   { value: "Home", path: "/", loginReq: 0 },
-  { value: "Board", path: "/board", loginReq: 0 },
+  { value: "Board", path: "/board?type=project", loginReq: 0 },
   { value: "Chat", path: "/chatList", loginReq: 1 },
   { value: "Profile", path: "/profile", loginReq: 1 },
   { value: "Login", path: "/login", loginReq: -1 },
