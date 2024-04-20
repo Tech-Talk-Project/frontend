@@ -19,7 +19,7 @@ import { removeCookie } from "../../../utils/cookie";
 import { toastState } from "../../../recoil/atoms/toast";
 import { sideBarMenuStyle } from "../../../utils/sideBarMenuStyle";
 import filterState from "../../../recoil/atoms/filter";
-import SideBarTypeItem from "../../Board/SideBar/SideBarTypeItem";
+import SideBarTypeItem from "../../Board/Board/SideBar/SideBarTypeItem";
 
 // login state: 1, logout state: -1, both: 0
 const MENUS = [

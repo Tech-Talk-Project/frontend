@@ -1,6 +1,6 @@
 import React, { Suspense } from "react";
-import SideBar from "../components/Board/SideBar/SideBar";
-import BoardPageMain from "../components/Board/BoardPageMain";
+import SideBar from "../components/Board/Board/SideBar/SideBar";
+import BoardPageMain from "../components/Board/Board/BoardPageMain";
 import Loader from "../components/Common/Loader";
 
 export default function BoardPage() {

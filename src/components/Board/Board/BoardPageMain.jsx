@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import Button from "../Common/Button";
+import Button from "../../Common/Button";
 
 export default function BoardPageMain() {
   const navigate = useNavigate();

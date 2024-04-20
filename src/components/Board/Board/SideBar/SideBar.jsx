@@ -1,7 +1,7 @@
 import React from "react";
 import { v4 as uuidv4 } from "uuid";
 import { Card, List } from "@material-tailwind/react";
-import { BOARD_CATEGORIE_TYPES } from "../../../constants/category";
+import { BOARD_CATEGORIE_TYPES } from "../../../../constants/category";
 import SideBarTypeItem from "./SideBarTypeItem";
 
 export default function SideBar() {
