@@ -4,7 +4,7 @@ import CreateBoardPageMain from "../components/Board/CreateBoard/CreateBoardPage
 
 export default function CreateBoardPage() {
   return (
-    <main className="flex justify-center w-full h-full">
+    <main className="flex justify-center w-full h-[calc(100vh-3.5rem)] sm:h-[calc(100vh-5rem)]">
       <Suspense fallback={<Loader />}>
         <CreateBoardPageMain />
       </Suspense>
