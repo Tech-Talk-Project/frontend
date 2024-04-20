@@ -6,14 +6,20 @@ import { editorConfiguration } from "../../Profile/Description/DescriptionEditor
 import Button from "../../Common/Button";
 import Title from "./Title";
 import Tag from "./Tag";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import { useMutation } from "@tanstack/react-query";
+import { createPost } from "../../../apis/board";
 
 export default function CreateBoardPageMain() {
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const [tags, setTags] = useState([]);
   const [content, setContent] = useState("");
   const {
     register: titleRegister,
     handleSubmit: onTitleSubmit,
     setFocus: setTitleFocus,
+    getValues: getTitleValue,
     formState: { errors: titleErrors, isValid: isTitleValid },
   } = useForm({
     defaultValues: {
@@ -29,6 +35,12 @@ export default function CreateBoardPageMain() {
   } = useForm({
     defaultValues: {
       tag: "",
+    },
+  });
+  const createPostMutate = useMutation({
+    mutationFn: createPost,
+    onSuccess: () => {
+      navigate("/board?type=project");
     },
   });
 
@@ -49,6 +61,14 @@ export default function CreateBoardPageMain() {
     setTags((prev) => [...prev, tag.trim()]);
     resetTag({ tag: "" });
   });
+  const handleCreateClick = () => {
+    createPostMutate.mutate({
+      title: getTitleValue().title,
+      content: content,
+      tags,
+      category: searchParams.get("type").toUpperCase(),
+    });
+  };
   return (
     <section className="flex flex-col gap-6 px-4 py-8 max-w-2xl w-full">
       <Title
@@ -72,7 +92,17 @@ export default function CreateBoardPageMain() {
           setContent(data);
         }}
       />
-      <Button type="submit">완료</Button>
+      <div className="flex justify-end gap-4 pb-8">
+        <Button className="py-2 text-sm hover:bg-white hover:text-black">
+          취소
+        </Button>
+        <Button
+          className="py-2 text-sm bg-brand hover:bg-white hover:text-brand"
+          onClick={handleCreateClick}
+        >
+          등록
+        </Button>
+      </div>
     </section>
   );
 }
