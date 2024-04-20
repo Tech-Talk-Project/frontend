@@ -5,10 +5,7 @@ import { Drawer, List, ListItem } from "@material-tailwind/react";
 import Logo from "../Image/Logo";
 import Button from "../Button";
 import MobileNavMenu from "./MobileNavMenu";
-import {
-  CATEGORIES,
-  COMMUNITY_CATEGORIE_TYPES,
-} from "../../../constants/category";
+import { CATEGORIES, BOARD_CATEGORIE_TYPES } from "../../../constants/category";
 import SideBarCategoryItem from "../../Main/SideBar/SideBarCategoryItem";
 import { useNavigate } from "react-router-dom";
 import { logout } from "../../../apis/auth";
@@ -22,12 +19,12 @@ import { removeCookie } from "../../../utils/cookie";
 import { toastState } from "../../../recoil/atoms/toast";
 import { sideBarMenuStyle } from "../../../utils/sideBarMenuStyle";
 import filterState from "../../../recoil/atoms/filter";
-import SideBarTypeItem from "../../Community/SideBar/SideBarTypeItem";
+import SideBarTypeItem from "../../Board/SideBar/SideBarTypeItem";
 
 // login state: 1, logout state: -1, both: 0
 const MENUS = [
   { value: "Home", path: "/", loginReq: 0 },
-  { value: "Community", path: "/community", loginReq: 0 },
+  { value: "Board", path: "/board", loginReq: 0 },
   { value: "Chat", path: "/chatList", loginReq: 1 },
   { value: "Profile", path: "/profile", loginReq: 1 },
   { value: "Login", path: "/login", loginReq: -1 },
@@ -112,11 +109,15 @@ export default function MobileSideBar({ isOpen, onOpenClick, pathname }) {
             </ListItem>
           </>
         )}
-        {pathname === "/community" && (
+        {pathname === "/board" && (
           <>
             <hr className="mt-2 mb-4" />
-            {COMMUNITY_CATEGORIE_TYPES.map((category) => (
-              <SideBarTypeItem key={uuidv4()} category={category} onCategoryClick={onOpenClick}/>
+            {BOARD_CATEGORIE_TYPES.map((category) => (
+              <SideBarTypeItem
+                key={uuidv4()}
+                category={category}
+                onCategoryClick={onOpenClick}
+              />
             ))}
           </>
         )}

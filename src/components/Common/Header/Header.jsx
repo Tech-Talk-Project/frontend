@@ -52,7 +52,7 @@ export default function Header() {
         <nav>
           <div className="md:flex hidden gap-8">
             <NavMenu path="/">Home</NavMenu>
-            <NavMenu path="/community">Community</NavMenu>
+            <NavMenu path="/board">Board</NavMenu>
             {isLoggedIn ? (
               <>
                 <NavMenu path="/chatList">Chat</NavMenu>

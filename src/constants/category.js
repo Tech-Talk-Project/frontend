@@ -134,7 +134,7 @@ export const CATEGORYS_PATH = {
   Snort: "/images/languages/Snort-logo.png",
 };
 
-export const COMMUNITY_CATEGORIE_TYPES = [
+export const BOARD_CATEGORIE_TYPES = [
   "project",
   "study",
   "question",
