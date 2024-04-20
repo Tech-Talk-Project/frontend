@@ -22,7 +22,7 @@ export default function Title({ register, onTitleSubmit, errors }) {
         <InputError
           message={errors.title.message}
           size="md"
-          className="-bottom-[1.5rem]"
+          className="-bottom-[1.6rem]"
         />
       )}
     </form>
