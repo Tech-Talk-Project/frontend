@@ -5,7 +5,10 @@ import { Drawer, List, ListItem } from "@material-tailwind/react";
 import Logo from "../Image/Logo";
 import Button from "../Button";
 import MobileNavMenu from "./MobileNavMenu";
-import { CATEGORIES } from "../../../constants/category";
+import {
+  CATEGORIES,
+  COMMUNITY_CATEGORIE_TYPES,
+} from "../../../constants/category";
 import SideBarCategoryItem from "../../Main/SideBar/SideBarCategoryItem";
 import { useNavigate } from "react-router-dom";
 import { logout } from "../../../apis/auth";
@@ -19,6 +22,7 @@ import { removeCookie } from "../../../utils/cookie";
 import { toastState } from "../../../recoil/atoms/toast";
 import { sideBarMenuStyle } from "../../../utils/sideBarMenuStyle";
 import filterState from "../../../recoil/atoms/filter";
+import SideBarTypeItem from "../../Community/SideBar/SideBarTypeItem";
 
 // login state: 1, logout state: -1, both: 0
 const MENUS = [
@@ -106,6 +110,14 @@ export default function MobileSideBar({ isOpen, onOpenClick, pathname }) {
             >
               FOLLOWING
             </ListItem>
+          </>
+        )}
+        {pathname === "/community" && (
+          <>
+            <hr className="mt-2 mb-4" />
+            {COMMUNITY_CATEGORIE_TYPES.map((category) => (
+              <SideBarTypeItem key={uuidv4()} category={category} onCategoryClick={onOpenClick}/>
+            ))}
           </>
         )}
       </List>

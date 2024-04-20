@@ -1,10 +1,15 @@
 import React from "react";
+import { useRecoilState } from "recoil";
 import { ListItem } from "@material-tailwind/react";
+import typeState from "../../../recoil/atoms/type";
 import { sideBarMenuStyle } from "../../../utils/sideBarMenuStyle";
 
-export default function SideBarTypeItem({ category, type, onTypeClick }) {
+export default function SideBarTypeItem({ category, onCategoryClick }) {
+  const [type, setType] = useRecoilState(typeState);
+
   const handleClick = () => {
-    onTypeClick(category);
+    setType(category);
+    onCategoryClick && onCategoryClick();
   };
   return (
     <ListItem
