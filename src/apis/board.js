@@ -25,3 +25,11 @@ export const createCommnet = ({ boardId, content, category }) =>
       category,
     })
     .then((response) => response.data);
+
+export const changeRecruitment = ({ postId, category }) =>
+  instance
+    .post(`${ENDPOINT}/toggle-recruitment`, {
+      boardId: postId,
+      category,
+    })
+    .then((response) => response.data);

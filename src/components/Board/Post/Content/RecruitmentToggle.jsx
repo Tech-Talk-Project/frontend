@@ -1,7 +1,7 @@
-import { Switch, Typography } from "@material-tailwind/react";
 import React from "react";
+import { Switch, Typography } from "@material-tailwind/react";
 
-export default function RecruitmentToggle({ recruitmentActive }) {
+export default function RecruitmentToggle({ recruitmentActive, onClick }) {
   return (
     <article>
       <Switch
@@ -13,6 +13,7 @@ export default function RecruitmentToggle({ recruitmentActive }) {
           </Typography>
         }
         checked={recruitmentActive}
+        onChange={onClick}
         className="h-full w-full checked:bg-brand"
         containerProps={{
           className: "w-11 h-6",
