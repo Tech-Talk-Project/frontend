@@ -33,3 +33,10 @@ export const changeRecruitment = ({ postId, category }) =>
       category,
     })
     .then((response) => response.data);
+
+export const checkLike = ({ postId, category }) =>
+  instance
+    .get(`${ENDPOINT}/check-like`, {
+      params: { boardId: postId, category },
+    })
+    .then((response) => response.data);

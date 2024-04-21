@@ -41,6 +41,7 @@ export default function PostPageMain() {
         comments={comments}
       />
       <PostInfo
+        postId={postId}
         author={author}
         likeCount={likeCount}
         dislikeCount={dislikeCount}

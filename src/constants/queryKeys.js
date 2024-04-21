@@ -23,4 +23,5 @@ export const CHAT_QUERY_KEYS = {
 
 export const BOARD_QUERY_KEYS = {
   post: (id) => ["post", id],
+  checkLike: (id) => ["checkLike", id],
 };

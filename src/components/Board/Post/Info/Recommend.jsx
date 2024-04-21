@@ -3,12 +3,14 @@ import Button from "../../../Common/Button";
 import { MdFavorite } from "react-icons/md";
 import { Chip } from "@material-tailwind/react";
 
-export default function Recommend({ likeCount }) {
+export default function Recommend({ likeCount, liked }) {
   return (
     <article className="flex justify-center items-center gap-2">
       <Button
         variant="text"
-        className="p-1 text-blue-gray-500 hover:text-brand"
+        className={`p-1 text-blue-gray-500 hover:text-brand ${
+          liked ? "text-brand" : ""
+        }`}
       >
         <MdFavorite size={40} />
       </Button>

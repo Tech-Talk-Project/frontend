@@ -3,7 +3,7 @@ import { MdThumbDown, MdThumbUp } from "react-icons/md";
 import { Chip } from "@material-tailwind/react";
 import Button from "../../../Common/Button";
 
-export default function Like({ likeCount, dislikeCount }) {
+export default function Like({ likeCount, dislikeCount, liked }) {
   return (
     <article className="flex justify-center gap-8 my-4">
       <Button
