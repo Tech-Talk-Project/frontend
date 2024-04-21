@@ -1,7 +1,7 @@
 import React from "react";
 import { MdThumbDown, MdThumbUp } from "react-icons/md";
 import { Chip } from "@material-tailwind/react";
-import Button from "../../Common/Button";
+import Button from "../../../Common/Button";
 
 export default function Like({ likeCount, dislikeCount }) {
   return (
