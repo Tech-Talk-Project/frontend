@@ -13,7 +13,7 @@ export default function SideBar({ isModalOpen, onModalClick }) {
   const createNewChat = useRecoilValue(createNewChatState);
 
   return (
-    <section className="hidden md:block fixed top-20 left-0 max-w-[16rem] w-full h-main p-4 bg-light_black border-r border-blue-gray-800 rounded-none">
+    <aside className="hidden md:block fixed top-20 left-0 max-w-[16rem] w-full h-main p-4 bg-light_black border-r border-blue-gray-800">
       <SideBarCategoryList createNewChat={createNewChat} />
       {createNewChat && (
         <article
@@ -35,6 +35,6 @@ export default function SideBar({ isModalOpen, onModalClick }) {
         </article>
       )}
       <NewChatTitleModal isOpen={isModalOpen} onClick={onModalClick} />
-    </section>
+    </aside>
   );
 }

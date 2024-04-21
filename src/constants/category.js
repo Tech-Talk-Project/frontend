@@ -133,3 +133,11 @@ export const CATEGORYS_PATH = {
   "Burp Suite": "/images/languages/Burp-Suite-logo.png",
   Snort: "/images/languages/Snort-logo.png",
 };
+
+export const BOARD_CATEGORIE_TYPES = [
+  "project",
+  "study",
+  "question",
+  "promotion",
+  "free",
+];

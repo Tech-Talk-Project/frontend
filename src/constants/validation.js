@@ -1,4 +1,7 @@
 import {
+  BOARD_CREATE_MAX_LENGTH_ERROR_MSG,
+  BOARD_CREATE_REQUIRE_ERROR_MSG,
+  BOARD_TAG_MAX_LENGTH_ERROR_MSG,
   CHATROOM_LENGTH_ERROR_MSG,
   INTRODUCTION_LENGTH_ERROR_MSG,
   REQUIRE_ERROR_MSG,
@@ -30,6 +33,19 @@ export const INPUT_VALIDATION = {
     maxLength: {
       value: 100,
       message: CHATROOM_LENGTH_ERROR_MSG,
+    },
+  },
+  boardTitle: {
+    required: BOARD_CREATE_REQUIRE_ERROR_MSG,
+    maxLength: {
+      value: 150,
+      message: BOARD_CREATE_MAX_LENGTH_ERROR_MSG,
+    },
+  },
+  tag: {
+    maxLength: {
+      value: 20,
+      message: BOARD_TAG_MAX_LENGTH_ERROR_MSG,
     },
   },
 };
