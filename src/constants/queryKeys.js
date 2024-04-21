@@ -20,3 +20,7 @@ export const CHAT_QUERY_KEYS = {
   chatData: (chatRoomId) => ["chatData", chatRoomId],
   chatDataWithCursor: (chatRoomId) => ["chatDataWithCursor", chatRoomId],
 };
+
+export const BOARD_QUERY_KEYS = {
+  post: (id) => ["post", id],
+};
