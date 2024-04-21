@@ -22,6 +22,7 @@ import UserDetailPage from "./pages/UserDetailPage";
 import ProtectedRoute from "./pages/ProtectedRoute";
 import BoardPage from "./pages/BoardPage";
 import CreateBoardPage from "./pages/CreateBoardPage";
+import PostPage from "./pages/PostPage";
 
 const router = createBrowserRouter([
   {
@@ -42,6 +43,10 @@ const router = createBrowserRouter([
           {
             path: "/create/board",
             element: <CreateBoardPage />,
+          },
+          {
+            path: "/board/post/:postId",
+            element: <PostPage />,
           },
           {
             path: "/chatList",
