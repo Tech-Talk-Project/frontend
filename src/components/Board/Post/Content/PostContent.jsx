@@ -2,6 +2,7 @@ import React from "react";
 import PostContentInfo from "./PostContentInfo";
 import Content from "../Common/Content";
 import Comments from "../Comment/Comments";
+import CreateComment from "./CreateComment";
 
 export default function PostContent({
   recruitmentActive,
@@ -22,6 +23,7 @@ export default function PostContent({
         viewCount={viewCount}
       />
       <Content content={content} />
+      <CreateComment />
       <Comments comments={comments} />
     </section>
   );

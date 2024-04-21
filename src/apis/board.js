@@ -16,3 +16,12 @@ export const getPost = ({ category, postId }) =>
       },
     })
     .then((response) => response.data);
+
+export const createCommnet = ({ boardId, content, category }) =>
+  instance
+    .post(`${ENDPOINT}/add-comment`, {
+      boardId,
+      content,
+      category,
+    })
+    .then((response) => response.data);

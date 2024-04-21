@@ -69,6 +69,9 @@ export default function CreateBoardPageMain() {
       category: searchParams.get("type").toUpperCase(),
     });
   };
+  const handleCancelClick = () => {
+    navigate(-1);
+  };
   return (
     <section className="flex flex-col gap-6 px-4 py-8 max-w-2xl w-full">
       <Title
@@ -93,7 +96,10 @@ export default function CreateBoardPageMain() {
         }}
       />
       <div className="flex justify-end gap-4 pb-8">
-        <Button className="py-2 text-sm hover:bg-white hover:text-black">
+        <Button
+          className="py-2 text-sm hover:bg-white hover:text-black"
+          onClick={handleCancelClick}
+        >
           취소
         </Button>
         <Button

@@ -10,7 +10,7 @@ export default function Like({ likeCount, dislikeCount }) {
         variant="text"
         className="p-1 text-blue-gray-500 hover:text-brand"
       >
-        <MdThumbDown size={48} />
+        <MdThumbDown size={40} />
       </Button>
       <Chip
         value={likeCount - dislikeCount}
@@ -21,7 +21,7 @@ export default function Like({ likeCount, dislikeCount }) {
         variant="text"
         className="p-1 text-blue-gray-500 hover:text-brand"
       >
-        <MdThumbUp size={48} />
+        <MdThumbUp size={40} />
       </Button>
     </article>
   );
