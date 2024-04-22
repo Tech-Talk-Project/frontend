@@ -32,7 +32,7 @@ export default function PostContentInfo({
   };
   return (
     <article className="flex flex-col md:flex-row gap-2 md:items-end justify-between pb-4 border-b border-blue-gray-800">
-      <div className="shrink-0">
+      <div className="">
         <Typography variant={`${isSmallMobile ? "h4" : "h3"}`}>
           {title}
         </Typography>
