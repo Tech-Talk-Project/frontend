@@ -30,7 +30,7 @@ export default function PostPageMain() {
   });
 
   return (
-    <section className="flex w-full h-full">
+    <section className="flex flex-col md:flex-row w-full h-full">
       <PostContent
         recruitmentActive={recruitmentActive}
         title={title}

@@ -3,7 +3,7 @@ import { Switch, Typography } from "@material-tailwind/react";
 
 export default function RecruitmentToggle({ recruitmentActive, onClick }) {
   return (
-    <article>
+    <article className="flex justify-end shrink-0">
       <Switch
         id="custom-switch-component"
         ripple={false}

@@ -7,6 +7,7 @@ import { changeRecruitment } from "../../../../apis/board";
 import { useParams, useSearchParams } from "react-router-dom";
 import { queryClient } from "../../../../apis/queryClient";
 import { BOARD_QUERY_KEYS } from "../../../../constants/queryKeys";
+import useBreakpoint from "../../../../hooks/useBreakPoint";
 
 export default function PostContentInfo({
   title,
@@ -17,6 +18,7 @@ export default function PostContentInfo({
 }) {
   const { postId } = useParams();
   const [searchParams] = useSearchParams();
+  const { isSmallMobile } = useBreakpoint();
   const category = searchParams.get("type").toUpperCase();
   const changeRecruitmentMutate = useMutation({
     mutationFn: () => changeRecruitment({ postId, category }),
@@ -29,9 +31,11 @@ export default function PostContentInfo({
     changeRecruitmentMutate.mutate({ postId, category });
   };
   return (
-    <article className="flex gap-2 items-end justify-between pb-4 border-b border-blue-gray-800">
-      <div>
-        <Typography variant="h3">{title}</Typography>
+    <article className="flex flex-col md:flex-row gap-2 md:items-end justify-between pb-4 border-b border-blue-gray-800">
+      <div className="shrink-0">
+        <Typography variant={`${isSmallMobile ? "h4" : "h3"}`}>
+          {title}
+        </Typography>
         <div className="flex gap-3">
           <Typography className="text-blue-gray-200">
             {updatedAt

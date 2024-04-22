@@ -26,25 +26,27 @@ export default function PostInfo({
   });
 
   return (
-    <aside className="sticky top-20 flex flex-col gap-4 p-4 w-80 h-[calc(100vh-5rem)] border-l border-blue-gray-800 overflow-y-auto shrink-0">
-      <Author imageUrl={imageUrl} name={name} />
-      {isProjectOrStudy ? (
-        <Recommend
-          postId={postId}
-          category={type.toUpperCase()}
-          likeCount={likeCount}
-          liked={liked}
-        />
-      ) : (
-        <Like
-          postId={postId}
-          category={type.toUpperCase()}
-          likeCount={likeCount}
-          dislikeCount={dislikeCount}
-          liked={liked}
-        />
-      )}
+    <aside className="md:sticky md:top-20 flex flex-col gap-4 p-4 w-full md:w-80 md:h-[calc(100vh-5rem)] md:border-l border-blue-gray-800 overflow-y-auto shrink-0">
       <Tags tags={tags} />
+      <div className="flex md:flex-col gap-4 justify-evenly">
+        {isProjectOrStudy ? (
+          <Recommend
+            postId={postId}
+            category={type.toUpperCase()}
+            likeCount={likeCount}
+            liked={liked}
+          />
+        ) : (
+          <Like
+            postId={postId}
+            category={type.toUpperCase()}
+            likeCount={likeCount}
+            dislikeCount={dislikeCount}
+            liked={liked}
+          />
+        )}
+        <Author imageUrl={imageUrl} name={name} />
+      </div>
     </aside>
   );
 }
