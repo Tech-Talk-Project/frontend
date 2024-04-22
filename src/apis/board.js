@@ -40,3 +40,11 @@ export const checkLike = ({ postId, category }) =>
       params: { boardId: postId, category },
     })
     .then((response) => response.data);
+
+export const toggleLike = ({ postId, category }) =>
+  instance
+    .post(`${ENDPOINT}/toggle-like`, {
+      boardId: postId,
+      category,
+    })
+    .then((response) => response.data);

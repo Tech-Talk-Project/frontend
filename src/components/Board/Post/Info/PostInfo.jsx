@@ -29,9 +29,20 @@ export default function PostInfo({
     <aside className="sticky top-20 flex flex-col gap-4 p-4 w-80 h-[calc(100vh-5rem)] border-l border-blue-gray-800 overflow-y-auto shrink-0">
       <Author imageUrl={imageUrl} name={name} />
       {isProjectOrStudy ? (
-        <Recommend likeCount={likeCount} liked={liked} />
+        <Recommend
+          postId={postId}
+          category={type.toUpperCase()}
+          likeCount={likeCount}
+          liked={liked}
+        />
       ) : (
-        <Like likeCount={likeCount} dislikeCount={dislikeCount} liked={liked} />
+        <Like
+          postId={postId}
+          category={type.toUpperCase()}
+          likeCount={likeCount}
+          dislikeCount={dislikeCount}
+          liked={liked}
+        />
       )}
       <Tags tags={tags} />
     </aside>
