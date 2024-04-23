@@ -5,6 +5,7 @@ import Comments from "../Comment/Comments";
 import CreateComment from "./CreateComment";
 
 export default function PostContent({
+  author,
   recruitmentActive,
   title,
   createdAt,
@@ -16,6 +17,7 @@ export default function PostContent({
   return (
     <section className="flex flex-col grow p-4 md:p-8">
       <PostContentInfo
+        author={author}
         title={title}
         updatedAt={updatedAt}
         createdAt={createdAt}

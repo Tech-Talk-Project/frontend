@@ -1,15 +1,17 @@
 import React, { useState } from "react";
-import { Typography } from "@material-tailwind/react";
-import { getDateInfo } from "../../../../utils/date";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { Chip, Typography } from "@material-tailwind/react";
 import RecruitmentToggle from "./RecruitmentToggle";
 import { useMutation } from "@tanstack/react-query";
-import { changeRecruitment } from "../../../../apis/board";
 import { useParams, useSearchParams } from "react-router-dom";
+import { changeRecruitment } from "../../../../apis/board";
+import { getDateInfo } from "../../../../utils/date";
 import useBreakpoint from "../../../../hooks/useBreakPoint";
-import { useSetRecoilState } from "recoil";
 import { toastState } from "../../../../recoil/atoms/toast";
+import { memberIdState } from "../../../../recoil/atoms/auth";
 
 export default function PostContentInfo({
+  author: { memberId: authorId },
   title,
   updatedAt,
   createdAt,
@@ -22,6 +24,7 @@ export default function PostContentInfo({
   const { isSmallMobile } = useBreakpoint();
   const [isRecruitmentActive, setIsRecruitmentActive] =
     useState(recruitmentActive);
+  const memberId = useRecoilValue(memberIdState);
   const setToast = useSetRecoilState(toastState);
   const changeRecruitmentMutate = useMutation({
     mutationFn: () => changeRecruitment({ postId, category }),
@@ -60,10 +63,18 @@ export default function PostContentInfo({
           </Typography>
         </div>
       </div>
-      <RecruitmentToggle
-        recruitmentActive={isRecruitmentActive}
-        onClick={handleRecruitmentClick}
-      />
+      {memberId === authorId ? (
+        <RecruitmentToggle
+          recruitmentActive={isRecruitmentActive}
+          onClick={handleRecruitmentClick}
+        />
+      ) : (
+        <Chip
+          size="md"
+          value={isRecruitmentActive ? "모집중" : "모집마감"}
+          className={`${isRecruitmentActive ? "bg-brand" : ""}`}
+        />
+      )}
     </article>
   );
 }

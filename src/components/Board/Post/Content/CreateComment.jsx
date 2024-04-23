@@ -37,7 +37,8 @@ export default function CreateComment() {
     });
   };
   return (
-    <article>
+    <article className="flex flex-col gap-2">
+      <Typography variant="h6">댓글</Typography>
       {isCreate ? (
         <>
           <CKEditor

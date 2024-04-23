@@ -32,6 +32,7 @@ export default function PostPageMain() {
   return (
     <section className="flex flex-col md:flex-row w-full h-full">
       <PostContent
+        author={author}
         recruitmentActive={recruitmentActive}
         title={title}
         createdAt={createdAt}
