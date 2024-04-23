@@ -1,12 +1,10 @@
+import React, { useState } from "react";
 import { Typography } from "@material-tailwind/react";
-import React from "react";
 import { getDateInfo } from "../../../../utils/date";
 import RecruitmentToggle from "./RecruitmentToggle";
 import { useMutation } from "@tanstack/react-query";
 import { changeRecruitment } from "../../../../apis/board";
 import { useParams, useSearchParams } from "react-router-dom";
-import { queryClient } from "../../../../apis/queryClient";
-import { BOARD_QUERY_KEYS } from "../../../../constants/queryKeys";
 import useBreakpoint from "../../../../hooks/useBreakPoint";
 
 export default function PostContentInfo({
@@ -18,12 +16,14 @@ export default function PostContentInfo({
 }) {
   const { postId } = useParams();
   const [searchParams] = useSearchParams();
-  const { isSmallMobile } = useBreakpoint();
   const category = searchParams.get("type").toUpperCase();
+  const { isSmallMobile } = useBreakpoint();
+  const [isRecruitmentActive, setIsRecruitmentActive] =
+    useState(recruitmentActive);
   const changeRecruitmentMutate = useMutation({
     mutationFn: () => changeRecruitment({ postId, category }),
     onSuccess: () => {
-      queryClient.invalidateQueries(BOARD_QUERY_KEYS.post(postId));
+      setIsRecruitmentActive((prev) => !prev);
     },
   });
 
@@ -49,7 +49,7 @@ export default function PostContentInfo({
         </div>
       </div>
       <RecruitmentToggle
-        recruitmentActive={recruitmentActive}
+        recruitmentActive={isRecruitmentActive}
         onClick={handleRecruitmentClick}
       />
     </article>

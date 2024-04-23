@@ -17,6 +17,14 @@ export const getPost = ({ category, postId }) =>
     })
     .then((response) => response.data);
 
+export const updateViewCount = ({ category, postId }) =>
+  instance
+    .post("/board/view", {
+      category,
+      boardId: postId,
+    })
+    .then((response) => response.data);
+
 export const createCommnet = ({ boardId, content, category }) =>
   instance
     .post(`${ENDPOINT}/add-comment`, {
