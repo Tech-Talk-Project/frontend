@@ -4,7 +4,7 @@ import Tag from "./Tag";
 
 export default function Tags({ tags }) {
   return (
-    <article className="my-4">
+    <article className="md:my-4">
       <ul className="flex flex-wrap justify-center gap-4">
         {tags.map((tag) => (
           <Tag key={uuidv4()} tag={tag} />

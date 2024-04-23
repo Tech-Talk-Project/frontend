@@ -14,7 +14,7 @@ export default function PostContent({
   comments,
 }) {
   return (
-    <section className="flex flex-col grow p-8">
+    <section className="flex flex-col grow p-4 md:p-8">
       <PostContentInfo
         title={title}
         updatedAt={updatedAt}
