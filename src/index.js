@@ -19,10 +19,11 @@ import { queryClient } from "./apis/queryClient";
 import ChatListPage from "./pages/ChatListPage";
 import ChattingPage from "./pages/ChattingPage";
 import UserDetailPage from "./pages/UserDetailPage";
-import ProtectedRoute from "./pages/ProtectedRoute";
 import BoardPage from "./pages/BoardPage";
 import CreateBoardPage from "./pages/CreateBoardPage";
 import PostPage from "./pages/PostPage";
+import LoginProtectedRoute from "./pages/ProtectedRoute/LoginProtectedRoute";
+import NoTypeProtectedRoute from "./pages/ProtectedRoute/NoTypeProtectedRoute";
 
 const router = createBrowserRouter([
   {
@@ -38,38 +39,50 @@ const router = createBrowserRouter([
           },
           {
             path: "/board",
-            element: <BoardPage />,
+            element: (
+              <NoTypeProtectedRoute>
+                <BoardPage />
+              </NoTypeProtectedRoute>
+            ),
           },
           {
             path: "/create/board",
-            element: <CreateBoardPage />,
+            element: (
+              <NoTypeProtectedRoute>
+                <CreateBoardPage />
+              </NoTypeProtectedRoute>
+            ),
           },
           {
             path: "/board/post/:postId",
-            element: <PostPage />,
+            element: (
+              <NoTypeProtectedRoute>
+                <PostPage />
+              </NoTypeProtectedRoute>
+            ),
           },
           {
             path: "/chatList",
             element: (
-              <ProtectedRoute>
+              <LoginProtectedRoute>
                 <ChatListPage />
-              </ProtectedRoute>
+              </LoginProtectedRoute>
             ),
           },
           {
             path: "/chatting/:chatRoomId",
             element: (
-              <ProtectedRoute>
+              <LoginProtectedRoute>
                 <ChattingPage />
-              </ProtectedRoute>
+              </LoginProtectedRoute>
             ),
           },
           {
             path: "/profile",
             element: (
-              <ProtectedRoute>
+              <LoginProtectedRoute>
                 <ProfilePage />
-              </ProtectedRoute>
+              </LoginProtectedRoute>
             ),
           },
           {
