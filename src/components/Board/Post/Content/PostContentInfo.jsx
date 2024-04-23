@@ -6,6 +6,8 @@ import { useMutation } from "@tanstack/react-query";
 import { changeRecruitment } from "../../../../apis/board";
 import { useParams, useSearchParams } from "react-router-dom";
 import useBreakpoint from "../../../../hooks/useBreakPoint";
+import { useSetRecoilState } from "recoil";
+import { toastState } from "../../../../recoil/atoms/toast";
 
 export default function PostContentInfo({
   title,
@@ -20,10 +22,20 @@ export default function PostContentInfo({
   const { isSmallMobile } = useBreakpoint();
   const [isRecruitmentActive, setIsRecruitmentActive] =
     useState(recruitmentActive);
+  const setToast = useSetRecoilState(toastState);
   const changeRecruitmentMutate = useMutation({
     mutationFn: () => changeRecruitment({ postId, category }),
     onSuccess: () => {
       setIsRecruitmentActive((prev) => !prev);
+    },
+    onError: () => {
+      setToast({
+        isOpen: true,
+        message: "잠시후 다시 시도해주세요.",
+      });
+      setTimeout(() => {
+        setToast({ isOpen: false, message: "" });
+      }, 3000);
     },
   });
 
