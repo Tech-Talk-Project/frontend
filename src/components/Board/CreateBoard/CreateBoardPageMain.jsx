@@ -40,7 +40,7 @@ export default function CreateBoardPageMain() {
   const createPostMutate = useMutation({
     mutationFn: createPost,
     onSuccess: () => {
-      navigate("/board?type=project");
+      navigate(-1);
     },
   });
 
