@@ -141,3 +141,9 @@ export const BOARD_CATEGORIE_TYPES = [
   "promotion",
   "free",
 ];
+
+export const BOARD_CATEGORIE_WITHOUT_TOGGLE_TYPES = [
+  "question",
+  "promotion",
+  "free",
+];
