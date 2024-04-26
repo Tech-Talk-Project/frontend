@@ -1,7 +1,7 @@
 import React from "react";
+import { useRecoilValue } from "recoil";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import Button from "../../Common/Button";
-import { useRecoilValue } from "recoil";
 import { isLoggedInState } from "../../../recoil/atoms/auth";
 
 export default function BoardPageMain() {
