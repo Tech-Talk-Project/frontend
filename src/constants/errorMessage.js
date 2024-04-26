@@ -10,3 +10,5 @@ export const BOARD_CREATE_MAX_LENGTH_ERROR_MSG =
   "제목은 150자 이하로 입력가능합니다.";
 export const BOARD_TAG_MAX_LENGTH_ERROR_MSG =
   "태그는 20자 이하로 입력가능합니다.";
+export const BOARD_CREATE_TAG_NAME_REQUIRED_ERROR_MSG =
+  "빈 태그는 생성할 수 없습니다.";

@@ -1,12 +1,14 @@
 import React from "react";
 import { useSearchParams } from "react-router-dom";
-import { useSuspenseQueries } from "@tanstack/react-query";
+import { useQueries } from "@tanstack/react-query";
 import Author from "./Author";
 import Like from "./Like";
 import Tags from "./Tags";
 import Recommend from "./Recommend";
 import { BOARD_QUERY_KEYS } from "../../../../constants/queryKeys";
 import { checkDisLike, checkLike } from "../../../../apis/board";
+import { BOARD_CATEGORIE_WITHOUT_TOGGLE_TYPES } from "../../../../constants/category";
+import Loader from "../../../Common/Loader";
 
 export default function PostInfo({
   postId,
@@ -19,13 +21,9 @@ export default function PostInfo({
   const type = searchParams.get("type");
   const isProjectOrStudy = getIsProjectOrStudy(type);
   const [
-    {
-      data: { liked },
-    },
-    {
-      data: { disliked },
-    },
-  ] = useSuspenseQueries({
+    { data: likedData, isLoading: isLikedLoading },
+    { data: dislikedData, isLoading: isDisLikedLoading },
+  ] = useQueries({
     queries: [
       {
         queryKey: BOARD_QUERY_KEYS.checkLike(postId),
@@ -34,10 +32,14 @@ export default function PostInfo({
       {
         queryKey: BOARD_QUERY_KEYS.checkDisLike(postId),
         queryFn: () => checkDisLike({ postId, category: type.toUpperCase() }),
+        enabled: BOARD_CATEGORIE_WITHOUT_TOGGLE_TYPES.includes(type),
       },
     ],
   });
 
+  if (isLikedLoading || isDisLikedLoading) {
+    return <Loader />;
+  }
   return (
     <aside className="md:sticky md:top-20 flex flex-col gap-4 p-4 w-full md:w-80 md:h-[calc(100vh-5rem)] md:border-l border-blue-gray-800 overflow-y-auto shrink-0">
       <Tags tags={tags} />
@@ -47,7 +49,7 @@ export default function PostInfo({
             postId={postId}
             category={type.toUpperCase()}
             likeCount={likeCount}
-            isLiked={liked}
+            isLiked={likedData.liked}
           />
         ) : (
           <Like
@@ -55,8 +57,8 @@ export default function PostInfo({
             category={type.toUpperCase()}
             likeCount={likeCount}
             dislikeCount={dislikeCount}
-            isLiked={liked}
-            isDisLiked={disliked}
+            isLiked={likedData.liked}
+            isDisLiked={dislikedData.disliked}
           />
         )}
         <Author imageUrl={imageUrl} name={name} />
