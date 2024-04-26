@@ -4,3 +4,13 @@ export const getHourAndMinutes = (timestamp) => {
 
   return hour + ":" + minutes;
 };
+
+export const getDateInfo = (timestamp) => {
+  const year = timestamp.getFullYear();
+  const month = timestamp.getMonth();
+  const day = timestamp.getDate();
+  const hour = timestamp.getHours();
+  const minutes = timestamp.getMinutes();
+
+  return `${year}.${month}.${day} ${hour}:${minutes}`;
+};
