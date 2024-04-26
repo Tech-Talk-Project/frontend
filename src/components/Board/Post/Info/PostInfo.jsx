@@ -1,12 +1,12 @@
 import React from "react";
 import { useSearchParams } from "react-router-dom";
-import { useSuspenseQuery } from "@tanstack/react-query";
+import { useSuspenseQueries } from "@tanstack/react-query";
 import Author from "./Author";
 import Like from "./Like";
 import Tags from "./Tags";
 import Recommend from "./Recommend";
 import { BOARD_QUERY_KEYS } from "../../../../constants/queryKeys";
-import { checkLike } from "../../../../apis/board";
+import { checkDisLike, checkLike } from "../../../../apis/board";
 
 export default function PostInfo({
   postId,
@@ -18,11 +18,24 @@ export default function PostInfo({
   const [searchParams] = useSearchParams();
   const type = searchParams.get("type");
   const isProjectOrStudy = getIsProjectOrStudy(type);
-  const {
-    data: { liked },
-  } = useSuspenseQuery({
-    queryKey: BOARD_QUERY_KEYS.checkLike(postId),
-    queryFn: () => checkLike({ postId, category: type.toUpperCase() }),
+  const [
+    {
+      data: { liked },
+    },
+    {
+      data: { disliked },
+    },
+  ] = useSuspenseQueries({
+    queries: [
+      {
+        queryKey: BOARD_QUERY_KEYS.checkLike(postId),
+        queryFn: () => checkLike({ postId, category: type.toUpperCase() }),
+      },
+      {
+        queryKey: BOARD_QUERY_KEYS.checkDisLike(postId),
+        queryFn: () => checkDisLike({ postId, category: type.toUpperCase() }),
+      },
+    ],
   });
 
   return (
@@ -34,7 +47,7 @@ export default function PostInfo({
             postId={postId}
             category={type.toUpperCase()}
             likeCount={likeCount}
-            liked={liked}
+            isLiked={liked}
           />
         ) : (
           <Like
@@ -42,7 +55,8 @@ export default function PostInfo({
             category={type.toUpperCase()}
             likeCount={likeCount}
             dislikeCount={dislikeCount}
-            liked={liked}
+            isLiked={liked}
+            isDisLiked={disliked}
           />
         )}
         <Author imageUrl={imageUrl} name={name} />

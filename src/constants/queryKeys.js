@@ -25,4 +25,5 @@ export const BOARD_QUERY_KEYS = {
   post: (id) => ["post", id],
   postViewCount: (id) => ["postViewCount", id],
   checkLike: (id) => ["checkLike", id],
+  checkDisLike: (id) => ["checkDisLike", id],
 };

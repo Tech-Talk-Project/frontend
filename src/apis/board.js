@@ -49,9 +49,24 @@ export const checkLike = ({ postId, category }) =>
     })
     .then((response) => response.data);
 
+export const checkDisLike = ({ postId, category }) =>
+  instance
+    .get(`${ENDPOINT}/check-dislike`, {
+      params: { boardId: postId, category },
+    })
+    .then((response) => response.data);
+
 export const toggleLike = ({ postId, category }) =>
   instance
     .post(`${ENDPOINT}/toggle-like`, {
+      boardId: postId,
+      category,
+    })
+    .then((response) => response.data);
+
+export const toggleDisLike = ({ postId, category }) =>
+  instance
+    .post(`${ENDPOINT}/toggle-dislike`, {
       boardId: postId,
       category,
     })

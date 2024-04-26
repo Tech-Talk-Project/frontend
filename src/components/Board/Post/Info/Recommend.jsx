@@ -2,20 +2,20 @@ import React, { useState } from "react";
 import { MdFavorite } from "react-icons/md";
 import { Chip } from "@material-tailwind/react";
 import { useMutation } from "@tanstack/react-query";
+import { useSetRecoilState } from "recoil";
 import Button from "../../../Common/Button";
 import { toggleLike } from "../../../../apis/board";
-import { useSetRecoilState } from "recoil";
 import { toastState } from "../../../../recoil/atoms/toast";
 
-export default function Recommend({ postId, category, likeCount, liked }) {
-  const [isLiked, setIsLiked] = useState(liked);
+export default function Recommend({ postId, category, likeCount, isLiked }) {
+  const [isLikedState, setIsLikedState] = useState(isLiked);
   const [likeCountState, setLikeCountState] = useState(likeCount);
   const setToast = useSetRecoilState(toastState);
   const toggleLikeMutate = useMutation({
     mutationFn: () => toggleLike({ postId, category }),
     onSuccess: () => {
-      setIsLiked((prev) => !prev);
-      setLikeCountState((prev) => (isLiked ? prev - 1 : prev + 1));
+      setIsLikedState((prev) => !prev);
+      setLikeCountState((prev) => (isLikedState ? prev - 1 : prev + 1));
     },
     onError: () => {
       setToast({
