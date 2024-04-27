@@ -45,6 +45,12 @@ export const createCommnet = ({ boardId, content, category }) =>
     })
     .then((response) => response.data);
 
+export const updateComment = ({ commentId, content }) =>
+  instance.post("/user/comment/update", {
+    commentId,
+    content,
+  });
+
 export const changeRecruitment = ({ postId, category }) =>
   instance
     .post(`${ENDPOINT}/toggle-recruitment`, {
