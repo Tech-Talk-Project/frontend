@@ -1,18 +1,18 @@
 import React, { useState } from "react";
+import { useRecoilValue } from "recoil";
 import { Typography } from "@material-tailwind/react";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
+import { useParams, useSearchParams } from "react-router-dom";
 import CustomEditor from "ckeditor5-custom-build/build/ckeditor";
+import { useMutation } from "@tanstack/react-query";
 import { editorConfiguration } from "../../../Profile/Description/DescriptionEditor/Plugin";
 import ProfileImage from "../../../Common/Image/ProfileImage";
 import Content from "../Common/Content";
 import Button from "../../../Common/Button";
 import { getDateInfo } from "../../../../utils/date";
-import { useMutation } from "@tanstack/react-query";
 import { updateComment } from "../../../../apis/board";
 import { queryClient } from "../../../../apis/queryClient";
 import { BOARD_QUERY_KEYS } from "../../../../constants/queryKeys";
-import { useParams } from "react-router-dom";
-import { useRecoilValue } from "recoil";
 import { memberIdState } from "../../../../recoil/atoms/auth";
 
 export default function Comment({
@@ -23,8 +23,10 @@ export default function Comment({
     updatedAt,
     commentId,
   },
+  onModalClick,
 }) {
   const { postId } = useParams();
+  const [searchParmas, setSearchParams] = useSearchParams();
   const [isUpdating, setIsUpdating] = useState(false);
   const [updatedContent, setUpdatedContent] = useState(content);
   const memberId = useRecoilValue(memberIdState);
@@ -37,6 +39,10 @@ export default function Comment({
 
   const handleUpdateClick = () => {
     setIsUpdating((prev) => !prev);
+  };
+  const handleDeleteClick = () => {
+    setSearchParams({ type: searchParmas.get("type"), comment_id: commentId });
+    onModalClick();
   };
   const handleCancelClick = () => {
     setIsUpdating((prev) => !prev);
@@ -82,14 +88,24 @@ export default function Comment({
             </div>
             <div className="flex items-center gap-3">
               {memberId === authorId && (
-                <Button
-                  variant="text"
-                  color="white"
-                  className="p-1 text-sm font-normal hover:underline hover:bg-transparent active:bg-transparent"
-                  onClick={handleUpdateClick}
-                >
-                  수정
-                </Button>
+                <>
+                  <Button
+                    variant="text"
+                    color="red"
+                    className="p-1 text-sm font-normal hover:underline hover:bg-transparent active:bg-transparent"
+                    onClick={handleDeleteClick}
+                  >
+                    삭제
+                  </Button>
+                  <Button
+                    variant="text"
+                    color="white"
+                    className="p-1 text-sm font-normal hover:underline hover:bg-transparent active:bg-transparent"
+                    onClick={handleUpdateClick}
+                  >
+                    수정
+                  </Button>
+                </>
               )}
               <Typography>
                 {updatedAt

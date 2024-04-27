@@ -46,10 +46,19 @@ export const createCommnet = ({ boardId, content, category }) =>
     .then((response) => response.data);
 
 export const updateComment = ({ commentId, content }) =>
-  instance.post("/user/comment/update", {
-    commentId,
-    content,
-  });
+  instance
+    .post("/user/comment/update", {
+      commentId,
+      content,
+    })
+    .then((response) => response.data);
+
+export const deleteComment = ({ commentId }) =>
+  instance
+    .post("/user/comment/delete", {
+      commentId,
+    })
+    .then((response) => response.data);
 
 export const changeRecruitment = ({ postId, category }) =>
   instance
