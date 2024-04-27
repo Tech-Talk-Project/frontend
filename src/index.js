@@ -20,10 +20,11 @@ import ChatListPage from "./pages/ChatListPage";
 import ChattingPage from "./pages/ChattingPage";
 import UserDetailPage from "./pages/UserDetailPage";
 import BoardPage from "./pages/BoardPage";
-import CreateBoardPage from "./pages/CreateBoardPage";
+import PostCreatePage from "./pages/PostCreatePage";
 import PostPage from "./pages/PostPage";
 import LoginProtectedRoute from "./pages/ProtectedRoute/LoginProtectedRoute";
 import NoTypeProtectedRoute from "./pages/ProtectedRoute/NoTypeProtectedRoute";
+import PostUpdatePage from "./pages/PostUpdatePage";
 
 const router = createBrowserRouter([
   {
@@ -49,7 +50,7 @@ const router = createBrowserRouter([
             path: "/create/board",
             element: (
               <NoTypeProtectedRoute>
-                <CreateBoardPage />
+                <PostCreatePage />
               </NoTypeProtectedRoute>
             ),
           },
@@ -58,6 +59,14 @@ const router = createBrowserRouter([
             element: (
               <NoTypeProtectedRoute>
                 <PostPage />
+              </NoTypeProtectedRoute>
+            ),
+          },
+          {
+            path: "/board/post/:postId/update",
+            element: (
+              <NoTypeProtectedRoute>
+                <PostUpdatePage />
               </NoTypeProtectedRoute>
             ),
           },

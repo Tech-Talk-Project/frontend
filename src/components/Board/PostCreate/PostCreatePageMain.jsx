@@ -10,7 +10,7 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import { createPost } from "../../../apis/board";
 
-export default function CreateBoardPageMain() {
+export default function PostCreatePageMain() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const [tags, setTags] = useState([]);
