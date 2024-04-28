@@ -7,6 +7,25 @@ export const createPost = ({ title, content, tags, category }) =>
     .post(`${ENDPOINT}/create`, { title, content, tags, category })
     .then((response) => response.data);
 
+export const updatePost = ({ postId, title, content, tags, category }) =>
+  instance
+    .post(`${ENDPOINT}/update`, {
+      boardId: postId,
+      title,
+      content,
+      tags,
+      category,
+    })
+    .then((response) => response.data);
+
+export const deletePost = ({ postId, category }) =>
+  instance
+    .post(`${ENDPOINT}/delete`, {
+      boardId: postId,
+      category,
+    })
+    .then((response) => response.data);
+
 export const getPost = ({ category, postId }) =>
   instance
     .get("/board", {
@@ -31,6 +50,21 @@ export const createCommnet = ({ boardId, content, category }) =>
       boardId,
       content,
       category,
+    })
+    .then((response) => response.data);
+
+export const updateComment = ({ commentId, content }) =>
+  instance
+    .post("/user/comment/update", {
+      commentId,
+      content,
+    })
+    .then((response) => response.data);
+
+export const deleteComment = ({ commentId }) =>
+  instance
+    .post("/user/comment/delete", {
+      commentId,
     })
     .then((response) => response.data);
 

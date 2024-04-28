@@ -6,15 +6,20 @@ import { editorConfiguration } from "../../Profile/Description/DescriptionEditor
 import Button from "../../Common/Button";
 import Title from "./Title";
 import Tag from "./Tag";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
-import { createPost } from "../../../apis/board";
+import { createPost, updatePost } from "../../../apis/board";
 
-export default function CreateBoardPageMain() {
+export default function PostCreatePageMain({
+  postTitle,
+  postContent,
+  postTags,
+}) {
   const navigate = useNavigate();
+  const { postId } = useParams();
   const [searchParams] = useSearchParams();
-  const [tags, setTags] = useState([]);
-  const [content, setContent] = useState("");
+  const [tags, setTags] = useState(postTags || []);
+  const [content, setContent] = useState(postContent || "");
   const {
     register: titleRegister,
     handleSubmit: onTitleSubmit,
@@ -23,7 +28,7 @@ export default function CreateBoardPageMain() {
     formState: { errors: titleErrors, isValid: isTitleValid },
   } = useForm({
     defaultValues: {
-      title: "",
+      title: postTitle || "",
     },
   });
   const {
@@ -39,6 +44,12 @@ export default function CreateBoardPageMain() {
   });
   const createPostMutate = useMutation({
     mutationFn: createPost,
+    onSuccess: () => {
+      navigate(-1);
+    },
+  });
+  const updatePostMutate = useMutation({
+    mutationFn: updatePost,
     onSuccess: () => {
       navigate(-1);
     },
@@ -61,13 +72,22 @@ export default function CreateBoardPageMain() {
     setTags((prev) => [...prev, tag.trim()]);
     resetTag({ tag: "" });
   });
-  const handleCreateClick = () => {
-    createPostMutate.mutate({
+  const handleSubmit = () => {
+    const data = {
       title: getTitleValue().title,
       content: content,
       tags,
       category: searchParams.get("type").toUpperCase(),
-    });
+    };
+
+    if (postId) {
+      updatePostMutate.mutate({
+        postId,
+        ...data,
+      });
+    } else {
+      createPostMutate.mutate(data);
+    }
   };
   const handleCancelClick = () => {
     navigate(-1);
@@ -104,7 +124,7 @@ export default function CreateBoardPageMain() {
         </Button>
         <Button
           className="py-2 text-sm bg-brand hover:bg-white hover:text-brand"
-          onClick={handleCreateClick}
+          onClick={handleSubmit}
         >
           등록
         </Button>
