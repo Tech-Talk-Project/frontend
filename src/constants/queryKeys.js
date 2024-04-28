@@ -22,6 +22,7 @@ export const CHAT_QUERY_KEYS = {
 };
 
 export const BOARD_QUERY_KEYS = {
+  board: (page, type) => ["board", "posts", type, page],
   post: (id) => ["post", id],
   postViewCount: (id) => ["postViewCount", id],
   checkLike: (id) => ["checkLike", id],
