@@ -36,7 +36,7 @@ export default function Recommend({ postId, category, likeCount, isLiked }) {
       <Button
         variant="text"
         className={`p-1 text-blue-gray-500 hover:text-brand ${
-          isLiked ? "text-brand" : ""
+          isLikedState ? "text-brand" : ""
         }`}
         onClick={handleClick}
       >
