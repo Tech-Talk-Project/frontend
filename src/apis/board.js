@@ -18,6 +18,14 @@ export const updatePost = ({ postId, title, content, tags, category }) =>
     })
     .then((response) => response.data);
 
+export const deletePost = ({ postId, category }) =>
+  instance
+    .post(`${ENDPOINT}/delete`, {
+      boardId: postId,
+      category,
+    })
+    .then((response) => response.data);
+
 export const getPost = ({ category, postId }) =>
   instance
     .get("/board", {

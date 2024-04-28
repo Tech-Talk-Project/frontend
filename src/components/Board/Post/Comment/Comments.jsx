@@ -1,19 +1,13 @@
 import React from "react";
 import { v4 as uuidv4 } from "uuid";
-import {
-  Dialog,
-  DialogBody,
-  DialogFooter,
-  Typography,
-} from "@material-tailwind/react";
 import { useParams, useSearchParams } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import Comment from "./Comment";
 import useModal from "../../../../hooks/useModal";
-import Button from "../../../Common/Button";
 import { deleteComment } from "../../../../apis/board";
 import { queryClient } from "../../../../apis/queryClient";
 import { BOARD_QUERY_KEYS } from "../../../../constants/queryKeys";
+import DeleteConfirmModal from "./DeleteConfirmModal";
 
 export default function Comments({ comments }) {
   const { postId } = useParams();
@@ -47,24 +41,11 @@ export default function Comments({ comments }) {
           />
         ))}
       </ul>
-      <Dialog open={isDeleteConfirmOpen} handler={handleModalClick}>
-        <DialogBody className="flex flex-col items-center gap-1 text-center px-6 py-8">
-          <Typography variant="h5" color="black">
-            정말 댓글을 삭제하시겠습니까?
-          </Typography>
-          <Typography>
-            확인 버튼 클릭 시, 댓글은 삭제되며 복구할 수 없습니다.
-          </Typography>
-        </DialogBody>
-        <DialogFooter className="gap-2">
-          <Button variant="text" onClick={handleModalClick}>
-            취소
-          </Button>
-          <Button className="bg-brand" onClick={handleDeleteClick}>
-            확인
-          </Button>
-        </DialogFooter>
-      </Dialog>
+      <DeleteConfirmModal
+        isOpen={isDeleteConfirmOpen}
+        setIsOpen={setIsDeleteConfirmOpen}
+        onDeleteClick={handleDeleteClick}
+      />
     </article>
   );
 }

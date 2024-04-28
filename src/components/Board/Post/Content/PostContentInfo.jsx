@@ -4,13 +4,15 @@ import { Chip, Typography } from "@material-tailwind/react";
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import RecruitmentToggle from "./RecruitmentToggle";
-import { changeRecruitment } from "../../../../apis/board";
+import { changeRecruitment, deletePost } from "../../../../apis/board";
 import { getDateInfo } from "../../../../utils/date";
 import useBreakpoint from "../../../../hooks/useBreakPoint";
 import { toastState } from "../../../../recoil/atoms/toast";
 import { memberIdState } from "../../../../recoil/atoms/auth";
 import { BOARD_CATEGORIE_WITHOUT_TOGGLE_TYPES } from "../../../../constants/category";
 import Button from "../../../Common/Button";
+import useModal from "../../../../hooks/useModal";
+import DeleteConfirmModal from "../Common/DeleteConfirmModal";
 
 export default function PostContentInfo({
   author: { memberId: authorId },
@@ -19,14 +21,13 @@ export default function PostContentInfo({
   createdAt,
   recruitmentActive,
   viewCount,
-  content,
-  tags,
 }) {
   const navigate = useNavigate();
   const { postId } = useParams();
   const [searchParams] = useSearchParams();
   const category = searchParams.get("type");
   const { isSmallMobile } = useBreakpoint();
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useModal();
   const [isRecruitmentActive, setIsRecruitmentActive] =
     useState(recruitmentActive);
   const memberId = useRecoilValue(memberIdState);
@@ -46,6 +47,12 @@ export default function PostContentInfo({
       }, 3000);
     },
   });
+  const postDeleteMutate = useMutation({
+    mutationFn: deletePost,
+    onSuccess: () => {
+      navigate(`/board?type=${category}`);
+    },
+  });
 
   const handleRecruitmentClick = () => {
     changeRecruitmentMutate.mutate({
@@ -55,6 +62,12 @@ export default function PostContentInfo({
   };
   const handleUpdateClick = () => {
     navigate(`/board/post/${postId}/update?type=${category}`);
+  };
+  const handleDeleteModalClick = () => {
+    setIsDeleteModalOpen();
+  };
+  const handleDeleteClick = () => {
+    postDeleteMutate.mutate({ postId, category: category.toUpperCase() });
   };
   return (
     <article className="flex flex-col md:flex-row gap-2 md:items-end justify-between pb-4 border-b border-blue-gray-800">
@@ -76,14 +89,24 @@ export default function PostContentInfo({
       </div>
       <div className="flex flex-col items-end gap-2">
         {memberId === authorId && (
-          <Button
-            variant="text"
-            color="white"
-            className="p-1 text-base font-normal hover:bg-transparent hover:underline active:bg-transparent"
-            onClick={handleUpdateClick}
-          >
-            수정
-          </Button>
+          <div className="flex gap-2">
+            <Button
+              variant="text"
+              color="red"
+              className="p-1 text-base font-normal hover:bg-transparent hover:underline active:bg-transparent"
+              onClick={handleDeleteModalClick}
+            >
+              삭제
+            </Button>
+            <Button
+              variant="text"
+              color="white"
+              className="p-1 text-base font-normal hover:bg-transparent hover:underline active:bg-transparent"
+              onClick={handleUpdateClick}
+            >
+              수정
+            </Button>
+          </div>
         )}
         {!BOARD_CATEGORIE_WITHOUT_TOGGLE_TYPES.includes(category) &&
           (memberId === authorId ? (
@@ -99,6 +122,11 @@ export default function PostContentInfo({
             />
           ))}
       </div>
+      <DeleteConfirmModal
+        isOpen={isDeleteModalOpen}
+        setIsOpen={setIsDeleteModalOpen}
+        onDeleteClick={handleDeleteClick}
+      />
     </article>
   );
 }
