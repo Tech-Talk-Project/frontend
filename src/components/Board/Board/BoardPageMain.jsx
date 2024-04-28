@@ -25,6 +25,7 @@ export default function BoardPageMain() {
     keepPreviousData: true,
   });
   const {
+    length,
     pageStart,
     getItemProps,
     handleNextClick,
@@ -57,6 +58,7 @@ export default function BoardPageMain() {
           </div>
           <Posts boardList={boardList} />
           <Pagination
+            length={length}
             pageStart={pageStart}
             page={page}
             totalPage={totalPage}

@@ -17,6 +17,7 @@ export default function FollowingPage() {
     keepPreviousData: true,
   });
   const {
+    length,
     pageStart,
     getItemProps,
     handleNextClick,
@@ -32,6 +33,7 @@ export default function FollowingPage() {
         <>
           <UsersGrid users={userData} isFollowing={true} />
           <Pagination
+            length={length}
             pageStart={pageStart}
             page={page}
             totalPage={totalPage}
