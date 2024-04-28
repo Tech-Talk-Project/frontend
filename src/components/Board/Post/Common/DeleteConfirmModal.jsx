@@ -11,16 +11,16 @@ export default function DeleteConfirmModal({
   isOpen,
   setIsOpen,
   onDeleteClick,
+  title,
+  content,
 }) {
   return (
     <Dialog open={isOpen} handler={setIsOpen}>
       <DialogBody className="flex flex-col items-center gap-1 text-center px-6 py-8">
         <Typography variant="h5" color="black">
-          정말 게시글을 삭제하시겠습니까?
+          {title}
         </Typography>
-        <Typography>
-          확인 버튼 클릭 시, 게시글은 삭제되며 복구할 수 없습니다.
-        </Typography>
+        <Typography>{content}</Typography>
       </DialogBody>
       <DialogFooter className="gap-2">
         <Button variant="text" onClick={setIsOpen}>

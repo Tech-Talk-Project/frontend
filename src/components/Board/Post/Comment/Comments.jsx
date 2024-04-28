@@ -7,7 +7,7 @@ import useModal from "../../../../hooks/useModal";
 import { deleteComment } from "../../../../apis/board";
 import { queryClient } from "../../../../apis/queryClient";
 import { BOARD_QUERY_KEYS } from "../../../../constants/queryKeys";
-import DeleteConfirmModal from "./DeleteConfirmModal";
+import DeleteConfirmModal from "../Common/DeleteConfirmModal";
 
 export default function Comments({ comments }) {
   const { postId } = useParams();
@@ -45,6 +45,8 @@ export default function Comments({ comments }) {
         isOpen={isDeleteConfirmOpen}
         setIsOpen={setIsDeleteConfirmOpen}
         onDeleteClick={handleDeleteClick}
+        title="정말 댓글을 삭제하시겠습니까?"
+        content="확인 버튼 클릭 시, 댓글은 삭제되며 복구할 수 없습니다."
       />
     </article>
   );

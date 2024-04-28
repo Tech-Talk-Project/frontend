@@ -126,6 +126,8 @@ export default function PostContentInfo({
         isOpen={isDeleteModalOpen}
         setIsOpen={setIsDeleteModalOpen}
         onDeleteClick={handleDeleteClick}
+        title="정말 게시글을 삭제하시겠습니까?"
+        content="확인 버튼 클릭 시, 게시글은 삭제되며 복구할 수 없습니다."
       />
     </article>
   );
