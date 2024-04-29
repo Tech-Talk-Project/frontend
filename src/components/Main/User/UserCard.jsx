@@ -36,20 +36,26 @@ export default function UserCard({
       }`}
       onClick={handleClick}
     >
-      <div className="flex justify-between items-center">
-        <div className="flex gap-3">
-          <Typography variant="h5">{name}</Typography>
-          <Typography variant="h6" className=" text-gray-500">
+      <div className="flex justify-between items-center gap-1">
+        <div className="flex flex-col gap-1">
+          <div className="line-clamp-2">
+            <Typography variant="h5" className="break-all">
+              {name}
+            </Typography>
+          </div>
+          <Typography variant="h6" className="break-all text-gray-500">
             {job || ""}
           </Typography>
         </div>
         <ProfileImage imageUrl={imageUrl} size="md" />
       </div>
-      <Typography variant="paragraph" className="mt-2 font-medium">
-        {introduction || ""}
-      </Typography>
-      <div className="relative h-full">
-        <ul className="flex flex-wrap gap-2 mr-12 max-h-[88px] overflow-hidden">
+      <div className="line-clamp-2">
+        <Typography variant="paragraph" className="mt-2 font-medium">
+          {introduction || ""}
+        </Typography>
+      </div>
+      <div className="relative">
+        <ul className="flex flex-wrap gap-2 max-h-[88px] overflow-hidden">
           {skills.map((skill) => (
             <SkillItem key={uuidv4()} skill={skill} />
           ))}

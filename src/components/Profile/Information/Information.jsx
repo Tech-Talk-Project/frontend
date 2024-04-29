@@ -87,10 +87,10 @@ export default function Information({ info: { name, job, email } }) {
               {errors.name && <InputError message={errors.name.message} />}
             </div>
           ) : (
-            <span className="ml-4">{name}</span>
+            <span className="ml-4 break-all">{name}</span>
           )}
         </div>
-        <div className="flex items-center font-semibold">
+        <div className="flex items-start font-semibold">
           <span className=" shrink-0">Job : </span>
           {isEditing ? (
             <div className="relative">
@@ -108,7 +108,7 @@ export default function Information({ info: { name, job, email } }) {
               {errors.job && <InputError message={errors.job.message} />}
             </div>
           ) : job ? (
-            <span className="ml-4">{job}</span>
+            <span className="ml-4 break-all">{job}</span>
           ) : (
             <span className="ml-4 font-normal text-gray-600">
               직업을 입력해보세요.
