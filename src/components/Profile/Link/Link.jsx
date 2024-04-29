@@ -18,7 +18,7 @@ export default function Link({ link, isEditing, index, remove }) {
         target="_blank"
         rel="noopener noreferrer"
         onClick={handleLinkClick}
-        className={`flex items-center gap-2 w-fit font-semibold duration-100 ${
+        className={`flex items-start gap-2 w-fit font-semibold duration-100 ${
           isEditing ? "cursor-default" : "hover:text-brand hover:underline"
         }`}
       >

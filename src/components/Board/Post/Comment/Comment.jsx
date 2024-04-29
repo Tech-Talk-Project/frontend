@@ -107,7 +107,7 @@ export default function Comment({
                   </Button>
                 </>
               )}
-              <Typography>
+              <Typography className="hidden sm:block">
                 {updatedAt
                   ? getDateInfo(new Date(updatedAt))
                   : getDateInfo(new Date(createdAt))}

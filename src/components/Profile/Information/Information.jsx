@@ -38,7 +38,7 @@ export default function Information({ info: { name, job, email } }) {
     }
 
     setProfileInfoMutate.mutate(
-      { name: name.trim(), job: job.trim() },
+      { name: name.trim(), job: job ? job.trim() : "" },
       {
         onSuccess: () => {
           setIsEditing(false);
@@ -65,12 +65,12 @@ export default function Information({ info: { name, job, email } }) {
       )}
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className={`flex flex-col gap-5 p-4 w-full border border-black border-b-blue-gray-800 duration-150 peer-hover:border-brand peer-hover:rounded-md ${
+        className={`flex flex-col gap-3 p-4 w-full border border-black border-b-blue-gray-800 duration-150 peer-hover:border-brand peer-hover:rounded-md ${
           isEditing ? "rounded-md !border-brand" : ""
         }`}
       >
-        <div className="flex items-center font-semibold">
-          <span className="mr-4 shrink-0">Name : </span>
+        <div className="flex items-start font-semibold">
+          <span className=" shrink-0">Name : </span>
           {isEditing ? (
             <div className="relative">
               <Input
@@ -91,7 +91,7 @@ export default function Information({ info: { name, job, email } }) {
           )}
         </div>
         <div className="flex items-center font-semibold">
-          <span className="mr-4 shrink-0">Job : </span>
+          <span className=" shrink-0">Job : </span>
           {isEditing ? (
             <div className="relative">
               <Input
