@@ -17,6 +17,7 @@ export default function Post({
     updatedAt,
     viewCount,
     likeCount,
+    dislikeCount,
     commentCount,
   },
 }) {
@@ -55,6 +56,7 @@ export default function Post({
         updatedAt={updatedAt}
         viewCount={viewCount}
         likeCount={likeCount}
+        disLikeCount={dislikeCount}
         commentCount={commentCount}
       />
     </li>

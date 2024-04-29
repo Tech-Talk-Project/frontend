@@ -8,7 +8,10 @@ export default function NullBoard({ onCreateClick }) {
       <Typography variant="h5" className="text-blue-gray-600">
         게시판이 비어있습니다. 게시글을 생성해보세요!
       </Typography>
-      <Button onClick={onCreateClick} className="bg-brand text-sm py-2 px-6">
+      <Button
+        onClick={onCreateClick}
+        className="bg-brand text-sm py-1 sm:py-2 px-4 sm:px-6"
+      >
         글쓰기
       </Button>
     </article>

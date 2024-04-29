@@ -48,10 +48,10 @@ export default function BoardPageMain() {
         <NullBoard onCreateClick={handleCreateClick} />
       ) : (
         <>
-          <div className="flex justify-end mt-2">
+          <div className="flex justify-end sm:mt-2">
             <Button
               onClick={handleCreateClick}
-              className="bg-brand text-sm py-2 px-6"
+              className="bg-brand text-sm py-1 sm:py-2 px-4 sm:px-6"
             >
               글쓰기
             </Button>

@@ -11,6 +11,7 @@ export default function PostInfo({
   updatedAt,
   viewCount,
   likeCount,
+  disLikeCount,
   commentCount,
 }) {
   const { isSmallMobile } = useBreakpoint();
@@ -36,7 +37,7 @@ export default function PostInfo({
         </li>
         <li className="flex items-center gap-2 text-white font-medium">
           <MdThumbUp />
-          <Typography className="mt-1">{likeCount}</Typography>
+          <Typography className="mt-1">{likeCount - disLikeCount}</Typography>
         </li>
         <li className="flex items-center gap-2 text-white font-medium">
           <BsFillChatDotsFill />

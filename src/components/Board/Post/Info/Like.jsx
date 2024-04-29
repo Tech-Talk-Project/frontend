@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { MdThumbDown, MdThumbUp } from "react-icons/md";
 import { Chip } from "@material-tailwind/react";
 import Button from "../../../Common/Button";
@@ -70,6 +70,15 @@ export default function Like({
   const handleLikeClick = () => {
     toggleLikeMutate.mutate({ postId, category });
   };
+
+  useEffect(() => {
+    setIsLikedState(isLiked);
+    setIsDisLikedState(isDisLiked);
+  }, [isLiked, isDisLiked]);
+
+  useEffect(() => {
+    setLikeCountState(likeCount - dislikeCount);
+  }, [likeCount, dislikeCount]);
   return (
     <article className="flex justify-center gap-8 my-4">
       <Button

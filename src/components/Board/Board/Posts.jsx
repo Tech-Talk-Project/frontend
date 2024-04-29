@@ -4,7 +4,7 @@ import Post from "./Post";
 
 export default function Posts({ boardList }) {
   return (
-    <ul className="flex flex-col gap-2">
+    <ul className="flex flex-col grow gap-2">
       {boardList.map((post) => (
         <Post key={uuidv4()} post={post} />
       ))}
