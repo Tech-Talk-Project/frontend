@@ -26,6 +26,17 @@ export const deletePost = ({ postId, category }) =>
     })
     .then((response) => response.data);
 
+export const getBoardData = ({ page, category, size = 20 }) =>
+  instance
+    .get("/boards", {
+      params: {
+        page,
+        category,
+        size,
+      },
+    })
+    .then((response) => response.data);
+
 export const getPost = ({ category, postId }) =>
   instance
     .get("/board", {

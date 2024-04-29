@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { MdFavorite } from "react-icons/md";
 import { Chip } from "@material-tailwind/react";
 import { useMutation } from "@tanstack/react-query";
@@ -31,12 +31,20 @@ export default function Recommend({ postId, category, likeCount, isLiked }) {
   const handleClick = () => {
     toggleLikeMutate.mutate({ postId, category });
   };
+
+  useEffect(() => {
+    setIsLikedState(isLiked);
+  }, [isLiked]);
+
+  useEffect(() => {
+    setLikeCountState(likeCount);
+  }, [likeCount]);
   return (
     <article className="flex justify-center items-center gap-2">
       <Button
         variant="text"
         className={`p-1 text-blue-gray-500 hover:text-brand ${
-          isLiked ? "text-brand" : ""
+          isLikedState ? "text-brand" : ""
         }`}
         onClick={handleClick}
       >

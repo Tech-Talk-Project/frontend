@@ -9,7 +9,7 @@ export default function Tags({ tags }) {
       <Typography variant="h6">태그</Typography>
       <ul className="flex flex-wrap gap-4">
         {tags.map((tag) => (
-          <Tag key={uuidv4()} tag={tag} />
+          <Tag key={uuidv4()} tag={tag} color="brand" size="md" />
         ))}
       </ul>
     </article>
