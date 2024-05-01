@@ -1,11 +1,14 @@
-import React from "react";
+import React, { forwardRef } from "react";
 import { Input } from "@material-tailwind/react";
 import { INPUT_VALIDATION } from "../../../constants/validation";
 import InputError from "../../Common/InputError";
 
-export default function Title({ register, onTitleSubmit, errors }) {
+const Title = forwardRef(function Title(
+  { register, onTitleSubmit, errors },
+  ref
+) {
   return (
-    <form className="relative flex w-full" onSubmit={onTitleSubmit}>
+    <form className="relative flex w-full" onSubmit={onTitleSubmit} ref={ref}>
       <Input
         type="text"
         className="pl-0 border-none font-semibold !text-2xl text-white placeholder:text-blue-gray-800"
@@ -16,7 +19,7 @@ export default function Title({ register, onTitleSubmit, errors }) {
         containerProps={{
           className: "min-w-fit rounded-[7px] h-8",
         }}
-        {...register("title", INPUT_VALIDATION.boardTitle)}
+        {...register("title", INPUT_VALIDATION.postTitle)}
       />
       {errors.title && (
         <InputError
@@ -27,4 +30,6 @@ export default function Title({ register, onTitleSubmit, errors }) {
       )}
     </form>
   );
-}
+});
+
+export default Title;

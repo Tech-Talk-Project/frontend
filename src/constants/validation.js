@@ -36,7 +36,7 @@ export const INPUT_VALIDATION = {
       message: CHATROOM_LENGTH_ERROR_MSG,
     },
   },
-  boardTitle: {
+  postTitle: {
     required: BOARD_CREATE_REQUIRE_ERROR_MSG,
     maxLength: {
       value: 150,
