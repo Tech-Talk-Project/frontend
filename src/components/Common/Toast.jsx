@@ -19,7 +19,7 @@ export default function Toast() {
         unmount: { y: -100 },
       }}
       icon={<MdOutlinePriorityHigh size={20} className="text-red-700" />}
-      className="fixed top-0 left-0 right-0 mx-auto max-w-[16rem] sm:max-w-lg bg-brand border border-purple-900 z-[100]"
+      className="fixed top-0 left-0 right-0 mx-auto max-w-[16rem] sm:max-w-lg bg-brand border border-purple-900 z-[9999]"
     >
       {toast.message}
     </Alert>

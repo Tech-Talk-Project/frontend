@@ -46,7 +46,7 @@ export default function Header() {
     setIsOpen((prev) => !prev);
   };
   return (
-    <header className="fixed top-0 flex justify-center items-center w-full h-14 sm:h-20 text-lg bg-light_black border-b border-blue-gray-800 z-[9999]">
+    <header className="fixed top-0 flex justify-center items-center w-full h-14 sm:h-20 text-lg bg-light_black border-b border-blue-gray-800 z-[9998]">
       <article className="flex justify-between items-center w-full max-w-7xl px-5">
         <Logo size="md" />
         <nav>

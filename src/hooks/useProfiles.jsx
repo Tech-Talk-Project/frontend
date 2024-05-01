@@ -15,12 +15,27 @@ import { quit } from "../apis/user";
 import { removeCookie } from "../utils/cookie";
 import { isLoggedInState, memberIdState } from "../recoil/atoms/auth";
 import { newChatMemberState } from "../recoil/atoms/newChat";
+import { toastState } from "../recoil/atoms/toast";
 
 export default function useProfiles() {
   const navigate = useNavigate();
   const setIsLoggedIn = useSetRecoilState(isLoggedInState);
   const setMemberId = useSetRecoilState(memberIdState);
   const setNewChatMembers = useSetRecoilState(newChatMemberState);
+  const setToast = useSetRecoilState(toastState);
+
+  const onSuccessFn = async () => {
+    await queryClient.invalidateQueries(PROFILE_QUERY_KEYS.myProfile);
+  };
+  const onErrorFn = () => {
+    setToast({
+      isOpen: true,
+      message: "죄송합니다. 잠시 후 다시 시도해주세요.",
+    });
+    setTimeout(() => {
+      setToast({ isOpen: false, message: "" });
+    }, 3000);
+  };
 
   const profileQuery = useSuspenseQuery({
     queryKey: PROFILE_QUERY_KEYS.myProfile,
@@ -30,37 +45,32 @@ export default function useProfiles() {
 
   const setInfoMutate = useMutation({
     mutationFn: setProfileInfo,
-    onSuccess: async () => {
-      await queryClient.invalidateQueries(PROFILE_QUERY_KEYS.myProfile);
-    },
+    onSuccess: onSuccessFn,
+    onError: onErrorFn,
   });
 
   const setIntroductionMutate = useMutation({
     mutationFn: setProfileIntroduction,
-    onSuccess: async () => {
-      await queryClient.invalidateQueries(PROFILE_QUERY_KEYS.myProfile);
-    },
+    onSuccess: onSuccessFn,
+    onError: onErrorFn,
   });
 
   const setLinksMutate = useMutation({
     mutationFn: setProfileLinks,
-    onSuccess: async () => {
-      await queryClient.invalidateQueries(PROFILE_QUERY_KEYS.myProfile);
-    },
+    onSuccess: onSuccessFn,
+    onError: onErrorFn,
   });
 
   const setSkillsMutate = useMutation({
     mutationFn: setProfileSkills,
-    onSuccess: async () => {
-      await queryClient.invalidateQueries(PROFILE_QUERY_KEYS.myProfile);
-    },
+    onSuccess: onSuccessFn,
+    onError: onErrorFn,
   });
 
   const setDescriptionMutate = useMutation({
     mutationFn: setProfileDescription,
-    onSuccess: async () => {
-      await queryClient.invalidateQueries(PROFILE_QUERY_KEYS.myProfile);
-    },
+    onSuccess: onSuccessFn,
+    onError: onErrorFn,
   });
 
   const quitMutate = useMutation({
