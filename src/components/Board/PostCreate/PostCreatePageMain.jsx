@@ -21,6 +21,7 @@ export default function PostCreatePageMain({
   const navigate = useNavigate();
   const { postId } = useParams();
   const [searchParams] = useSearchParams();
+  const type = searchParams.get("type");
   const titleRef = useRef(null);
   const [tags, setTags] = useState(postTags || []);
   const [content, setContent] = useState(postContent || "");
@@ -59,6 +60,16 @@ export default function PostCreatePageMain({
     onSuccess: () => {
       navigate(-1);
     },
+    onError: () => {
+      setToast({
+        isOpen: true,
+        message: "본인이 작성한 글만 수정할 수 있습니다.",
+      });
+      setTimeout(() => {
+        setToast({ isOpen: false, message: "" });
+      }, 3000);
+      navigate(`/board/post/${postId}?type=${type}`);
+    },
   });
 
   const handleTitleSubmit = onTitleSubmit(() => {
@@ -83,7 +94,7 @@ export default function PostCreatePageMain({
       title: getTitleValue().title,
       content,
       tags,
-      category: searchParams.get("type").toUpperCase(),
+      category: type.toUpperCase(),
     };
     if (data.title.trim() === "") {
       setTitleFocus("title");
