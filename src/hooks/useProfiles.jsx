@@ -9,8 +9,19 @@ import {
   setProfileSkills,
 } from "../apis/profile";
 import { queryClient } from "../apis/queryClient";
+import { quit } from "../apis/user";
+import { useNavigate } from "react-router-dom";
+import { useSetRecoilState } from "recoil";
+import { removeCookie } from "../utils/cookie";
+import { isLoggedInState, memberIdState } from "../recoil/atoms/auth";
+import { newChatMemberState } from "../recoil/atoms/newChat";
 
 export default function useProfiles() {
+  const navigate = useNavigate();
+  const setIsLoggedIn = useSetRecoilState(isLoggedInState);
+  const setMemberId = useSetRecoilState(memberIdState);
+  const setNewChatMembers = useSetRecoilState(newChatMemberState);
+
   const profileQuery = useSuspenseQuery({
     queryKey: PROFILE_QUERY_KEYS.myProfile,
     queryFn: getProfile,
@@ -52,6 +63,17 @@ export default function useProfiles() {
     },
   });
 
+  const quitMutate = useMutation({
+    mutationFn: quit,
+    onSuccess: () => {
+      setIsLoggedIn(false);
+      setMemberId(null);
+      setNewChatMembers([]);
+      removeCookie("accessToken", { path: "/" });
+      navigate("/");
+    },
+  });
+
   return {
     profileQuery,
     setProfileInfoMutate,
@@ -59,5 +81,6 @@ export default function useProfiles() {
     setProfileLinksMutate,
     setProfileSkillsMutate,
     setProfileDescriptionMutate,
+    quitMutate,
   };
 }
