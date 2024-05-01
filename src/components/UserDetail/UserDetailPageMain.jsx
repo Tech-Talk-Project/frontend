@@ -1,7 +1,7 @@
 import React from "react";
-import { useMutation, useSuspenseQuery } from "@tanstack/react-query";
-import { useRecoilValue } from "recoil";
 import { useParams } from "react-router-dom";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useMutation, useSuspenseQuery } from "@tanstack/react-query";
 import { isLoggedInState } from "../../recoil/atoms/auth";
 import { USERS_QUERY_KEYS } from "../../constants/queryKeys";
 import {
@@ -18,10 +18,12 @@ import Description from "./Modal/Description";
 import ProfileImage from "../Common/Image/ProfileImage";
 import Button from "../Common/Button";
 import { queryClient } from "../../apis/queryClient";
+import { toastState } from "../../recoil/atoms/toast";
 
 export default function UserDetailPageMain() {
   const { selectedMemberId } = useParams();
   const isLoggedIn = useRecoilValue(isLoggedInState);
+  const setToast = useSetRecoilState(toastState);
   const {
     data: {
       imageUrl,
@@ -53,6 +55,15 @@ export default function UserDetailPageMain() {
         USERS_QUERY_KEYS.userDataWithFollowData(selectedMemberId)
       );
     },
+    onError: () => {
+      setToast({
+        isOpen: true,
+        message: "죄송합니다. 잠시 후 다시 시도해주세요.",
+      });
+      setTimeout(() => {
+        setToast({ isOpen: false, message: "" });
+      }, 3000);
+    },
   });
   const unFollowMutate = useMutation({
     mutationFn: () => unFollow({ selectedMemberId }),
@@ -60,6 +71,15 @@ export default function UserDetailPageMain() {
       queryClient.invalidateQueries(
         USERS_QUERY_KEYS.userDataWithFollowData(selectedMemberId)
       );
+    },
+    onError: () => {
+      setToast({
+        isOpen: true,
+        message: "죄송합니다. 잠시 후 다시 시도해주세요.",
+      });
+      setTimeout(() => {
+        setToast({ isOpen: false, message: "" });
+      }, 3000);
     },
   });
 
