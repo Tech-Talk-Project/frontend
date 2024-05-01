@@ -10,7 +10,7 @@ import { INPUT_VALIDATION } from "../../../constants/validation";
 
 export default function Introduction({ introduction }) {
   const [isEditing, setIsEditing] = useState(false);
-  const { setProfileIntroductionMutate } = useProfiles();
+  const { setIntroductionMutate } = useProfiles();
   const {
     register,
     handleSubmit,
@@ -36,7 +36,7 @@ export default function Introduction({ introduction }) {
       return;
     }
 
-    setProfileIntroductionMutate.mutate(
+    setIntroductionMutate.mutate(
       { introduction: introduction.trim() },
       {
         onSuccess: () => {

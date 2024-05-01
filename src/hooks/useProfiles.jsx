@@ -1,3 +1,5 @@
+import { useSetRecoilState } from "recoil";
+import { useNavigate } from "react-router-dom";
 import { useMutation, useSuspenseQuery } from "@tanstack/react-query";
 import { PROFILE_QUERY_KEYS } from "../constants/queryKeys";
 import {
@@ -10,8 +12,6 @@ import {
 } from "../apis/profile";
 import { queryClient } from "../apis/queryClient";
 import { quit } from "../apis/user";
-import { useNavigate } from "react-router-dom";
-import { useSetRecoilState } from "recoil";
 import { removeCookie } from "../utils/cookie";
 import { isLoggedInState, memberIdState } from "../recoil/atoms/auth";
 import { newChatMemberState } from "../recoil/atoms/newChat";
@@ -28,35 +28,35 @@ export default function useProfiles() {
     staleTime: 5 * 60 * 1000,
   });
 
-  const setProfileInfoMutate = useMutation({
+  const setInfoMutate = useMutation({
     mutationFn: setProfileInfo,
     onSuccess: async () => {
       await queryClient.invalidateQueries(PROFILE_QUERY_KEYS.myProfile);
     },
   });
 
-  const setProfileIntroductionMutate = useMutation({
+  const setIntroductionMutate = useMutation({
     mutationFn: setProfileIntroduction,
     onSuccess: async () => {
       await queryClient.invalidateQueries(PROFILE_QUERY_KEYS.myProfile);
     },
   });
 
-  const setProfileLinksMutate = useMutation({
+  const setLinksMutate = useMutation({
     mutationFn: setProfileLinks,
     onSuccess: async () => {
       await queryClient.invalidateQueries(PROFILE_QUERY_KEYS.myProfile);
     },
   });
 
-  const setProfileSkillsMutate = useMutation({
+  const setSkillsMutate = useMutation({
     mutationFn: setProfileSkills,
     onSuccess: async () => {
       await queryClient.invalidateQueries(PROFILE_QUERY_KEYS.myProfile);
     },
   });
 
-  const setProfileDescriptionMutate = useMutation({
+  const setDescriptionMutate = useMutation({
     mutationFn: setProfileDescription,
     onSuccess: async () => {
       await queryClient.invalidateQueries(PROFILE_QUERY_KEYS.myProfile);
@@ -76,11 +76,11 @@ export default function useProfiles() {
 
   return {
     profileQuery,
-    setProfileInfoMutate,
-    setProfileIntroductionMutate,
-    setProfileLinksMutate,
-    setProfileSkillsMutate,
-    setProfileDescriptionMutate,
+    setInfoMutate,
+    setIntroductionMutate,
+    setLinksMutate,
+    setSkillsMutate,
+    setDescriptionMutate,
     quitMutate,
   };
 }

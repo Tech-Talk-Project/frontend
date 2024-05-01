@@ -10,7 +10,7 @@ import useProfiles from "../../../hooks/useProfiles";
 
 export default function Information({ info: { name, job, email } }) {
   const [isEditing, setIsEditing] = useState(false);
-  const { setProfileInfoMutate } = useProfiles();
+  const { setInfoMutate } = useProfiles();
   const {
     register,
     handleSubmit,
@@ -37,7 +37,7 @@ export default function Information({ info: { name, job, email } }) {
       return;
     }
 
-    setProfileInfoMutate.mutate(
+    setInfoMutate.mutate(
       { name: name.trim(), job: job ? job.trim() : "" },
       {
         onSuccess: () => {
