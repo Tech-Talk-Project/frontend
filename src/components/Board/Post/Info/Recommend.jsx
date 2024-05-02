@@ -16,7 +16,13 @@ export default function Recommend({ postId, category, likeCount, isLiked }) {
       setIsLikedState((prev) => !prev);
       setLikeCountState((prev) => (isLikedState ? prev - 1 : prev + 1));
     },
-    onError: () => {
+    onError: (error) => {
+      const status = error.response.status;
+      if (status === 400) {
+        showToast("로그인 후 사용할 수 있는 기능입니다.");
+        return;
+      }
+
       showToast("잠시후 다시 시도해주세요.");
     },
   });

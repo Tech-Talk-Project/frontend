@@ -4,14 +4,14 @@ import { toastState } from "../recoil/atoms/toast";
 export default function useToast() {
   const setToast = useSetRecoilState(toastState);
 
-  const showToast = (message) => {
+  const showToast = (message, time = 3000) => {
     setToast({
       isOpen: true,
       message,
     });
     setTimeout(() => {
       setToast({ isOpen: false, message: "" });
-    }, 3000);
+    }, time);
   };
 
   return { showToast };
