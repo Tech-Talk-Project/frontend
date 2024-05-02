@@ -15,7 +15,7 @@ export default function ErrorMessage({
 
   const handleClick = () => {
     if (path) {
-      navigate(path);
+      navigate(path, { replace: true });
     } else {
       onRetry();
     }
