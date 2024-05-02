@@ -1,4 +1,5 @@
 import React from "react";
+import { useRecoilValue } from "recoil";
 import { useSearchParams } from "react-router-dom";
 import { useQueries } from "@tanstack/react-query";
 import Author from "./Author";
@@ -9,6 +10,7 @@ import { BOARD_QUERY_KEYS } from "../../../../constants/queryKeys";
 import { checkDisLike, checkLike } from "../../../../apis/board";
 import { BOARD_CATEGORIE_WITHOUT_TOGGLE_TYPES } from "../../../../constants/category";
 import Loader from "../../../Common/Loader";
+import { isLoggedInState } from "../../../../recoil/atoms/auth";
 
 export default function PostInfo({
   postId,
@@ -20,6 +22,7 @@ export default function PostInfo({
   const [searchParams] = useSearchParams();
   const type = searchParams.get("type");
   const isProjectOrStudy = getIsProjectOrStudy(type);
+  const isLoggedIn = useRecoilValue(isLoggedInState);
   const [
     { data: likedData, isLoading: isLikedLoading },
     { data: dislikedData, isLoading: isDisLikedLoading },
@@ -28,11 +31,13 @@ export default function PostInfo({
       {
         queryKey: BOARD_QUERY_KEYS.checkLike(postId),
         queryFn: () => checkLike({ postId, category: type.toUpperCase() }),
+        enabled: isLoggedIn,
       },
       {
         queryKey: BOARD_QUERY_KEYS.checkDisLike(postId),
         queryFn: () => checkDisLike({ postId, category: type.toUpperCase() }),
-        enabled: BOARD_CATEGORIE_WITHOUT_TOGGLE_TYPES.includes(type),
+        enabled:
+          isLoggedIn && BOARD_CATEGORIE_WITHOUT_TOGGLE_TYPES.includes(type),
       },
     ],
   });
@@ -49,7 +54,7 @@ export default function PostInfo({
             postId={postId}
             category={type.toUpperCase()}
             likeCount={likeCount}
-            isLiked={likedData.liked}
+            isLiked={likedData?.liked}
           />
         ) : (
           <Like
@@ -57,8 +62,8 @@ export default function PostInfo({
             category={type.toUpperCase()}
             likeCount={likeCount}
             dislikeCount={dislikeCount}
-            isLiked={likedData.liked}
-            isDisLiked={dislikedData.disliked}
+            isLiked={likedData?.liked}
+            isDisLiked={dislikedData?.disliked}
           />
         )}
         <Author imageUrl={imageUrl} name={name} />
