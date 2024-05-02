@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useRecoilValue } from "recoil";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import CustomEditor from "ckeditor5-custom-build/build/ckeditor";
 import { editorConfiguration } from "../../../Profile/Description/DescriptionEditor/Plugin";
@@ -9,6 +10,8 @@ import { createCommnet } from "../../../../apis/board";
 import { queryClient } from "../../../../apis/queryClient";
 import { BOARD_QUERY_KEYS } from "../../../../constants/queryKeys";
 import { useParams, useSearchParams } from "react-router-dom";
+import useToast from "../../../../hooks/useToast";
+import { isLoggedInState } from "../../../../recoil/atoms/auth";
 
 export default function CreateComment() {
   const { postId } = useParams();
@@ -16,6 +19,8 @@ export default function CreateComment() {
   const category = searchParams.get("type").toUpperCase();
   const [isCreate, setIsCreate] = useState(false);
   const [content, setContent] = useState("");
+  const isLoggedIn = useRecoilValue(isLoggedInState);
+  const { showToast } = useToast();
   const createCommentMutate = useMutation({
     mutationFn: () => createCommnet({ boardId: postId, content, category }),
     onSuccess: () => {
@@ -26,6 +31,11 @@ export default function CreateComment() {
   });
 
   const handleCreateClick = () => {
+    if (!isLoggedIn) {
+      showToast("로그인 후 사용할 수 있는 기능입니다.");
+      return;
+    }
+
     setIsCreate((prev) => !prev);
     setContent("");
   };

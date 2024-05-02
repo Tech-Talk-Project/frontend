@@ -7,7 +7,7 @@ import { MdEdit } from "react-icons/md";
 import useProfiles from "../../../hooks/useProfiles";
 
 export default function Description({ description }) {
-  const { setProfileDescriptionMutate } = useProfiles();
+  const { setDescriptionMutate } = useProfiles();
   const [content, setContent] = useState(description);
   const [isEditing, setIsEditing] = useState(false);
 
@@ -20,7 +20,7 @@ export default function Description({ description }) {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    setProfileDescriptionMutate.mutate(
+    setDescriptionMutate.mutate(
       { description: content },
       {
         onSuccess: () => {

@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { MdThumbDown, MdThumbUp } from "react-icons/md";
+import { useMutation } from "@tanstack/react-query";
 import { Chip } from "@material-tailwind/react";
 import Button from "../../../Common/Button";
-import { useMutation } from "@tanstack/react-query";
 import { toggleDisLike, toggleLike } from "../../../../apis/board";
-import { useSetRecoilState } from "recoil";
-import { toastState } from "../../../../recoil/atoms/toast";
+import useToast from "../../../../hooks/useToast";
 
 export default function Like({
   postId,
@@ -20,7 +19,7 @@ export default function Like({
   const [likeCountState, setLikeCountState] = useState(
     likeCount - dislikeCount
   );
-  const setToast = useSetRecoilState(toastState);
+  const { showToast } = useToast();
   const toggleLikeMutate = useMutation({
     mutationFn: () => toggleLike({ postId, category }),
     onSuccess: () => {
@@ -32,14 +31,14 @@ export default function Like({
         isDisLikedState ? prev + 2 : isLikedState ? prev - 1 : prev + 1
       );
     },
-    onError: () => {
-      setToast({
-        isOpen: true,
-        message: "잠시후 다시 시도해주세요.",
-      });
-      setTimeout(() => {
-        setToast({ isOpen: false, message: "" });
-      }, 3000);
+    onError: (error) => {
+      const status = error.response.status;
+      if (status === 400) {
+        showToast("로그인 후 사용할 수 있는 기능입니다.");
+        return;
+      }
+
+      showToast("잠시후 다시 시도해주세요.");
     },
   });
   const toggleDisLikeMutate = useMutation({
@@ -53,14 +52,14 @@ export default function Like({
         isLikedState ? prev - 2 : isDisLikedState ? prev + 1 : prev - 1
       );
     },
-    onError: () => {
-      setToast({
-        isOpen: true,
-        message: "잠시후 다시 시도해주세요.",
-      });
-      setTimeout(() => {
-        setToast({ isOpen: false, message: "" });
-      }, 3000);
+    onError: (error) => {
+      const status = error.response.status;
+      if (status === 400) {
+        showToast("로그인 후 사용할 수 있는 기능입니다.");
+        return;
+      }
+
+      showToast("잠시후 다시 시도해주세요.");
     },
   });
 

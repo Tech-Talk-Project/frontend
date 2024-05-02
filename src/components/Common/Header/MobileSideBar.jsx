@@ -1,25 +1,25 @@
 import React from "react";
 import { v4 as uuidv4 } from "uuid";
 import { MdClose } from "react-icons/md";
+import { useNavigate } from "react-router-dom";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import { Drawer, List, ListItem } from "@material-tailwind/react";
 import Logo from "../Image/Logo";
 import Button from "../Button";
 import MobileNavMenu from "./MobileNavMenu";
 import { CATEGORIES, BOARD_CATEGORIE_TYPES } from "../../../constants/category";
 import SideBarCategoryItem from "../../Main/SideBar/SideBarCategoryItem";
-import { useNavigate } from "react-router-dom";
 import { logout } from "../../../apis/auth";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { isLoggedInState, memberIdState } from "../../../recoil/atoms/auth";
 import {
   createNewChatState,
   newChatMemberState,
 } from "../../../recoil/atoms/newChat";
 import { removeCookie } from "../../../utils/cookie";
-import { toastState } from "../../../recoil/atoms/toast";
 import { sideBarMenuStyle } from "../../../utils/sideBarMenuStyle";
 import filterState from "../../../recoil/atoms/filter";
 import SideBarTypeItem from "../../Board/Board/SideBar/SideBarTypeItem";
+import useToast from "../../../hooks/useToast";
 
 // login state: 1, logout state: -1, both: 0
 const MENUS = [
@@ -37,7 +37,7 @@ export default function MobileSideBar({ isOpen, onOpenClick, pathname }) {
   const setMemberId = useSetRecoilState(memberIdState);
   const setCreateNewChat = useSetRecoilState(createNewChatState);
   const setNewChatMembers = useSetRecoilState(newChatMemberState);
-  const setToast = useRecoilValue(toastState);
+  const { showToast } = useToast();
 
   const handleFollowClick = () => {
     setFilter("");
@@ -53,13 +53,7 @@ export default function MobileSideBar({ isOpen, onOpenClick, pathname }) {
       navigate("/");
       onOpenClick();
     } catch (error) {
-      setToast({
-        isOpen: true,
-        message: "잠시후에 다시 시도해 주세요.",
-      });
-      setTimeout(() => {
-        setToast({ isOpen: false, message: "" });
-      }, 3000);
+      showToast("잠시후에 다시 시도해 주세요.");
     }
   };
   return (

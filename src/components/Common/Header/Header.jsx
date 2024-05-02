@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import { useNavigate, useLocation } from "react-router-dom";
 import { MdMenu } from "react-icons/md";
 import Button from "../Button";
@@ -10,8 +10,8 @@ import { removeCookie } from "../../../utils/cookie";
 import { createNewChatState } from "../../../recoil/atoms/newChat";
 import { newChatMemberState } from "../../../recoil/atoms/newChat";
 import { logout } from "../../../apis/auth";
-import { toastState } from "../../../recoil/atoms/toast";
 import MobileSideBar from "./MobileSideBar";
+import useToast from "../../../hooks/useToast";
 
 export default function Header() {
   const navigate = useNavigate();
@@ -21,7 +21,7 @@ export default function Header() {
   const setMemberId = useSetRecoilState(memberIdState);
   const setCreateNewChat = useSetRecoilState(createNewChatState);
   const setNewChatMembers = useSetRecoilState(newChatMemberState);
-  const setToast = useRecoilValue(toastState);
+  const { showToast } = useToast();
 
   const handleLogoutClick = async () => {
     try {
@@ -33,20 +33,14 @@ export default function Header() {
       removeCookie("accessToken", { path: "/" });
       navigate("/");
     } catch (error) {
-      setToast({
-        isOpen: true,
-        message: "잠시후에 다시 시도해 주세요.",
-      });
-      setTimeout(() => {
-        setToast({ isOpen: false, message: "" });
-      }, 3000);
+      showToast("잠시후에 다시 시도해 주세요.");
     }
   };
   const handleOpenClick = () => {
     setIsOpen((prev) => !prev);
   };
   return (
-    <header className="fixed top-0 flex justify-center items-center w-full h-14 sm:h-20 text-lg bg-light_black border-b border-blue-gray-800 z-[9999]">
+    <header className="fixed top-0 flex justify-center items-center w-full h-14 sm:h-20 text-lg bg-light_black border-b border-blue-gray-800 z-[9998]">
       <article className="flex justify-between items-center w-full max-w-7xl px-5">
         <Logo size="md" />
         <nav>

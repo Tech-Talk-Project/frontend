@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 import { Chip, Typography } from "@material-tailwind/react";
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
@@ -7,12 +7,12 @@ import RecruitmentToggle from "./RecruitmentToggle";
 import { changeRecruitment, deletePost } from "../../../../apis/board";
 import { getDateInfo } from "../../../../utils/date";
 import useBreakpoint from "../../../../hooks/useBreakPoint";
-import { toastState } from "../../../../recoil/atoms/toast";
 import { memberIdState } from "../../../../recoil/atoms/auth";
 import { BOARD_CATEGORIE_WITHOUT_TOGGLE_TYPES } from "../../../../constants/category";
 import Button from "../../../Common/Button";
 import useModal from "../../../../hooks/useModal";
 import DeleteConfirmModal from "../Common/DeleteConfirmModal";
+import useToast from "../../../../hooks/useToast";
 
 export default function PostContentInfo({
   author: { memberId: authorId },
@@ -31,20 +31,14 @@ export default function PostContentInfo({
   const [isRecruitmentActive, setIsRecruitmentActive] =
     useState(recruitmentActive);
   const memberId = useRecoilValue(memberIdState);
-  const setToast = useSetRecoilState(toastState);
+  const { showToast } = useToast();
   const changeRecruitmentMutate = useMutation({
     mutationFn: changeRecruitment,
     onSuccess: () => {
       setIsRecruitmentActive((prev) => !prev);
     },
     onError: () => {
-      setToast({
-        isOpen: true,
-        message: "잠시후 다시 시도해주세요.",
-      });
-      setTimeout(() => {
-        setToast({ isOpen: false, message: "" });
-      }, 3000);
+      showToast("잠시후 다시 시도해주세요.");
     },
   });
   const postDeleteMutate = useMutation({

@@ -10,7 +10,7 @@ import useProfiles from "../../../hooks/useProfiles";
 
 export default function Links({ links }) {
   const [isEditing, setIsEditing] = useState(false);
-  const { setProfileLinksMutate } = useProfiles();
+  const { setLinksMutate } = useProfiles();
   const { control, reset, handleSubmit } = useForm({
     defaultValues: {
       links: links.map((link) => ({ link })),
@@ -29,7 +29,7 @@ export default function Links({ links }) {
     handleEditClick();
   };
   const onSubmit = ({ links }) => {
-    setProfileLinksMutate.mutate(
+    setLinksMutate.mutate(
       {
         links: links.map((link) => link.link),
       },

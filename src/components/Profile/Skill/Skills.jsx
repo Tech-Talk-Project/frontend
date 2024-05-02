@@ -13,7 +13,7 @@ export default function Skills({ skills }) {
   const skillListRef = useRef(null);
   const [isEditing, setIsEditing] = useState(false);
   const [isSkillListOpen, setIsSkillListOpen] = useState(false);
-  const { setProfileSkillsMutate } = useProfiles();
+  const { setSkillsMutate } = useProfiles();
   const { control, reset, handleSubmit } = useForm({
     defaultValues: {
       skills: skills.map((skill) => ({ skill })),
@@ -35,7 +35,7 @@ export default function Skills({ skills }) {
     handleEditClick();
   };
   const onSubmit = ({ skills }) => {
-    setProfileSkillsMutate.mutate(
+    setSkillsMutate.mutate(
       {
         skills: skills.map((skill) => skill.skill),
       },

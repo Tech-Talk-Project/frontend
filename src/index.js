@@ -25,11 +25,13 @@ import PostPage from "./pages/PostPage";
 import LoginProtectedRoute from "./pages/ProtectedRoute/LoginProtectedRoute";
 import NoTypeProtectedRoute from "./pages/ProtectedRoute/NoTypeProtectedRoute";
 import PostUpdatePage from "./pages/PostUpdatePage";
+import NotFoundPage from "./pages/NotFoundPage";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
+    errorElement: <NotFoundPage />,
     children: [
       {
         element: <MainLayout />,
