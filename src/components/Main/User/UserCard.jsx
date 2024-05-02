@@ -22,12 +22,11 @@ export default function UserCard({
   const isMyCard = memberId === cardMemberId;
 
   const handleClick = () => {
-    if (isMyCard) return;
     if (createNewChat) {
       handleMemberClick();
       return;
     }
-    navigate(memberId === cardMemberId ? "/profile" : `/user/${cardMemberId}`);
+    navigate(isMyCard ? "/profile" : `/user/${cardMemberId}`);
   };
   return (
     <li
