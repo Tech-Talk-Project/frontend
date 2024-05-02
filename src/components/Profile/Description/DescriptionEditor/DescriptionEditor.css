@@ -134,7 +134,7 @@
 }
 
 .ck-editor[role="application"] {
-  @apply w-full min-h-full;
+  @apply w-full min-h-fit;
 }
 
 .ck.ck-editor__main[role="presentation"] {

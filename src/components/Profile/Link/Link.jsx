@@ -18,12 +18,14 @@ export default function Link({ link, isEditing, index, remove }) {
         target="_blank"
         rel="noopener noreferrer"
         onClick={handleLinkClick}
-        className={`flex items-center gap-2 w-fit font-semibold duration-100 ${
+        className={`flex items-start gap-2 w-fit font-semibold duration-100 ${
           isEditing ? "cursor-default" : "hover:text-brand hover:underline"
         }`}
       >
-        <MdOutlineLink className=" -rotate-45" size={20} />
-        <span className=" max-w-[192px] overflow-x-auto">{link}</span>
+        <MdOutlineLink className="-rotate-45 shrink-0" size={20} />
+        <div className="line-clamp-2">
+          <span className="max-w-[192px] break-all">{link}</span>
+        </div>
       </a>
       {isEditing && (
         <Button

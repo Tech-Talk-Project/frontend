@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import { useInfiniteQuery } from "@tanstack/react-query";
+import { useSuspenseInfiniteQuery } from "@tanstack/react-query";
 import { Spinner } from "@material-tailwind/react";
 import UsersGrid from "./User/UsersGrid";
 import useIntersectionObserver from "../../hooks/useIntersectionObserver";
@@ -14,7 +14,7 @@ export default function MainPageMain({ filters }) {
   const observerRef = useRef(null);
   const isLoggedIn = useRecoilValue(isLoggedInState);
   const { fetchNextPage, hasNextPage, isFetchingNextPage, data, error } =
-    useInfiniteQuery({
+    useSuspenseInfiniteQuery({
       queryKey: USERS_QUERY_KEYS.usersData(filters),
       queryFn: ({ pageParam = null }) => {
         if (isLoggedIn)

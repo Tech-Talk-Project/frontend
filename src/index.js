@@ -19,12 +19,19 @@ import { queryClient } from "./apis/queryClient";
 import ChatListPage from "./pages/ChatListPage";
 import ChattingPage from "./pages/ChattingPage";
 import UserDetailPage from "./pages/UserDetailPage";
-import ProtectedRoute from "./pages/ProtectedRoute";
+import BoardPage from "./pages/BoardPage";
+import PostCreatePage from "./pages/PostCreatePage";
+import PostPage from "./pages/PostPage";
+import LoginProtectedRoute from "./pages/ProtectedRoute/LoginProtectedRoute";
+import NoTypeProtectedRoute from "./pages/ProtectedRoute/NoTypeProtectedRoute";
+import PostUpdatePage from "./pages/PostUpdatePage";
+import NotFoundPage from "./pages/NotFoundPage";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
+    errorElement: <NotFoundPage />,
     children: [
       {
         element: <MainLayout />,
@@ -34,27 +41,59 @@ const router = createBrowserRouter([
             element: <HomePage />,
           },
           {
+            path: "/board",
+            element: (
+              <NoTypeProtectedRoute>
+                <BoardPage />
+              </NoTypeProtectedRoute>
+            ),
+          },
+          {
+            path: "/create/board",
+            element: (
+              <NoTypeProtectedRoute>
+                <PostCreatePage />
+              </NoTypeProtectedRoute>
+            ),
+          },
+          {
+            path: "/board/post/:postId",
+            element: (
+              <NoTypeProtectedRoute>
+                <PostPage />
+              </NoTypeProtectedRoute>
+            ),
+          },
+          {
+            path: "/board/post/:postId/update",
+            element: (
+              <NoTypeProtectedRoute>
+                <PostUpdatePage />
+              </NoTypeProtectedRoute>
+            ),
+          },
+          {
             path: "/chatList",
             element: (
-              <ProtectedRoute>
+              <LoginProtectedRoute>
                 <ChatListPage />
-              </ProtectedRoute>
+              </LoginProtectedRoute>
             ),
           },
           {
             path: "/chatting/:chatRoomId",
             element: (
-              <ProtectedRoute>
+              <LoginProtectedRoute>
                 <ChattingPage />
-              </ProtectedRoute>
+              </LoginProtectedRoute>
             ),
           },
           {
             path: "/profile",
             element: (
-              <ProtectedRoute>
+              <LoginProtectedRoute>
                 <ProfilePage />
-              </ProtectedRoute>
+              </LoginProtectedRoute>
             ),
           },
           {

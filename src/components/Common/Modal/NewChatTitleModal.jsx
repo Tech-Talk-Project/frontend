@@ -16,26 +16,28 @@ import { INPUT_VALIDATION } from "../../../constants/validation";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import newChatMemberInfoState from "../../../recoil/selectors/newChatMemberIdList";
 import { createChatRoom } from "../../../apis/chat";
-import { newChatMemberState } from "../../../recoil/atoms/newChat";
-import { createNewChatState } from "../../../recoil/atoms/newChat";
+import {
+  newChatMemberState,
+  createNewChatState,
+} from "../../../recoil/atoms/newChat";
+import { memberIdState } from "../../../recoil/atoms/auth";
 import { USERS_QUERY_KEYS } from "../../../constants/queryKeys";
 import { getMyName } from "../../../apis/user";
-import { isLoggedInState } from "../../../recoil/atoms/auth";
 
 export default function NewChatTitleModal({ isOpen, onClick }) {
   const navigate = useNavigate();
-  const isLoggedIn = useRecoilValue(isLoggedInState);
+  const memberId = useRecoilValue(memberIdState);
   const setNewChatMembers = useSetRecoilState(newChatMemberState);
   const setCreateNewChat = useSetRecoilState(createNewChatState);
   const { newChatMembersIdList, newChatMembersNameList } = useRecoilValue(
     newChatMemberInfoState
   );
-  const { data } = useQuery({
-    queryKey: ["adsf"],
+  const { data: userName, isLoading } = useQuery({
+    queryKey: USERS_QUERY_KEYS.userName,
     queryFn: getMyName,
-    enabled: false,
+    enabled: isOpen,
   });
-  console.log(data);
+  const newChatMembersName = [userName, ...newChatMembersNameList].join(", ");
   const createChatRoomMutate = useMutation({
     mutationFn: createChatRoom,
     onSuccess: (response) => {
@@ -68,11 +70,10 @@ export default function NewChatTitleModal({ isOpen, onClick }) {
     }
 
     createChatRoomMutate.mutate({
-      title: title.length === 0 ? "" : title.trim(),
-      memberIds: newChatMembersIdList,
+      title: title.length === 0 ? newChatMembersName : title.trim(),
+      memberIds: [memberId, ...newChatMembersIdList],
     });
   };
-
   return (
     <Dialog open={isOpen} handler={onClick}>
       <DialogHeader className="justify-center">
@@ -83,7 +84,7 @@ export default function NewChatTitleModal({ isOpen, onClick }) {
           <Input
             type="text"
             className="font-semibold !text-base !border-blue-gray-300 focus:!border-black"
-            placeholder={newChatMembersNameList.join(", ")}
+            placeholder={isLoading ? "" : newChatMembersName}
             labelProps={{
               className: "hidden",
             }}

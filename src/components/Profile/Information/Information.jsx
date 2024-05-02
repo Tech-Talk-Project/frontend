@@ -10,7 +10,7 @@ import useProfiles from "../../../hooks/useProfiles";
 
 export default function Information({ info: { name, job, email } }) {
   const [isEditing, setIsEditing] = useState(false);
-  const { setProfileInfoMutate } = useProfiles();
+  const { setInfoMutate } = useProfiles();
   const {
     register,
     handleSubmit,
@@ -37,8 +37,8 @@ export default function Information({ info: { name, job, email } }) {
       return;
     }
 
-    setProfileInfoMutate.mutate(
-      { name: name.trim(), job: job.trim() },
+    setInfoMutate.mutate(
+      { name: name.trim(), job: job ? job.trim() : "" },
       {
         onSuccess: () => {
           setIsEditing(false);
@@ -65,12 +65,12 @@ export default function Information({ info: { name, job, email } }) {
       )}
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className={`flex flex-col gap-5 p-4 w-full border border-black border-b-blue-gray-800 duration-150 peer-hover:border-brand peer-hover:rounded-md ${
+        className={`flex flex-col gap-3 p-4 w-full border border-black border-b-blue-gray-800 duration-150 peer-hover:border-brand peer-hover:rounded-md ${
           isEditing ? "rounded-md !border-brand" : ""
         }`}
       >
-        <div className="flex items-center font-semibold">
-          <span className="mr-4 shrink-0">Name : </span>
+        <div className="flex items-start font-semibold">
+          <span className=" shrink-0">Name : </span>
           {isEditing ? (
             <div className="relative">
               <Input
@@ -87,11 +87,11 @@ export default function Information({ info: { name, job, email } }) {
               {errors.name && <InputError message={errors.name.message} />}
             </div>
           ) : (
-            <span className="ml-4">{name}</span>
+            <span className="ml-4 break-all">{name}</span>
           )}
         </div>
-        <div className="flex items-center font-semibold">
-          <span className="mr-4 shrink-0">Job : </span>
+        <div className="flex items-start font-semibold">
+          <span className=" shrink-0">Job : </span>
           {isEditing ? (
             <div className="relative">
               <Input
@@ -108,7 +108,7 @@ export default function Information({ info: { name, job, email } }) {
               {errors.job && <InputError message={errors.job.message} />}
             </div>
           ) : job ? (
-            <span className="ml-4">{job}</span>
+            <span className="ml-4 break-all">{job}</span>
           ) : (
             <span className="ml-4 font-normal text-gray-600">
               직업을 입력해보세요.

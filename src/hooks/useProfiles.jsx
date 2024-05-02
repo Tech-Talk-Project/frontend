@@ -1,4 +1,6 @@
-import { useQuery, useMutation } from "@tanstack/react-query";
+import { useSetRecoilState } from "recoil";
+import { useNavigate } from "react-router-dom";
+import { useMutation, useSuspenseQuery } from "@tanstack/react-query";
 import { PROFILE_QUERY_KEYS } from "../constants/queryKeys";
 import {
   getProfile,
@@ -9,55 +11,86 @@ import {
   setProfileSkills,
 } from "../apis/profile";
 import { queryClient } from "../apis/queryClient";
+import { quit } from "../apis/user";
+import { removeCookie } from "../utils/cookie";
+import { isLoggedInState, memberIdState } from "../recoil/atoms/auth";
+import { newChatMemberState } from "../recoil/atoms/newChat";
+import { toastState } from "../recoil/atoms/toast";
 
 export default function useProfiles() {
-  const profileQuery = useQuery({
+  const navigate = useNavigate();
+  const setIsLoggedIn = useSetRecoilState(isLoggedInState);
+  const setMemberId = useSetRecoilState(memberIdState);
+  const setNewChatMembers = useSetRecoilState(newChatMemberState);
+  const setToast = useSetRecoilState(toastState);
+
+  const onSuccessFn = async () => {
+    await queryClient.invalidateQueries(PROFILE_QUERY_KEYS.myProfile);
+  };
+  const onErrorFn = () => {
+    setToast({
+      isOpen: true,
+      message: "죄송합니다. 잠시 후 다시 시도해주세요.",
+    });
+    setTimeout(() => {
+      setToast({ isOpen: false, message: "" });
+    }, 3000);
+  };
+
+  const profileQuery = useSuspenseQuery({
     queryKey: PROFILE_QUERY_KEYS.myProfile,
     queryFn: getProfile,
     staleTime: 5 * 60 * 1000,
   });
 
-  const setProfileInfoMutate = useMutation({
+  const setInfoMutate = useMutation({
     mutationFn: setProfileInfo,
-    onSuccess: async () => {
-      await queryClient.invalidateQueries(PROFILE_QUERY_KEYS.myProfile);
-    },
+    onSuccess: onSuccessFn,
+    onError: onErrorFn,
   });
 
-  const setProfileIntroductionMutate = useMutation({
+  const setIntroductionMutate = useMutation({
     mutationFn: setProfileIntroduction,
-    onSuccess: async () => {
-      await queryClient.invalidateQueries(PROFILE_QUERY_KEYS.myProfile);
-    },
+    onSuccess: onSuccessFn,
+    onError: onErrorFn,
   });
 
-  const setProfileLinksMutate = useMutation({
+  const setLinksMutate = useMutation({
     mutationFn: setProfileLinks,
-    onSuccess: async () => {
-      await queryClient.invalidateQueries(PROFILE_QUERY_KEYS.myProfile);
-    },
+    onSuccess: onSuccessFn,
+    onError: onErrorFn,
   });
 
-  const setProfileSkillsMutate = useMutation({
+  const setSkillsMutate = useMutation({
     mutationFn: setProfileSkills,
-    onSuccess: async () => {
-      await queryClient.invalidateQueries(PROFILE_QUERY_KEYS.myProfile);
-    },
+    onSuccess: onSuccessFn,
+    onError: onErrorFn,
   });
 
-  const setProfileDescriptionMutate = useMutation({
+  const setDescriptionMutate = useMutation({
     mutationFn: setProfileDescription,
-    onSuccess: async () => {
-      await queryClient.invalidateQueries(PROFILE_QUERY_KEYS.myProfile);
+    onSuccess: onSuccessFn,
+    onError: onErrorFn,
+  });
+
+  const quitMutate = useMutation({
+    mutationFn: quit,
+    onSuccess: () => {
+      setIsLoggedIn(false);
+      setMemberId(null);
+      setNewChatMembers([]);
+      removeCookie("accessToken", { path: "/" });
+      navigate("/");
     },
   });
 
   return {
     profileQuery,
-    setProfileInfoMutate,
-    setProfileIntroductionMutate,
-    setProfileLinksMutate,
-    setProfileSkillsMutate,
-    setProfileDescriptionMutate,
+    setInfoMutate,
+    setIntroductionMutate,
+    setLinksMutate,
+    setSkillsMutate,
+    setDescriptionMutate,
+    quitMutate,
   };
 }

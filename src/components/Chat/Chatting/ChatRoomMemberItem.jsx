@@ -14,10 +14,10 @@ export default function ChatRoomMemberItem({
   return (
     <ListItem ripple={false} className="flex justify-between items-center px-4">
       <div className="flex items-center">
-        <ListItemPrefix>
+        <ListItemPrefix className="shrink-0">
           <ProfileImage imageUrl={imageUrl} size="sm" />
         </ListItemPrefix>
-        <Typography variant="h6" color="blue-gray">
+        <Typography variant="h6" color="blue-gray" className="break-all">
           {name}
         </Typography>
       </div>

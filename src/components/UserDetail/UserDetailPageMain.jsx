@@ -1,7 +1,7 @@
 import React from "react";
-import { useQuery, useMutation } from "@tanstack/react-query";
-import { useRecoilValue } from "recoil";
 import { useParams } from "react-router-dom";
+import { useRecoilValue } from "recoil";
+import { useMutation, useSuspenseQuery } from "@tanstack/react-query";
 import { isLoggedInState } from "../../recoil/atoms/auth";
 import { USERS_QUERY_KEYS } from "../../constants/queryKeys";
 import {
@@ -18,10 +18,12 @@ import Description from "./Modal/Description";
 import ProfileImage from "../Common/Image/ProfileImage";
 import Button from "../Common/Button";
 import { queryClient } from "../../apis/queryClient";
+import useToast from "../../hooks/useToast";
 
 export default function UserDetailPageMain() {
   const { selectedMemberId } = useParams();
   const isLoggedIn = useRecoilValue(isLoggedInState);
+  const { showToast } = useToast();
   const {
     data: {
       imageUrl,
@@ -32,7 +34,7 @@ export default function UserDetailPageMain() {
       skills,
       following,
     },
-  } = useQuery({
+  } = useSuspenseQuery({
     queryKey: isLoggedIn
       ? USERS_QUERY_KEYS.userDataWithFollowData(selectedMemberId)
       : USERS_QUERY_KEYS.userData(selectedMemberId),
@@ -53,6 +55,9 @@ export default function UserDetailPageMain() {
         USERS_QUERY_KEYS.userDataWithFollowData(selectedMemberId)
       );
     },
+    onError: () => {
+      showToast("죄송합니다. 잠시 후 다시 시도해주세요.");
+    },
   });
   const unFollowMutate = useMutation({
     mutationFn: () => unFollow({ selectedMemberId }),
@@ -60,6 +65,9 @@ export default function UserDetailPageMain() {
       queryClient.invalidateQueries(
         USERS_QUERY_KEYS.userDataWithFollowData(selectedMemberId)
       );
+    },
+    onError: () => {
+      showToast("죄송합니다. 잠시 후 다시 시도해주세요.");
     },
   });
 

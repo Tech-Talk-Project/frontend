@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useParams, useSearchParams, useNavigate } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import { useSetRecoilState } from "recoil";
 import { isLoggedInState, memberIdState } from "../../recoil/atoms/auth";
 import { login } from "../../apis/auth";
@@ -15,7 +15,7 @@ export default function LoginPageMain() {
   const [searchParams] = useSearchParams();
   const setIsLoggedIn = useSetRecoilState(isLoggedInState);
   const setMemberId = useSetRecoilState(memberIdState);
-  const { data } = useQuery({
+  const { data } = useSuspenseQuery({
     queryKey: AUTH_QUERY_KEYS.login,
     queryFn: () => login({ code: searchParams.get("code"), provider }),
   });

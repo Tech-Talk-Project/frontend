@@ -1,7 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 
-export default function NavMenu({ children, className, path }) {
+export default function NavMenu({ children, className, path, onClick }) {
   return (
     <NavLink
       to={path}
@@ -10,6 +10,7 @@ export default function NavMenu({ children, className, path }) {
           isActive ? "text-brand" : ""
         } ${className}`;
       }}
+      onClick={onClick}
     >
       {children}
     </NavLink>
