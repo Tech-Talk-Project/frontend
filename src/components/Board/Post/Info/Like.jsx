@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { MdThumbDown, MdThumbUp } from "react-icons/md";
+import { useMutation } from "@tanstack/react-query";
 import { Chip } from "@material-tailwind/react";
 import Button from "../../../Common/Button";
-import { useMutation } from "@tanstack/react-query";
 import { toggleDisLike, toggleLike } from "../../../../apis/board";
-import { useSetRecoilState } from "recoil";
-import { toastState } from "../../../../recoil/atoms/toast";
+import useToast from "../../../../hooks/useToast";
 
 export default function Like({
   postId,
@@ -20,7 +19,7 @@ export default function Like({
   const [likeCountState, setLikeCountState] = useState(
     likeCount - dislikeCount
   );
-  const setToast = useSetRecoilState(toastState);
+  const { showToast } = useToast();
   const toggleLikeMutate = useMutation({
     mutationFn: () => toggleLike({ postId, category }),
     onSuccess: () => {
@@ -33,13 +32,7 @@ export default function Like({
       );
     },
     onError: () => {
-      setToast({
-        isOpen: true,
-        message: "잠시후 다시 시도해주세요.",
-      });
-      setTimeout(() => {
-        setToast({ isOpen: false, message: "" });
-      }, 3000);
+      showToast("잠시후 다시 시도해주세요.");
     },
   });
   const toggleDisLikeMutate = useMutation({
@@ -54,13 +47,7 @@ export default function Like({
       );
     },
     onError: () => {
-      setToast({
-        isOpen: true,
-        message: "잠시후 다시 시도해주세요.",
-      });
-      setTimeout(() => {
-        setToast({ isOpen: false, message: "" });
-      }, 3000);
+      showToast("잠시후 다시 시도해주세요.");
     },
   });
 

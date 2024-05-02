@@ -10,8 +10,7 @@ import Title from "./Title";
 import Tag from "./Tag";
 import { createPost, updatePost } from "../../../apis/board";
 import { BOARD_CREATE_REQUIRE_ERROR_MSG } from "../../../constants/errorMessage";
-import { useSetRecoilState } from "recoil";
-import { toastState } from "../../../recoil/atoms/toast";
+import useToast from "../../../hooks/useToast";
 
 export default function PostCreatePageMain({
   postTitle,
@@ -25,7 +24,7 @@ export default function PostCreatePageMain({
   const titleRef = useRef(null);
   const [tags, setTags] = useState(postTags || []);
   const [content, setContent] = useState(postContent || "");
-  const setToast = useSetRecoilState(toastState);
+  const { showToast } = useToast();
   const {
     register: titleRegister,
     handleSubmit: onTitleSubmit,
@@ -61,13 +60,7 @@ export default function PostCreatePageMain({
       navigate(-1);
     },
     onError: () => {
-      setToast({
-        isOpen: true,
-        message: "본인이 작성한 글만 수정할 수 있습니다.",
-      });
-      setTimeout(() => {
-        setToast({ isOpen: false, message: "" });
-      }, 3000);
+      showToast("본인이 작성한 글만 수정할 수 있습니다.");
       navigate(`/board/post/${postId}?type=${type}`);
     },
   });
@@ -107,13 +100,7 @@ export default function PostCreatePageMain({
     }
 
     if (data.content.trim() === "") {
-      setToast({
-        isOpen: true,
-        message: "컨텐츠를 입력해주세요.",
-      });
-      setTimeout(() => {
-        setToast({ isOpen: false, message: "" });
-      }, 3000);
+      showToast("컨텐츠를 입력해주세요.");
       return;
     }
 

@@ -2,15 +2,14 @@ import React, { useEffect, useState } from "react";
 import { MdFavorite } from "react-icons/md";
 import { Chip } from "@material-tailwind/react";
 import { useMutation } from "@tanstack/react-query";
-import { useSetRecoilState } from "recoil";
 import Button from "../../../Common/Button";
 import { toggleLike } from "../../../../apis/board";
-import { toastState } from "../../../../recoil/atoms/toast";
+import useToast from "../../../../hooks/useToast";
 
 export default function Recommend({ postId, category, likeCount, isLiked }) {
   const [isLikedState, setIsLikedState] = useState(isLiked);
   const [likeCountState, setLikeCountState] = useState(likeCount);
-  const setToast = useSetRecoilState(toastState);
+  const { showToast } = useToast();
   const toggleLikeMutate = useMutation({
     mutationFn: () => toggleLike({ postId, category }),
     onSuccess: () => {
@@ -18,13 +17,7 @@ export default function Recommend({ postId, category, likeCount, isLiked }) {
       setLikeCountState((prev) => (isLikedState ? prev - 1 : prev + 1));
     },
     onError: () => {
-      setToast({
-        isOpen: true,
-        message: "잠시후 다시 시도해주세요.",
-      });
-      setTimeout(() => {
-        setToast({ isOpen: false, message: "" });
-      }, 3000);
+      showToast("잠시후 다시 시도해주세요.");
     },
   });
 

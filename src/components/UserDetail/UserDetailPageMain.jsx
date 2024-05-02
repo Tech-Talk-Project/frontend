@@ -1,6 +1,6 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 import { useMutation, useSuspenseQuery } from "@tanstack/react-query";
 import { isLoggedInState } from "../../recoil/atoms/auth";
 import { USERS_QUERY_KEYS } from "../../constants/queryKeys";
@@ -18,12 +18,12 @@ import Description from "./Modal/Description";
 import ProfileImage from "../Common/Image/ProfileImage";
 import Button from "../Common/Button";
 import { queryClient } from "../../apis/queryClient";
-import { toastState } from "../../recoil/atoms/toast";
+import useToast from "../../hooks/useToast";
 
 export default function UserDetailPageMain() {
   const { selectedMemberId } = useParams();
   const isLoggedIn = useRecoilValue(isLoggedInState);
-  const setToast = useSetRecoilState(toastState);
+  const { showToast } = useToast();
   const {
     data: {
       imageUrl,
@@ -56,13 +56,7 @@ export default function UserDetailPageMain() {
       );
     },
     onError: () => {
-      setToast({
-        isOpen: true,
-        message: "죄송합니다. 잠시 후 다시 시도해주세요.",
-      });
-      setTimeout(() => {
-        setToast({ isOpen: false, message: "" });
-      }, 3000);
+      showToast("죄송합니다. 잠시 후 다시 시도해주세요.");
     },
   });
   const unFollowMutate = useMutation({
@@ -73,13 +67,7 @@ export default function UserDetailPageMain() {
       );
     },
     onError: () => {
-      setToast({
-        isOpen: true,
-        message: "죄송합니다. 잠시 후 다시 시도해주세요.",
-      });
-      setTimeout(() => {
-        setToast({ isOpen: false, message: "" });
-      }, 3000);
+      showToast("죄송합니다. 잠시 후 다시 시도해주세요.");
     },
   });
 
