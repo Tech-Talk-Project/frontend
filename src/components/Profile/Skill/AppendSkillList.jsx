@@ -9,7 +9,7 @@ const AppendSkillList = forwardRef(function AppendSkillList(
 ) {
   const skillList = skills.map((skill) => skill.skill);
   const handleClick = (language) => {
-    addSkill({ skill: language.title });
+    addSkill({ skill: language });
   };
   return (
     <ul

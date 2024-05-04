@@ -1,6 +1,5 @@
 import React from "react";
 import SkillImage from "../../Common/Image/SkillImage";
-import { CATEGORYS_PATH } from "../../../constants/category";
 
 export default function SelectedSkill({
   skill,
@@ -20,7 +19,7 @@ export default function SelectedSkill({
       }`}
       onClick={handleClick}
     >
-      <SkillImage size="lg" language={skill} imageUrl={CATEGORYS_PATH[skill]} />
+      <SkillImage language={skill} />
     </li>
   );
 }
