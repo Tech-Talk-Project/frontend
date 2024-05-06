@@ -6,13 +6,13 @@ export default function Category({ language, filters, onFilterClick }) {
     <li>
       <Button
         className={`px-4 py-1 text-md rounded-full ${
-          filters.includes(language.title)
+          filters.includes(language)
             ? "bg-brand"
             : "bg-blue-gray-900 hover:bg-brand"
         }`}
-        onClick={() => onFilterClick(language.title)}
+        onClick={() => onFilterClick(language)}
       >
-        {language.title}
+        {language}
       </Button>
     </li>
   );

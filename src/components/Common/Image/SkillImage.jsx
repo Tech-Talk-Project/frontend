@@ -1,17 +1,12 @@
 import React from "react";
+import { languageSVG } from "../../../assets/images/language";
 
-const SIZE = {
-  sm: "w-9 h-9",
-  md: "w-10 h-10",
-  lg: "w-12 h-12",
-};
+export default function SkillImage({ language }) {
+  const { borderColor, image } = languageSVG[language.toLowerCase()];
 
-export default function SkillImage({ language, imageUrl, size }) {
   return (
-    <img
-      src={imageUrl}
-      alt={`${language} 로고 이미지`}
-      className={`${SIZE[size]} rounded-full bg-white bg-opacity-30 overflow-hidden object-contain shrink-0`}
-    />
+    <article className={`rounded-full border ${borderColor} overflow-hidden`}>
+      {image}
+    </article>
   );
 }

@@ -1,13 +1,7 @@
-import React from "react";
+import React, { memo } from "react";
 import SkillImage from "../../Common/Image/SkillImage";
-import { CATEGORYS_PATH } from "../../../constants/category";
 
-export default function SelectedSkill({
-  skill,
-  isEditing,
-  index,
-  removeSkill,
-}) {
+const SelectedSkill = ({ skill, isEditing, index, removeSkill }) => {
   const handleClick = () => {
     if (!isEditing) return;
 
@@ -20,7 +14,9 @@ export default function SelectedSkill({
       }`}
       onClick={handleClick}
     >
-      <SkillImage size="lg" language={skill} imageUrl={CATEGORYS_PATH[skill]} />
+      <SkillImage language={skill} />
     </li>
   );
-}
+};
+
+export default memo(SelectedSkill);
