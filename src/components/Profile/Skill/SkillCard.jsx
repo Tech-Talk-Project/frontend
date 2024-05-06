@@ -12,7 +12,7 @@ export default function SkillCard({ category, languages, skillList, onClick }) {
         </Typography>
         <List className="grid grid-cols-3  min-w-0">
           {languages.map((language) => {
-            const isSelected = skillList.includes(language.title);
+            const isSelected = skillList.includes(language);
 
             return (
               <SkillItem
