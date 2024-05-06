@@ -4,16 +4,13 @@ import { Typography } from "@material-tailwind/react";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import { useParams, useSearchParams } from "react-router-dom";
 import CustomEditor from "ckeditor5-custom-build/build/ckeditor";
-import { useMutation } from "@tanstack/react-query";
 import { editorConfiguration } from "../../../Profile/Description/DescriptionEditor/Plugin";
 import ProfileImage from "../../../Common/Image/ProfileImage";
 import Content from "../Common/Content";
 import Button from "../../../Common/Button";
 import { getDateInfo } from "../../../../utils/date";
-import { updateComment } from "../../../../apis/board";
-import { queryClient } from "../../../../apis/queryClient";
-import { BOARD_QUERY_KEYS } from "../../../../constants/queryKeys";
 import { memberIdState } from "../../../../recoil/atoms/auth";
+import useBoard from "../../../../hooks/useBoard";
 
 export default function Comment({
   comment: {
@@ -30,12 +27,7 @@ export default function Comment({
   const [isUpdating, setIsUpdating] = useState(false);
   const [updatedContent, setUpdatedContent] = useState(content);
   const memberId = useRecoilValue(memberIdState);
-  const updateMutate = useMutation({
-    mutationFn: updateComment,
-    onSuccess: () => {
-      queryClient.invalidateQueries(BOARD_QUERY_KEYS.post(postId));
-    },
-  });
+  const { updateMutate } = useBoard({ postId });
 
   const handleUpdateClick = () => {
     setIsUpdating((prev) => !prev);

@@ -1,34 +1,24 @@
 import React, { useEffect, useState } from "react";
 import { MdFavorite } from "react-icons/md";
 import { Chip } from "@material-tailwind/react";
-import { useMutation } from "@tanstack/react-query";
 import Button from "../../../Common/Button";
-import { toggleLike } from "../../../../apis/board";
-import useToast from "../../../../hooks/useToast";
+import useBoard from "../../../../hooks/useBoard";
 
 export default function Recommend({ postId, category, likeCount, isLiked }) {
   const [isLikedState, setIsLikedState] = useState(isLiked);
   const [likeCountState, setLikeCountState] = useState(likeCount);
-  const { showToast } = useToast();
-  const toggleLikeMutate = useMutation({
-    mutationFn: () => toggleLike({ postId, category }),
-    onSuccess: () => {
-      setIsLikedState((prev) => !prev);
-      setLikeCountState((prev) => (isLikedState ? prev - 1 : prev + 1));
-    },
-    onError: (error) => {
-      const status = error.response.status;
-      if (status === 400) {
-        showToast("로그인 후 사용할 수 있는 기능입니다.");
-        return;
-      }
-
-      showToast("잠시후 다시 시도해주세요.");
-    },
-  });
+  const { toggleRecommendMutate } = useBoard({ postId });
 
   const handleClick = () => {
-    toggleLikeMutate.mutate({ postId, category });
+    toggleRecommendMutate.mutate(
+      { category },
+      {
+        onSuccess: () => {
+          setIsLikedState((prev) => !prev);
+          setLikeCountState((prev) => (isLikedState ? prev - 1 : prev + 1));
+        },
+      }
+    );
   };
 
   useEffect(() => {

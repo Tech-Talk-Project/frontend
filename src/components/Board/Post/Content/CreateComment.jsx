@@ -2,16 +2,13 @@ import React, { useState } from "react";
 import { useRecoilValue } from "recoil";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import CustomEditor from "ckeditor5-custom-build/build/ckeditor";
-import { editorConfiguration } from "../../../Profile/Description/DescriptionEditor/Plugin";
 import { Typography } from "@material-tailwind/react";
-import Button from "../../../Common/Button";
-import { useMutation } from "@tanstack/react-query";
-import { createCommnet } from "../../../../apis/board";
-import { queryClient } from "../../../../apis/queryClient";
-import { BOARD_QUERY_KEYS } from "../../../../constants/queryKeys";
 import { useParams, useSearchParams } from "react-router-dom";
+import { editorConfiguration } from "../../../Profile/Description/DescriptionEditor/Plugin";
+import Button from "../../../Common/Button";
 import useToast from "../../../../hooks/useToast";
 import { isLoggedInState } from "../../../../recoil/atoms/auth";
+import useBoard from "../../../../hooks/useBoard";
 
 export default function CreateComment() {
   const { postId } = useParams();
@@ -21,14 +18,7 @@ export default function CreateComment() {
   const [content, setContent] = useState("");
   const isLoggedIn = useRecoilValue(isLoggedInState);
   const { showToast } = useToast();
-  const createCommentMutate = useMutation({
-    mutationFn: () => createCommnet({ boardId: postId, content, category }),
-    onSuccess: () => {
-      queryClient.invalidateQueries(BOARD_QUERY_KEYS.post(postId));
-      setIsCreate(false);
-      setContent("");
-    },
-  });
+  const { createCommentMutate } = useBoard({ postId });
 
   const handleCreateClick = () => {
     if (!isLoggedIn) {
@@ -40,11 +30,18 @@ export default function CreateComment() {
     setContent("");
   };
   const handleSubmit = () => {
-    createCommentMutate.mutate({
-      boardId: postId,
-      content,
-      category,
-    });
+    createCommentMutate.mutate(
+      {
+        content,
+        category,
+      },
+      {
+        onSuccess: () => {
+          setIsCreate(false);
+          setContent("");
+        },
+      }
+    );
   };
   return (
     <article className="flex flex-col gap-2">
