@@ -1,12 +1,7 @@
-import React from "react";
+import React, { memo } from "react";
 import SkillImage from "../../Common/Image/SkillImage";
 
-export default function SelectedSkill({
-  skill,
-  isEditing,
-  index,
-  removeSkill,
-}) {
+const SelectedSkill = ({ skill, isEditing, index, removeSkill }) => {
   const handleClick = () => {
     if (!isEditing) return;
 
@@ -22,4 +17,6 @@ export default function SelectedSkill({
       <SkillImage language={skill} />
     </li>
   );
-}
+};
+
+export default memo(SelectedSkill);
