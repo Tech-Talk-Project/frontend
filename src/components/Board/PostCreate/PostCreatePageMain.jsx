@@ -1,15 +1,14 @@
 import React, { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
-import { CKEditor } from "@ckeditor/ckeditor5-react";
-import CustomEditor from "ckeditor5-custom-build/build/ckeditor";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
-import { editorConfiguration } from "../../Profile/Description/DescriptionEditor/Plugin";
 import Button from "../../Common/Button";
 import Title from "./Title";
 import Tag from "./Tag";
 import { BOARD_CREATE_REQUIRE_ERROR_MSG } from "../../../constants/errorMessage";
 import useToast from "../../../hooks/useToast";
 import useBoard from "../../../hooks/useBoard";
+
+const Editor = React.lazy(() => import("../../Common/Editor/Editor"));
 
 export default function PostCreatePageMain({
   postTitle,
@@ -119,15 +118,7 @@ export default function PostCreatePageMain({
         errors={tagErrors}
         onSubmit={handleTagSubmit}
       />
-      <CKEditor
-        editor={CustomEditor}
-        data={content}
-        config={editorConfiguration}
-        onChange={(event, editor) => {
-          const data = editor.getData();
-          setContent(data);
-        }}
-      />
+      <Editor content={content} onChange={setContent} readOnly={false} />
       <div className="flex justify-end gap-4 pb-8">
         <Button
           className="py-2 text-sm hover:bg-white hover:text-black"

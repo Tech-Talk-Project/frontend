@@ -1,16 +1,15 @@
 import React, { useState } from "react";
 import { useRecoilValue } from "recoil";
 import { Typography } from "@material-tailwind/react";
-import { CKEditor } from "@ckeditor/ckeditor5-react";
 import { useParams, useSearchParams } from "react-router-dom";
-import CustomEditor from "ckeditor5-custom-build/build/ckeditor";
-import { editorConfiguration } from "../../../Profile/Description/DescriptionEditor/Plugin";
 import ProfileImage from "../../../Common/Image/ProfileImage";
 import Content from "../Common/Content";
 import Button from "../../../Common/Button";
 import { getDateInfo } from "../../../../utils/date";
 import { memberIdState } from "../../../../recoil/atoms/auth";
 import useBoard from "../../../../hooks/useBoard";
+
+const Editor = React.lazy(() => import("../../../Common/Editor/Editor"));
 
 export default function Comment({
   comment: {
@@ -47,14 +46,10 @@ export default function Comment({
     <li className="border-b border-blue-gray-800">
       {isUpdating ? (
         <>
-          <CKEditor
-            editor={CustomEditor}
-            data={updatedContent}
-            config={editorConfiguration}
-            onChange={(event, editor) => {
-              const data = editor.getData();
-              setUpdatedContent(data);
-            }}
+          <Editor
+            content={updatedContent}
+            onChange={setUpdatedContent}
+            readOnly={false}
           />
           <div className="flex justify-end gap-4 py-4">
             <Button

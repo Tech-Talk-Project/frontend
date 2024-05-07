@@ -1,14 +1,13 @@
 import React, { useState } from "react";
 import { useRecoilValue } from "recoil";
-import { CKEditor } from "@ckeditor/ckeditor5-react";
-import CustomEditor from "ckeditor5-custom-build/build/ckeditor";
 import { Typography } from "@material-tailwind/react";
 import { useParams, useSearchParams } from "react-router-dom";
-import { editorConfiguration } from "../../../Profile/Description/DescriptionEditor/Plugin";
 import Button from "../../../Common/Button";
 import useToast from "../../../../hooks/useToast";
 import { isLoggedInState } from "../../../../recoil/atoms/auth";
 import useBoard from "../../../../hooks/useBoard";
+
+const Editor = React.lazy(() => import("../../../Common/Editor/Editor"));
 
 export default function CreateComment() {
   const { postId } = useParams();
@@ -48,15 +47,7 @@ export default function CreateComment() {
       <Typography variant="h6">댓글</Typography>
       {isCreate ? (
         <>
-          <CKEditor
-            editor={CustomEditor}
-            data={content}
-            config={editorConfiguration}
-            onChange={(event, editor) => {
-              const data = editor.getData();
-              setContent(data);
-            }}
-          />
+          <Editor content={content} onChange={setContent} readOnly={false} />
           <div className="flex justify-end gap-4 py-4">
             <Button
               className="py-2 text-sm hover:bg-white hover:text-black"

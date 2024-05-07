@@ -1,4 +1,4 @@
-import { uploadImage } from "../../../../apis/profile";
+import { uploadImage } from "../../../apis/profile";
 
 function uploadAdapter(loader) {
   return {
