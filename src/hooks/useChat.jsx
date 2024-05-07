@@ -7,7 +7,9 @@ export default function useChat(type, chatRoomId, memberId, callback) {
   const client = useRef();
 
   useEffect(() => {
-    client.current = Stomp.over(() => new SockJS("http://localhost:8080/ws"));
+    client.current = Stomp.over(
+      () => new SockJS(`${process.env.REACT_APP_API_URL}/ws`)
+    );
 
     return () => {
       if (client.current.connected) {
