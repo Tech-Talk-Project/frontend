@@ -6,7 +6,7 @@ export default function Button({ children, className, onClick, ...options }) {
     <TailwindButton
       ripple={false}
       {...options}
-      className={`${className} focus:!opacity-100 active:opacity-100 normal-case font-inter`}
+      className={`${className} focus:!opacity-100 active:opacity-100 normal-case`}
       onClick={onClick}
     >
       {children}

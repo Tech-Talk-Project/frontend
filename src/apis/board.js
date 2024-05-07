@@ -55,7 +55,7 @@ export const updateViewCount = ({ category, postId }) =>
     })
     .then((response) => response.data);
 
-export const createCommnet = ({ boardId, content, category }) =>
+export const createComment = ({ boardId, content, category }) =>
   instance
     .post(`${ENDPOINT}/add-comment`, {
       boardId,

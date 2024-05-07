@@ -9,23 +9,24 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import { RecoilRoot } from "recoil";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { ThemeProvider } from "@material-tailwind/react";
-import HomePage from "./pages/HomePage";
-import LoginPage from "./pages/LoginPage";
-import ProfilePage from "./pages/ProfilePage";
+import { queryClient } from "./apis/queryClient";
 import MainLayout from "./layouts/MainLayout";
 import NoHeaderLayout from "./layouts/NoHeaderLayout";
-import LoginCallbackPage from "./pages/LoginCallbackPage";
-import { queryClient } from "./apis/queryClient";
-import ChatListPage from "./pages/ChatListPage";
-import ChattingPage from "./pages/ChattingPage";
-import UserDetailPage from "./pages/UserDetailPage";
-import BoardPage from "./pages/BoardPage";
-import PostCreatePage from "./pages/PostCreatePage";
-import PostPage from "./pages/PostPage";
 import LoginProtectedRoute from "./pages/ProtectedRoute/LoginProtectedRoute";
 import NoTypeProtectedRoute from "./pages/ProtectedRoute/NoTypeProtectedRoute";
-import PostUpdatePage from "./pages/PostUpdatePage";
-import NotFoundPage from "./pages/NotFoundPage";
+
+const HomePage = React.lazy(() => import("./pages/HomePage"));
+const LoginPage = React.lazy(() => import("./pages/LoginPage"));
+const ProfilePage = React.lazy(() => import("./pages/ProfilePage"));
+const LoginCallbackPage = React.lazy(() => import("./pages/LoginCallbackPage"));
+const ChatListPage = React.lazy(() => import("./pages/ChatListPage"));
+const ChattingPage = React.lazy(() => import("./pages/ChattingPage"));
+const UserDetailPage = React.lazy(() => import("./pages/UserDetailPage"));
+const BoardPage = React.lazy(() => import("./pages/BoardPage"));
+const PostCreatePage = React.lazy(() => import("./pages/PostCreatePage"));
+const PostPage = React.lazy(() => import("./pages/PostPage"));
+const PostUpdatePage = React.lazy(() => import("./pages/PostUpdatePage"));
+const NotFoundPage = React.lazy(() => import("./pages/NotFoundPage"));
 
 const router = createBrowserRouter([
   {

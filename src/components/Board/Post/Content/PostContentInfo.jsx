@@ -1,10 +1,8 @@
 import React, { useState } from "react";
 import { useRecoilValue } from "recoil";
 import { Chip, Typography } from "@material-tailwind/react";
-import { useMutation } from "@tanstack/react-query";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import RecruitmentToggle from "./RecruitmentToggle";
-import { changeRecruitment, deletePost } from "../../../../apis/board";
 import { getDateInfo } from "../../../../utils/date";
 import useBreakpoint from "../../../../hooks/useBreakPoint";
 import { memberIdState } from "../../../../recoil/atoms/auth";
@@ -12,7 +10,7 @@ import { BOARD_CATEGORIE_WITHOUT_TOGGLE_TYPES } from "../../../../constants/cate
 import Button from "../../../Common/Button";
 import useModal from "../../../../hooks/useModal";
 import DeleteConfirmModal from "../Common/DeleteConfirmModal";
-import useToast from "../../../../hooks/useToast";
+import useBoard from "../../../../hooks/useBoard";
 
 export default function PostContentInfo({
   author: { memberId: authorId },
@@ -31,28 +29,19 @@ export default function PostContentInfo({
   const [isRecruitmentActive, setIsRecruitmentActive] =
     useState(recruitmentActive);
   const memberId = useRecoilValue(memberIdState);
-  const { showToast } = useToast();
-  const changeRecruitmentMutate = useMutation({
-    mutationFn: changeRecruitment,
-    onSuccess: () => {
-      setIsRecruitmentActive((prev) => !prev);
-    },
-    onError: () => {
-      showToast("잠시후 다시 시도해주세요.");
-    },
-  });
-  const postDeleteMutate = useMutation({
-    mutationFn: deletePost,
-    onSuccess: () => {
-      navigate(`/board?type=${category}`);
-    },
-  });
+  const { changeRecruitmentMutate, postDeleteMutate } = useBoard({ postId });
 
   const handleRecruitmentClick = () => {
-    changeRecruitmentMutate.mutate({
-      postId,
-      category: category.toUpperCase(),
-    });
+    changeRecruitmentMutate.mutate(
+      {
+        category: category.toUpperCase(),
+      },
+      {
+        onSuccess: () => {
+          setIsRecruitmentActive((prev) => !prev);
+        },
+      }
+    );
   };
   const handleUpdateClick = () => {
     navigate(`/board/post/${postId}/update?type=${category}`);
@@ -61,7 +50,14 @@ export default function PostContentInfo({
     setIsDeleteModalOpen();
   };
   const handleDeleteClick = () => {
-    postDeleteMutate.mutate({ postId, category: category.toUpperCase() });
+    postDeleteMutate.mutate(
+      { category: category.toUpperCase() },
+      {
+        onSuccess: () => {
+          navigate(`/board?type=${category}`);
+        },
+      }
+    );
   };
   return (
     <article className="flex flex-col md:flex-row gap-2 md:items-end justify-between pb-4 border-b border-blue-gray-800">

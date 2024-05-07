@@ -1,12 +1,10 @@
 import React from "react";
-import DescriptionEditor from "../../Profile/Description/DescriptionEditor/DescriptionEditor";
+import Editor from "../../Common/Editor/Editor";
 
 export default function Description({ content }) {
   return (
     <article className="p-4 w-full grow">
-      {content !== null && (
-        <DescriptionEditor content={content} readOnly={true} />
-      )}
+      {content !== null && <Editor content={content} readOnly={true} />}
     </article>
   );
 }
