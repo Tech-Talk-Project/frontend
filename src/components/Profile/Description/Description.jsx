@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { Typography } from "@material-tailwind/react";
-import DescriptionEditor from "./DescriptionEditor/DescriptionEditor";
 import Button from "../../Common/Button";
 import ButtonGroup from "../Common/ButtonGroup";
 import { MdEdit } from "react-icons/md";
 import useProfiles from "../../../hooks/useProfiles";
+
+const Editor = React.lazy(() => import("../../Common/Editor/Editor"));
 
 export default function Description({ description }) {
   const { setDescriptionMutate } = useProfiles();
@@ -48,21 +49,13 @@ export default function Description({ description }) {
       >
         {isEditing ? (
           <>
-            <DescriptionEditor
-              content={content}
-              onChange={setContent}
-              readOnly={false}
-            />
+            <Editor content={content} onChange={setContent} readOnly={false} />
             <div className="w-full">
               <ButtonGroup onCancelClick={handleCancelClick} />
             </div>
           </>
         ) : description ? (
-          <DescriptionEditor
-            content={content}
-            onChange={setContent}
-            readOnly={true}
-          />
+          <Editor content={content} onChange={setContent} readOnly={true} />
         ) : (
           <div className="flex flex-col items-center gap-4">
             <Typography
