@@ -22,7 +22,7 @@ export default function ErrorMessage({
   };
 
   return (
-    <article className="fixed top-0 bottom-0 right-0 left-0 m-auto flex flex-col items-center justify-center h-60 w-full max-w-sm border border-blue-gray-800 bg-black rounded-md z-30">
+    <article className="fixed top-0 bottom-0 right-0 left-0 m-auto flex flex-col items-center justify-center h-60 w-full max-w-sm sm:border border-blue-gray-800 bg-black rounded-md z-30">
       <Logo size="lg" />
       <section className="text-center mt-8 w-60">
         <Typography variant="h6" className="mx-[-100%] whitespace-nowrap">
