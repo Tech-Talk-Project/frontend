@@ -1,6 +1,6 @@
 import React from "react";
 import { Typography } from "@material-tailwind/react";
-import { MdPeopleAlt } from "react-icons/md";
+import { BsPeopleFill } from "@react-icons/all-files/bs/BsPeopleFill";
 import Button from "../../Common/Button";
 import ChatRoomSettingButton from "../Common/ChatRoomSettingButton";
 import useModal from "../../../hooks/useModal";
@@ -20,7 +20,7 @@ export default function ChattingInfo({ title, ownerId, members, chatRoomId }) {
           className="p-1 text-white hover:text-brand duration-150"
           onClick={setIsOpen}
         >
-          <MdPeopleAlt size={24} />
+          <BsPeopleFill size={24} />
         </Button>
         <ChatRoomMembersModal
           isOpen={isOpen}

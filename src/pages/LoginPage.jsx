@@ -1,11 +1,12 @@
 import React from "react";
 import { v4 as uuidv4 } from "uuid";
-import { SiNaver, SiGithub } from "react-icons/si";
-import { FcGoogle } from "react-icons/fc";
+import { Typography } from "@material-tailwind/react";
+import { SiGithub } from "@react-icons/all-files/si/SiGithub";
+import { FcGoogle } from "@react-icons/all-files/fc/FcGoogle";
+import { ReactComponent as Naver } from "../assets/images/logo/naver.svg";
 import Logo from "../components/Common/Image/Logo";
 import OauthLoginButton from "../components/Login/OauthLoginButton";
 import DividerWithText from "../components/Common/DividerWithText";
-import { Typography } from "@material-tailwind/react";
 
 const TYPES = [
   {
@@ -28,11 +29,7 @@ const TYPES = [
       process.env.REACT_APP_NAVER_REDIRECT_URL
     }`,
     color: "bg-white",
-    logo: (
-      <div className="p-[6px] bg-naver">
-        <SiNaver size={16} />
-      </div>
-    ),
+    logo: <Naver width="2rem" height="2rem" />,
   },
 ];
 

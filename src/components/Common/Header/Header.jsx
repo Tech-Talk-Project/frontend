@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { useNavigate, useLocation } from "react-router-dom";
-import { MdMenu } from "react-icons/md";
+import { MdMenu } from "@react-icons/all-files/md/MdMenu";
 import Button from "../Button";
 import { isLoggedInState, memberIdState } from "../../../recoil/atoms/auth";
 import NavMenu from "./NavMenu";

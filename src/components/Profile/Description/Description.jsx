@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Typography } from "@material-tailwind/react";
+import { MdEdit } from "@react-icons/all-files/md/MdEdit";
 import Button from "../../Common/Button";
 import ButtonGroup from "../Common/ButtonGroup";
-import { MdEdit } from "react-icons/md";
 import useProfiles from "../../../hooks/useProfiles";
 
 const Editor = React.lazy(() => import("../../Common/Editor/Editor"));

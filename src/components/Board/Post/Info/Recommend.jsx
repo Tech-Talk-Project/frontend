@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { MdFavorite } from "react-icons/md";
+import { MdFavorite } from "@react-icons/all-files/md/MdFavorite";
 import { Chip } from "@material-tailwind/react";
 import Button from "../../../Common/Button";
 import useBoard from "../../../../hooks/useBoard";

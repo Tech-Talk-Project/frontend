@@ -1,5 +1,6 @@
 import React from "react";
-import { MdOutlineLink, MdClose } from "react-icons/md";
+import { MdClose } from "@react-icons/all-files/md/MdClose";
+import { MdInsertLink } from "@react-icons/all-files/md/MdInsertLink";
 import Button from "../../Common/Button";
 
 export default function Link({ link, isEditing, index, remove }) {
@@ -22,7 +23,7 @@ export default function Link({ link, isEditing, index, remove }) {
           isEditing ? "cursor-default" : "hover:text-brand hover:underline"
         }`}
       >
-        <MdOutlineLink className="-rotate-45 shrink-0" size={20} />
+        <MdInsertLink className="-rotate-45 shrink-0" size={20} />
         <div className="line-clamp-2">
           <span className="max-w-[192px] break-all">{link}</span>
         </div>

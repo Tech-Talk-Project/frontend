@@ -1,7 +1,7 @@
 import React from "react";
 import { Typography } from "@material-tailwind/react";
 import { useNavigate } from "react-router-dom";
-import { BsFillChatDotsFill } from "react-icons/bs";
+import { BsFillChatDotsFill } from "@react-icons/all-files/bs/BsFillChatDotsFill";
 import Button from "../../Common/Button";
 import { useSetRecoilState } from "recoil";
 import { createNewChatState } from "../../../recoil/atoms/newChat";

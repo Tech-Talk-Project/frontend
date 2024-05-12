@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Input } from "@material-tailwind/react";
-import { MdAdd } from "react-icons/md";
+import { MdAdd } from "@react-icons/all-files/md/MdAdd";
 import InputError from "../../Common/InputError";
 import Button from "../../Common/Button";
 import { LINK_PATTERN_ERROR_MSG } from "../../../constants/errorMessage";

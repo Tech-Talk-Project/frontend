@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { MdThumbDown, MdThumbUp } from "react-icons/md";
+import { MdThumbDown } from "@react-icons/all-files/md/MdThumbDown";
+import { MdThumbUp } from "@react-icons/all-files/md/MdThumbUp";
 import { Chip } from "@material-tailwind/react";
 import Button from "../../../Common/Button";
 import useBoard from "../../../../hooks/useBoard";

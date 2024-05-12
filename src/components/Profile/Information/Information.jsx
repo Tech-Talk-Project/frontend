@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Typography, Input } from "@material-tailwind/react";
-import { MdEdit } from "react-icons/md";
+import { MdEdit } from "@react-icons/all-files/md/MdEdit";
 import Button from "../../Common/Button";
 import ButtonGroup from "../Common/ButtonGroup";
 import { INPUT_VALIDATION } from "../../../constants/validation";

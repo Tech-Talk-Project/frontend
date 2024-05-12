@@ -1,10 +1,8 @@
 import React from "react";
-import {
-  MdOutlineMoreVert,
-  MdExitToApp,
-  MdSubtitles,
-  MdGroupAdd,
-} from "react-icons/md";
+import { MdMoreVert } from "@react-icons/all-files/md/MdMoreVert";
+import { MdExitToApp } from "@react-icons/all-files/md/MdExitToApp";
+import { MdSubtitles } from "@react-icons/all-files/md/MdSubtitles";
+import { MdGroupAdd } from "@react-icons/all-files/md/MdGroupAdd";
 import { useRecoilValue } from "recoil";
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
@@ -68,7 +66,7 @@ export default function ChatRoomSettingButton({
             variant="text"
             className="p-1 text-white hover:text-blue-gray-400 duration-150"
           >
-            <MdOutlineMoreVert size={20} />
+            <MdMoreVert size={20} />
           </Button>
         </MenuHandler>
         <MenuList className="p-1">

@@ -1,6 +1,6 @@
 import React from "react";
 import { v4 as uuidv4 } from "uuid";
-import { MdClose } from "react-icons/md";
+import { MdClose } from "@react-icons/all-files/md/MdClose";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { Drawer, List, ListItem } from "@material-tailwind/react";

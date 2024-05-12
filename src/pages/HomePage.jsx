@@ -1,6 +1,6 @@
 import React, { Suspense, useEffect, useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { BsFillChatDotsFill } from "react-icons/bs";
+import { BsFillChatDotsFill } from "@react-icons/all-files/bs/BsFillChatDotsFill";
 import SideBar from "../components/Main/SideBar/SideBar";
 import Categories from "../components/Main/Category/Categories";
 import filterState from "../recoil/atoms/filter";

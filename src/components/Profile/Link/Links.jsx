@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Typography } from "@material-tailwind/react";
-import { MdEdit } from "react-icons/md";
+import { useFieldArray, useForm } from "react-hook-form";
+import { MdEdit } from "@react-icons/all-files/md/MdEdit";
 import Button from "../../Common/Button";
 import Link from "./Link";
-import { useFieldArray, useForm } from "react-hook-form";
 import ButtonGroup from "../Common/ButtonGroup";
 import LinkAppendInput from "./LinkAppendInput";
 import useProfiles from "../../../hooks/useProfiles";

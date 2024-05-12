@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
 import { Typography, Textarea } from "@material-tailwind/react";
-import { MdEdit } from "react-icons/md";
+import { MdEdit } from "@react-icons/all-files/md/MdEdit";
 import Button from "../../Common/Button";
 import ButtonGroup from "../Common/ButtonGroup";
-import { useForm } from "react-hook-form";
 import useProfiles from "../../../hooks/useProfiles";
 import InputError from "../../Common/InputError";
 import { INPUT_VALIDATION } from "../../../constants/validation";

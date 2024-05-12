@@ -1,7 +1,7 @@
 import React from "react";
 import { Textarea } from "@material-tailwind/react";
 import { useForm } from "react-hook-form";
-import { MdSend } from "react-icons/md";
+import { MdSend } from "@react-icons/all-files/md/MdSend";
 import Button from "../../Common/Button";
 import useBreakpoint from "../../../hooks/useBreakPoint";
 
