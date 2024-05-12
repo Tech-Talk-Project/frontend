@@ -10,6 +10,7 @@ import NullBoard from "./NullBoard";
 import Posts from "./Posts";
 import Button from "../../Common/Button";
 import { isLoggedInState } from "../../../recoil/atoms/auth";
+import { PATH } from "../../../constants/path";
 
 export default function BoardPageMain() {
   const navigate = useNavigate();
@@ -36,9 +37,9 @@ export default function BoardPageMain() {
 
   const handleCreateClick = () => {
     if (isLoggedIn) {
-      navigate(`/create/board?type=${type}`);
+      navigate(PATH.createBoardWithType(type));
     } else {
-      navigate("/login");
+      navigate(PATH.login);
     }
   };
 

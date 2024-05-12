@@ -4,6 +4,7 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import Tags from "./Tags";
 import { BOARD_CATEGORIE_WITHOUT_TOGGLE_TYPES } from "../../../constants/category";
 import PostInfo from "./PostInfo";
+import { PATH } from "../../../constants/path";
 
 export default function Post({
   post: {
@@ -26,7 +27,7 @@ export default function Post({
   const type = searchParams.get("type");
 
   const handleClick = () => {
-    navigate(`/board/post/${boardId}?type=${type}`);
+    navigate(PATH.postWithIdAndType(boardId, type));
   };
   return (
     <li

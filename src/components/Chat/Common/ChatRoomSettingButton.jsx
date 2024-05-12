@@ -5,6 +5,7 @@ import {
   MdSubtitles,
   MdGroupAdd,
 } from "react-icons/md";
+import { useRecoilValue } from "recoil";
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import {
@@ -16,11 +17,11 @@ import {
   Button,
 } from "@material-tailwind/react";
 import { exitChatRoom } from "../../../apis/chat";
-import { useRecoilValue } from "recoil";
 import { memberIdState } from "../../../recoil/atoms/auth";
 import useModal from "../../../hooks/useModal";
 import TitleChangeComfirmModal from "../Modal/TitleChangeComfirmModal";
 import InviteModal from "../Modal/InviteModal/InviteModal";
+import { PATH } from "../../../constants/path";
 
 export default function ChatRoomSettingButton({
   title,
@@ -38,7 +39,7 @@ export default function ChatRoomSettingButton({
     mutationFn: () => exitChatRoom({ chatRoomId }),
     onSuccess: () => {
       if (chatRoomId === nowChatRoomId) {
-        navigate("/chatList", { replace: true });
+        navigate(PATH.chatList, { replace: true });
       }
       setChatRooms((prevChatRooms) =>
         prevChatRooms.filter((room) => room.chatRoomId !== chatRoomId)

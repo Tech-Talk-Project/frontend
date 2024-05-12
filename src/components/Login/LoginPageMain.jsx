@@ -8,6 +8,7 @@ import { setCookie } from "../../utils/cookie";
 import LoginLoading from "./LoginLoading";
 import { AUTH_QUERY_KEYS } from "../../constants/queryKeys";
 import { jwtDecode } from "jwt-decode";
+import { PATH } from "../../constants/path";
 
 export default function LoginPageMain() {
   const navigate = useNavigate();
@@ -32,9 +33,9 @@ export default function LoginPageMain() {
       setMemberId(jwtDecode(accessToken).memberId);
 
       if (firstLogin) {
-        navigate("/profile");
+        navigate(PATH.profile);
       } else {
-        navigate("/");
+        navigate(PATH.home);
       }
     }
   }, [data, setIsLoggedIn, setMemberId, navigate]);

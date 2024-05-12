@@ -5,13 +5,14 @@ import { BsFillChatDotsFill } from "react-icons/bs";
 import Button from "../../Common/Button";
 import { useSetRecoilState } from "recoil";
 import { createNewChatState } from "../../../recoil/atoms/newChat";
+import { PATH } from "../../../constants/path";
 
 export default function NullChatList() {
   const navigate = useNavigate();
   const setCreateNewChat = useSetRecoilState(createNewChatState);
 
   const handleNewChatClick = () => {
-    navigate("/");
+    navigate(PATH.home);
     setCreateNewChat(true);
   };
   return (

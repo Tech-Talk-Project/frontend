@@ -12,6 +12,7 @@ import { newChatMemberState } from "../../../recoil/atoms/newChat";
 import { logout } from "../../../apis/auth";
 import MobileSideBar from "./MobileSideBar";
 import useToast from "../../../hooks/useToast";
+import { PATH } from "../../../constants/path";
 
 export default function Header() {
   const navigate = useNavigate();
@@ -31,7 +32,7 @@ export default function Header() {
       setCreateNewChat(false);
       setNewChatMembers([]);
       removeCookie("accessToken", { path: "/" });
-      navigate("/");
+      navigate(PATH.home);
     } catch (error) {
       showToast("잠시후에 다시 시도해 주세요.");
     }

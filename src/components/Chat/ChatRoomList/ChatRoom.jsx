@@ -9,6 +9,7 @@ import { disconnectChatRoom } from "../../../apis/chat";
 import ChatRoomSettingButton from "../Common/ChatRoomSettingButton";
 import { queryClient } from "../../../apis/queryClient";
 import { CHAT_QUERY_KEYS } from "../../../constants/queryKeys";
+import { PATH } from "../../../constants/path";
 
 export default function ChatRoom({
   chatRoom: {
@@ -64,7 +65,7 @@ export default function ChatRoom({
       await disconnectChatRoom({ chatRoomId: nowChatRoomId });
     }
     queryClient.removeQueries(CHAT_QUERY_KEYS.chatDataWithCursor(chatRoomId));
-    navigate(`/chatting/${chatRoomId}`);
+    navigate(PATH.chatting(chatRoomId));
   };
 
   useEffect(() => {
