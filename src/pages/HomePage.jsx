@@ -1,20 +1,19 @@
-import React, { Suspense, useEffect, useState } from "react";
+import React, { Suspense, useCallback, useEffect, useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { BsFillChatDotsFill } from "@react-icons/all-files/bs/BsFillChatDotsFill";
+import { QueryErrorResetBoundary } from "@tanstack/react-query";
 import SideBar from "../components/Main/SideBar/SideBar";
 import Categories from "../components/Main/Category/Categories";
 import filterState from "../recoil/atoms/filter";
 import { createNewChatState } from "../recoil/atoms/newChat";
-import Button from "../components/Common/Button";
 import useModal from "../hooks/useModal";
 import CreateChatButtonGroup from "../components/Main/Common/CreateChatButtonGroup";
 import UserGridSkeleton from "../components/Main/User/Skeleton/UserGridSkeleton";
 import { isLoggedInState } from "../recoil/atoms/auth";
 import MainPageMain from "../components/Main/MainPageMain";
 import FollowingPage from "../components/Main/FollowingPage";
-import { QueryErrorResetBoundary } from "@tanstack/react-query";
 import ErrorBoundary from "../components/Error/ErrorBoundary";
 import MainErrorFallback from "../components/Main/MainErrorFallback";
+import CreateChatBtn from "../components/Main/SideBar/CreateChatBtn";
 
 export default function HomePage() {
   const [isOpen, handleModalClick] = useModal();
@@ -23,9 +22,9 @@ export default function HomePage() {
   const isLoggedIn = useRecoilValue(isLoggedInState);
   const [createNewChat, setCreateNewChat] = useRecoilState(createNewChatState);
 
-  const handleNewChatClick = () => {
+  const handleNewChatClick = useCallback(() => {
     setCreateNewChat((prev) => !prev);
-  };
+  }, [setCreateNewChat]);
   const handleFilterClick = (value) => {
     if (filters.includes(value)) {
       setFilters((prev) => prev.filter((f) => f !== value));
@@ -65,13 +64,7 @@ export default function HomePage() {
               )}
             </div>
             {isLoggedIn && !createNewChat && (
-              <Button
-                variant="text"
-                className="fixed bottom-8 right-7 md:left-7 md:right-auto p-3 text-white bg-brand hover:bg-white hover:text-brand rounded-full"
-                onClick={handleNewChatClick}
-              >
-                <BsFillChatDotsFill size={24} />
-              </Button>
+              <CreateChatBtn onNewChatClick={handleNewChatClick} />
             )}
           </main>
         </ErrorBoundary>
