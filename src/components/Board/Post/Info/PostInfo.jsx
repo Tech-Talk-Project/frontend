@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { useRecoilValue } from "recoil";
 import { useSearchParams } from "react-router-dom";
 import { useQueries } from "@tanstack/react-query";
@@ -12,16 +12,16 @@ import { BOARD_CATEGORIE_WITHOUT_TOGGLE_TYPES } from "../../../../constants/cate
 import Loader from "../../../Common/Loader";
 import { isLoggedInState } from "../../../../recoil/atoms/auth";
 
-export default function PostInfo({
+const PostInfo = ({
   postId,
   author: { imageUrl, name },
   likeCount,
   dislikeCount,
   tags,
-}) {
+}) => {
   const [searchParams] = useSearchParams();
   const type = searchParams.get("type");
-  const isProjectOrStudy = getIsProjectOrStudy(type);
+  const isProjectOrStudy = !BOARD_CATEGORIE_WITHOUT_TOGGLE_TYPES.includes(type);
   const isLoggedIn = useRecoilValue(isLoggedInState);
   const [
     { data: likedData, isLoading: isLikedLoading },
@@ -70,11 +70,6 @@ export default function PostInfo({
       </div>
     </aside>
   );
-}
+};
 
-function getIsProjectOrStudy(type) {
-  let result = false;
-  if (type === "project" || type === "study") result = true;
-
-  return result;
-}
+export default memo(PostInfo);
