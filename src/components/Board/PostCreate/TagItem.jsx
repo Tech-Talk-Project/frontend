@@ -1,5 +1,5 @@
 import React from "react";
-import { MdOutlineClose } from "react-icons/md";
+import { MdClose } from "@react-icons/all-files/md/MdClose";
 
 export default function TagItem({ tag, index, setTags }) {
   const handleClick = () => {
@@ -11,7 +11,7 @@ export default function TagItem({ tag, index, setTags }) {
       onClick={handleClick}
     >
       <p className="font-bold">{tag}</p>
-      <MdOutlineClose size={16} />
+      <MdClose size={16} />
     </li>
   );
 }

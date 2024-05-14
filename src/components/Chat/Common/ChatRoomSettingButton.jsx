@@ -1,10 +1,9 @@
 import React from "react";
-import {
-  MdOutlineMoreVert,
-  MdExitToApp,
-  MdSubtitles,
-  MdGroupAdd,
-} from "react-icons/md";
+import { MdMoreVert } from "@react-icons/all-files/md/MdMoreVert";
+import { MdExitToApp } from "@react-icons/all-files/md/MdExitToApp";
+import { MdSubtitles } from "@react-icons/all-files/md/MdSubtitles";
+import { MdGroupAdd } from "@react-icons/all-files/md/MdGroupAdd";
+import { useRecoilValue } from "recoil";
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import {
@@ -16,11 +15,11 @@ import {
   Button,
 } from "@material-tailwind/react";
 import { exitChatRoom } from "../../../apis/chat";
-import { useRecoilValue } from "recoil";
 import { memberIdState } from "../../../recoil/atoms/auth";
 import useModal from "../../../hooks/useModal";
 import TitleChangeComfirmModal from "../Modal/TitleChangeComfirmModal";
 import InviteModal from "../Modal/InviteModal/InviteModal";
+import { PATH } from "../../../constants/path";
 
 export default function ChatRoomSettingButton({
   title,
@@ -38,7 +37,7 @@ export default function ChatRoomSettingButton({
     mutationFn: () => exitChatRoom({ chatRoomId }),
     onSuccess: () => {
       if (chatRoomId === nowChatRoomId) {
-        navigate("/chatList", { replace: true });
+        navigate(PATH.chatList, { replace: true });
       }
       setChatRooms((prevChatRooms) =>
         prevChatRooms.filter((room) => room.chatRoomId !== chatRoomId)
@@ -63,11 +62,12 @@ export default function ChatRoomSettingButton({
       <Menu placement="bottom-end">
         <MenuHandler>
           <Button
+            aria-label="setting"
             ripple={false}
             variant="text"
             className="p-1 text-white hover:text-blue-gray-400 duration-150"
           >
-            <MdOutlineMoreVert size={20} />
+            <MdMoreVert size={20} />
           </Button>
         </MenuHandler>
         <MenuList className="p-1">

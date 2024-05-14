@@ -1,11 +1,11 @@
 import React, { useRef, useState } from "react";
+import { useFieldArray, useForm } from "react-hook-form";
 import { Typography } from "@material-tailwind/react";
-import { MdAdd } from "react-icons/md";
+import { MdAdd } from "@react-icons/all-files/md/MdAdd";
 import Button from "../../Common/Button";
 import ButtonGroup from "../Common/ButtonGroup";
 import AppendSkillList from "./AppendSkillList";
 import useProfiles from "../../../hooks/useProfiles";
-import { useFieldArray, useForm } from "react-hook-form";
 import useOutsideClick from "../../../hooks/useOutsideClick";
 import SelectedSkill from "./SelectedSkill";
 
@@ -78,6 +78,7 @@ export default function Skills({ skills }) {
           )}
           {!isEditing && (
             <Button
+              aria-label="skills edit"
               className="p-[10px] rounded-full hover:bg-brand duration-150"
               onClick={handleEditClick}
             >

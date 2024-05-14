@@ -1,6 +1,6 @@
 import React from "react";
 import { v4 as uuidv4 } from "uuid";
-import { MdClose } from "react-icons/md";
+import { MdClose } from "@react-icons/all-files/md/MdClose";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { Drawer, List, ListItem } from "@material-tailwind/react";
@@ -20,6 +20,7 @@ import { sideBarMenuStyle } from "../../../utils/sideBarMenuStyle";
 import filterState from "../../../recoil/atoms/filter";
 import SideBarTypeItem from "../../Board/Board/SideBar/SideBarTypeItem";
 import useToast from "../../../hooks/useToast";
+import { PATH } from "../../../constants/path";
 
 // login state: 1, logout state: -1, both: 0
 const MENUS = [
@@ -50,7 +51,7 @@ export default function MobileSideBar({ isOpen, onOpenClick, pathname }) {
       setCreateNewChat(false);
       setNewChatMembers([]);
       removeCookie("accessToken", { path: "/" });
-      navigate("/");
+      navigate(PATH.home);
       onOpenClick();
     } catch (error) {
       showToast("잠시후에 다시 시도해 주세요.");

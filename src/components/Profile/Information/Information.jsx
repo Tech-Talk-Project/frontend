@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Typography, Input } from "@material-tailwind/react";
-import { MdEdit } from "react-icons/md";
+import { MdEdit } from "@react-icons/all-files/md/MdEdit";
 import Button from "../../Common/Button";
 import ButtonGroup from "../Common/ButtonGroup";
 import { INPUT_VALIDATION } from "../../../constants/validation";
@@ -56,6 +56,7 @@ export default function Information({ info: { name, job, email } }) {
     <article className="relative w-full">
       {!isEditing && (
         <Button
+          aria-label="information edit"
           variant="text"
           className="absolute top-1 right-1 p-1 text-blue-gray-800 hover:text-brand duration-150 peer"
           onClick={handleEditClick}

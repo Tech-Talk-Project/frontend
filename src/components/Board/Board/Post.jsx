@@ -1,11 +1,12 @@
-import React from "react";
+import React, { memo } from "react";
 import { Chip, Typography } from "@material-tailwind/react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import Tags from "./Tags";
 import { BOARD_CATEGORIE_WITHOUT_TOGGLE_TYPES } from "../../../constants/category";
 import PostInfo from "./PostInfo";
+import { PATH } from "../../../constants/path";
 
-export default function Post({
+const Post = ({
   post: {
     boardId,
     title,
@@ -20,13 +21,13 @@ export default function Post({
     dislikeCount,
     commentCount,
   },
-}) {
+}) => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const type = searchParams.get("type");
 
   const handleClick = () => {
-    navigate(`/board/post/${boardId}?type=${type}`);
+    navigate(PATH.postWithIdAndType(boardId, type));
   };
   return (
     <li
@@ -61,4 +62,6 @@ export default function Post({
       />
     </li>
   );
-}
+};
+
+export default memo(Post);

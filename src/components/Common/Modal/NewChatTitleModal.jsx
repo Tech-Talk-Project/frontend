@@ -23,6 +23,7 @@ import {
 import { memberIdState } from "../../../recoil/atoms/auth";
 import { USERS_QUERY_KEYS } from "../../../constants/queryKeys";
 import { getMyName } from "../../../apis/user";
+import { PATH } from "../../../constants/path";
 
 export default function NewChatTitleModal({ isOpen, onClick }) {
   const navigate = useNavigate();
@@ -41,7 +42,7 @@ export default function NewChatTitleModal({ isOpen, onClick }) {
   const createChatRoomMutate = useMutation({
     mutationFn: createChatRoom,
     onSuccess: (response) => {
-      navigate(`/chatting/${response.chatRoomId}`);
+      navigate(PATH.chatting(response.chatRoomId));
       setNewChatMembers([]);
       setCreateNewChat(false);
     },

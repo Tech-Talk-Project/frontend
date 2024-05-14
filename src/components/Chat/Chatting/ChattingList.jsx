@@ -2,7 +2,7 @@ import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { useSuspenseInfiniteQuery } from "@tanstack/react-query";
 import { Spinner } from "@material-tailwind/react";
-import { MdOutlineArrowCircleDown } from "react-icons/md";
+import { HiOutlineArrowCircleDown } from "@react-icons/all-files/hi/HiOutlineArrowCircleDown";
 import { CHAT_QUERY_KEYS } from "../../../constants/queryKeys";
 import useIntersectionObserver from "../../../hooks/useIntersectionObserver";
 import { getChattingWithCursor } from "../../../apis/chat";
@@ -175,7 +175,7 @@ export default function ChattingList({
           className="sticky bottom-2 left-0 right-0 flex justify-center items-center mx-auto p-1 text-white hover:text-brand bg-blue-gray-600 rounded-full duration-150 z-30 opacity-70"
           onClick={handleScrollClick}
         >
-          <MdOutlineArrowCircleDown size={32} />
+          <HiOutlineArrowCircleDown size={32} />
         </Button>
       )}
     </ul>

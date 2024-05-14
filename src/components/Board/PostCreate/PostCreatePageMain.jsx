@@ -7,6 +7,7 @@ import Tag from "./Tag";
 import { BOARD_CREATE_REQUIRE_ERROR_MSG } from "../../../constants/errorMessage";
 import useToast from "../../../hooks/useToast";
 import useBoard from "../../../hooks/useBoard";
+import { PATH } from "../../../constants/path";
 
 const Editor = React.lazy(() => import("../../Common/Editor/Editor"));
 
@@ -92,7 +93,7 @@ export default function PostCreatePageMain({
         { data },
         {
           onError: () => {
-            navigate(`/board/post/${postId}?type=${type}`);
+            navigate(PATH.postWithIdAndType(postId, type));
           },
         }
       );
