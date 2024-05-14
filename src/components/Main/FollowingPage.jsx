@@ -4,7 +4,7 @@ import { USERS_QUERY_KEYS } from "../../constants/queryKeys";
 import { getFollowingUsersData } from "../../apis/user";
 import UsersGrid from "./User/UsersGrid";
 import Pagination from "./Common/Pagination";
-import NullUserGrid from "./NullUserGrid";
+import NullUserGrid from "./User/NullUserGrid";
 import usePagination from "../../hooks/usePagination";
 
 export default function FollowingPage() {

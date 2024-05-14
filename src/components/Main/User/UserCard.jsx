@@ -51,7 +51,7 @@ export default function UserCard({
         </div>
         <ProfileImage imageUrl={imageUrl} size="md" />
       </div>
-      <div className="line-clamp-2">
+      <div className="line-clamp-2 grow">
         <Typography variant="paragraph" className="mt-2 font-medium">
           {introduction || ""}
         </Typography>

@@ -5,15 +5,22 @@ import { useParams } from "react-router-dom";
 import ProfileImage from "../../../Common/Image/ProfileImage";
 import { inviteUserWithEmail } from "../../../../apis/chat";
 import useToast from "../../../../hooks/useToast";
+import useNewChatMember from "../../../../hooks/useNewChatMemberClick";
+import { useRecoilValue } from "recoil";
+import { memberIdState } from "../../../../recoil/atoms/auth";
 
 export default function SearchResultItem({
-  memberData: { memberId, name, email, imageUrl },
+  color,
+  memberData: { memberId: searchedMemberId, name, email, imageUrl },
   onDialogClose,
 }) {
   const { chatRoomId } = useParams();
+  const memberId = useRecoilValue(memberIdState);
   const { showToast } = useToast();
+  const handleMemberClick = useNewChatMember(searchedMemberId, name, imageUrl);
   const inviteMutate = useMutation({
-    mutationFn: () => inviteUserWithEmail({ chatRoomId, memberId }),
+    mutationFn: () =>
+      inviteUserWithEmail({ chatRoomId, memberId: searchedMemberId }),
     onError: (error) => {
       const status = error?.response?.status;
       if (status === 409) {
@@ -26,10 +33,26 @@ export default function SearchResultItem({
   });
 
   const handleClick = () => {
-    inviteMutate.mutate({ chatRoomId, memberId });
+    if (memberId === searchedMemberId) {
+      onDialogClose();
+      showToast("본인은 추가할 수 없습니다.");
+      return;
+    }
+
+    if (color === "black") {
+      handleMemberClick();
+      onDialogClose();
+      return;
+    }
+    inviteMutate.mutate({ chatRoomId, memberId: searchedMemberId });
   };
   return (
-    <ListItem className="gap-3" onClick={handleClick}>
+    <ListItem
+      className={`gap-3 ${
+        color === "black" ? "text-white hover:text-blue-gray-900" : ""
+      }`}
+      onClick={handleClick}
+    >
       <ProfileImage size="sm" imageUrl={imageUrl} />
       <div>
         <Typography variant="h6">{name}</Typography>

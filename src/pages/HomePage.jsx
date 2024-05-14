@@ -14,6 +14,8 @@ import FollowingPage from "../components/Main/FollowingPage";
 import ErrorBoundary from "../components/Error/ErrorBoundary";
 import MainErrorFallback from "../components/Main/MainErrorFallback";
 import CreateChatBtn from "../components/Main/SideBar/CreateChatBtn";
+import SearchBar from "../components/Main/SearchBar";
+import { Spinner } from "@material-tailwind/react";
 
 export default function HomePage() {
   const [isOpen, handleModalClick] = useModal();
@@ -49,6 +51,17 @@ export default function HomePage() {
                 filters={filters}
                 onFilterClick={handleFilterClick}
               />
+              {createNewChat && (
+                <Suspense
+                  fallback={
+                    <div className="flex justify-center w-full">
+                      <Spinner className="w-9 h-9 text-brand" />
+                    </div>
+                  }
+                >
+                  <SearchBar />
+                </Suspense>
+              )}
               <Suspense fallback={<UserGridSkeleton />}>
                 {filter.length === 0 ? (
                   <FollowingPage />
