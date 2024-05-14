@@ -16,6 +16,7 @@ const ChattingInfo = ({ title, ownerId, members, chatRoomId }) => {
       </Typography>
       <div className="flex gap-2">
         <Button
+          aria-label="participants"
           variant="text"
           className="p-1 text-white hover:text-brand duration-150"
           onClick={setIsOpen}

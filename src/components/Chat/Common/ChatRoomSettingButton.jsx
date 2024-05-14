@@ -62,6 +62,7 @@ export default function ChatRoomSettingButton({
       <Menu placement="bottom-end">
         <MenuHandler>
           <Button
+            aria-label="setting"
             ripple={false}
             variant="text"
             className="p-1 text-white hover:text-blue-gray-400 duration-150"
