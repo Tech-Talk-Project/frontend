@@ -1,21 +1,21 @@
-import React, { useEffect, useRef } from "react";
+import React, { memo, useEffect, useRef } from "react";
 import { useSuspenseInfiniteQuery } from "@tanstack/react-query";
 import { Spinner } from "@material-tailwind/react";
+import { useRecoilValue } from "recoil";
 import UsersGrid from "./User/UsersGrid";
 import useIntersectionObserver from "../../hooks/useIntersectionObserver";
 import { getUsersDataWithLogin, getUsersData } from "../../apis/user";
 import { USERS_QUERY_KEYS } from "../../constants/queryKeys";
-import { useRecoilValue } from "recoil";
 import { isLoggedInState } from "../../recoil/atoms/auth";
 
 const USERS_COUNT = 15;
 
-export default function MainPageMain({ filters }) {
+const MainPageMain = ({ filters }) => {
   const observerRef = useRef(null);
   const isLoggedIn = useRecoilValue(isLoggedInState);
   const { fetchNextPage, hasNextPage, isFetchingNextPage, data, error } =
     useSuspenseInfiniteQuery({
-      queryKey: USERS_QUERY_KEYS.usersData(filters),
+      queryKey: USERS_QUERY_KEYS.usersData(filters.toSorted()),
       queryFn: ({ pageParam = null }) => {
         if (isLoggedIn)
           return getUsersDataWithLogin({
@@ -47,7 +47,7 @@ export default function MainPageMain({ filters }) {
   }
   return (
     <>
-      <section>
+      <section className="grow">
         <UsersGrid users={data.pages} />
       </section>
       <div ref={observerRef} className="flex justify-center items-center">
@@ -55,4 +55,6 @@ export default function MainPageMain({ filters }) {
       </div>
     </>
   );
-}
+};
+
+export default memo(MainPageMain);

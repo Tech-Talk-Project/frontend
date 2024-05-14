@@ -1,7 +1,8 @@
 import React from "react";
 import { Typography } from "@material-tailwind/react";
-import { MdOutlineRemoveRedEye, MdThumbUp } from "react-icons/md";
-import { BsFillChatDotsFill } from "react-icons/bs";
+import { AiOutlineEye } from "@react-icons/all-files/ai/AiOutlineEye";
+import { MdThumbUp } from "@react-icons/all-files/md/MdThumbUp";
+import { BsFillChatDotsFill } from "@react-icons/all-files/bs/BsFillChatDotsFill";
 import useBreakpoint from "../../../hooks/useBreakPoint";
 import { getDateInfo } from "../../../utils/date";
 
@@ -32,7 +33,7 @@ export default function PostInfo({
       </div>
       <ul className="flex items-center gap-4">
         <li className="flex items-center gap-2 text-white font-medium">
-          <MdOutlineRemoveRedEye />
+          <AiOutlineEye />
           <Typography className="mt-1">{viewCount}</Typography>
         </li>
         <li className="flex items-center gap-2 text-white font-medium">

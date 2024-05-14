@@ -1,12 +1,8 @@
 import React from "react";
-import {
-  MdOutlineKeyboardArrowLeft,
-  MdOutlineKeyboardArrowRight,
-  MdOutlineKeyboardDoubleArrowRight,
-  MdOutlineKeyboardDoubleArrowLeft,
-} from "react-icons/md";
 import { v4 as uuidv4 } from "uuid";
 import { IconButton } from "@material-tailwind/react";
+import { MdKeyboardArrowLeft } from "@react-icons/all-files/md/MdKeyboardArrowLeft";
+import { MdKeyboardArrowRight } from "@react-icons/all-files/md/MdKeyboardArrowRight";
 import Button from "../../Common/Button";
 import useBreakpoint from "../../../hooks/useBreakPoint";
 
@@ -31,7 +27,7 @@ export default function Pagination({
           onClick={onFirstPageClick}
           disabled={page === 1}
         >
-          <MdOutlineKeyboardDoubleArrowLeft size={24} />
+          <MdKeyboardArrowLeft size={24} />
         </Button>
       )}
       <Button
@@ -40,7 +36,7 @@ export default function Pagination({
         onClick={onPrevClick}
         disabled={page === 1}
       >
-        <MdOutlineKeyboardArrowLeft size={24} />
+        <MdKeyboardArrowLeft size={24} />
       </Button>
       <div className="flex items-center gap-2">
         {Array.from(
@@ -63,7 +59,7 @@ export default function Pagination({
         onClick={onNextClick}
         disabled={page === totalPage}
       >
-        <MdOutlineKeyboardArrowRight size={24} />
+        <MdKeyboardArrowRight size={24} />
       </Button>
       {!isSmallMobile && (
         <Button
@@ -72,7 +68,7 @@ export default function Pagination({
           onClick={onLastPageClick}
           disabled={page === totalPage}
         >
-          <MdOutlineKeyboardDoubleArrowRight size={24} />
+          <MdKeyboardArrowRight size={24} />
         </Button>
       )}
     </div>

@@ -1,7 +1,7 @@
 import React from "react";
+import { useSearchParams } from "react-router-dom";
 import { ListItem } from "@material-tailwind/react";
 import { sideBarMenuStyle } from "../../../../utils/sideBarMenuStyle";
-import { useSearchParams } from "react-router-dom";
 
 export default function SideBarTypeItem({ category, onCategoryClick }) {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -9,6 +9,7 @@ export default function SideBarTypeItem({ category, onCategoryClick }) {
 
   const handleClick = () => {
     onCategoryClick && onCategoryClick();
+    if (type === category) return;
     setSearchParams({ type: category });
   };
   return (

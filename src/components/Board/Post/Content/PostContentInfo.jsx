@@ -11,6 +11,7 @@ import Button from "../../../Common/Button";
 import useModal from "../../../../hooks/useModal";
 import DeleteConfirmModal from "../Common/DeleteConfirmModal";
 import useBoard from "../../../../hooks/useBoard";
+import { PATH } from "../../../../constants/path";
 
 export default function PostContentInfo({
   author: { memberId: authorId },
@@ -44,7 +45,7 @@ export default function PostContentInfo({
     );
   };
   const handleUpdateClick = () => {
-    navigate(`/board/post/${postId}/update?type=${category}`);
+    navigate(PATH.postUpdateWithIdAndType(postId, category));
   };
   const handleDeleteModalClick = () => {
     setIsDeleteModalOpen();
@@ -54,7 +55,7 @@ export default function PostContentInfo({
       { category: category.toUpperCase() },
       {
         onSuccess: () => {
-          navigate(`/board?type=${category}`);
+          navigate(PATH.boardWithType(category));
         },
       }
     );

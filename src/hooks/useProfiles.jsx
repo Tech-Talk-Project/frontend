@@ -16,6 +16,7 @@ import { removeCookie } from "../utils/cookie";
 import { isLoggedInState, memberIdState } from "../recoil/atoms/auth";
 import { newChatMemberState } from "../recoil/atoms/newChat";
 import { toastState } from "../recoil/atoms/toast";
+import { PATH } from "../constants/path";
 
 export default function useProfiles() {
   const navigate = useNavigate();
@@ -80,7 +81,7 @@ export default function useProfiles() {
       setMemberId(null);
       setNewChatMembers([]);
       removeCookie("accessToken", { path: "/" });
-      navigate("/");
+      navigate(PATH.home);
     },
   });
 

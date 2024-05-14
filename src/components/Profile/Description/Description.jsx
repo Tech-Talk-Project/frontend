@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Typography } from "@material-tailwind/react";
+import { MdEdit } from "@react-icons/all-files/md/MdEdit";
 import Button from "../../Common/Button";
 import ButtonGroup from "../Common/ButtonGroup";
-import { MdEdit } from "react-icons/md";
 import useProfiles from "../../../hooks/useProfiles";
 
 const Editor = React.lazy(() => import("../../Common/Editor/Editor"));
@@ -34,6 +34,7 @@ export default function Description({ description }) {
     <article className="relative w-full h-full">
       {!isEditing && (
         <Button
+          aria-label="description edit"
           variant="text"
           className="absolute top-1 right-1 p-1 text-blue-gray-800 hover:text-brand duration-150 peer"
           onClick={handleEditClick}

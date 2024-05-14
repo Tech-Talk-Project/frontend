@@ -9,6 +9,7 @@ import { createNewChatState } from "../../../recoil/atoms/newChat";
 import useNewChatMember from "../../../hooks/useNewChatMemberClick";
 import newChatMemberInfoState from "../../../recoil/selectors/newChatMemberIdList";
 import { memberIdState } from "../../../recoil/atoms/auth";
+import { PATH } from "../../../constants/path";
 
 export default function UserCard({
   user: { memberId: cardMemberId, name, job, imageUrl, introduction, skills },
@@ -23,10 +24,12 @@ export default function UserCard({
 
   const handleClick = () => {
     if (createNewChat) {
+      if (isMyCard) return;
+
       handleMemberClick();
       return;
     }
-    navigate(isMyCard ? "/profile" : `/user/${cardMemberId}`);
+    navigate(isMyCard ? PATH.profile : PATH.userDetail(cardMemberId));
   };
   return (
     <li
