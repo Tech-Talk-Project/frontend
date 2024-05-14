@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { Typography } from "@material-tailwind/react";
 import { BsPeopleFill } from "@react-icons/all-files/bs/BsPeopleFill";
 import Button from "../../Common/Button";
@@ -6,7 +6,7 @@ import ChatRoomSettingButton from "../Common/ChatRoomSettingButton";
 import useModal from "../../../hooks/useModal";
 import ChatRoomMembersModal from "./ChatRoomMembersModal";
 
-export default function ChattingInfo({ title, ownerId, members, chatRoomId }) {
+const ChattingInfo = ({ title, ownerId, members, chatRoomId }) => {
   const [isOpen, setIsOpen] = useModal();
 
   return (
@@ -38,4 +38,6 @@ export default function ChattingInfo({ title, ownerId, members, chatRoomId }) {
       </div>
     </div>
   );
-}
+};
+
+export default memo(ChattingInfo);
