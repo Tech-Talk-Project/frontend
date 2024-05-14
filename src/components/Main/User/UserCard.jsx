@@ -24,6 +24,8 @@ export default function UserCard({
 
   const handleClick = () => {
     if (createNewChat) {
+      if (isMyCard) return;
+
       handleMemberClick();
       return;
     }
