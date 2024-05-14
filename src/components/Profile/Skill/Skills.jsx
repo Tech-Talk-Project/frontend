@@ -78,6 +78,7 @@ export default function Skills({ skills }) {
           )}
           {!isEditing && (
             <Button
+              aria-label="skills edit"
               className="p-[10px] rounded-full hover:bg-brand duration-150"
               onClick={handleEditClick}
             >

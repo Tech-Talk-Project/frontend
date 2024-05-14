@@ -34,6 +34,7 @@ export default function Description({ description }) {
     <article className="relative w-full h-full">
       {!isEditing && (
         <Button
+          aria-label="description edit"
           variant="text"
           className="absolute top-1 right-1 p-1 text-blue-gray-800 hover:text-brand duration-150 peer"
           onClick={handleEditClick}

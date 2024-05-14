@@ -44,6 +44,7 @@ export default function Links({ links }) {
     <article className="relative w-full">
       {!isEditing && (
         <Button
+          aria-label="links edit"
           variant="text"
           className="absolute top-1 right-1 p-1 text-blue-gray-800 hover:text-brand duration-150 peer"
           onClick={handleEditClick}

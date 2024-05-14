@@ -56,6 +56,7 @@ export default function Information({ info: { name, job, email } }) {
     <article className="relative w-full">
       {!isEditing && (
         <Button
+          aria-label="information edit"
           variant="text"
           className="absolute top-1 right-1 p-1 text-blue-gray-800 hover:text-brand duration-150 peer"
           onClick={handleEditClick}
