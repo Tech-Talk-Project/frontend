@@ -62,7 +62,7 @@ export default function PostContentInfo({
   };
   return (
     <article className="flex flex-col md:flex-row gap-2 md:items-end justify-between pb-4 border-b border-blue-gray-800">
-      <div className="">
+      <div className="flex flex-col">
         <Typography variant={`${isSmallMobile ? "h4" : "h3"}`}>
           {title}
         </Typography>
@@ -78,7 +78,7 @@ export default function PostContentInfo({
           </Typography>
         </div>
       </div>
-      <div className="flex flex-col items-end gap-2">
+      <div className="flex flex-col items-end gap-2 min-w-fit">
         {memberId === authorId && (
           <div className="flex gap-2">
             <Button

@@ -34,7 +34,7 @@ const Post = ({
       className="flex flex-col gap-1 p-3 border-b border-blue-gray-800 cursor-pointer"
       onClick={handleClick}
     >
-      <div className="flex items-center gap-3">
+      <div className="flex items-start gap-3">
         {!BOARD_CATEGORIE_WITHOUT_TOGGLE_TYPES.includes(type) && (
           <Chip
             size="md"
